@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Premium</title>
+    <title>A-LIST FX | Complete Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,7 +17,6 @@
             --danger: #ef4444;
         }
 
-        /* Dark Mode Styles */
         body.dark-mode {
             --bg: #0f172a;
             --card: #1e293b;
@@ -35,15 +34,24 @@
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 1100;
         }
-        .header .logo { font-size: 18px; font-weight: 800; }
+        .header .logo { font-size: 18px; font-weight: 800; cursor: pointer; }
         .header .logo span { color: var(--accent); }
-        .header-actions { display: flex; gap: 8px; align-items: center; }
         
+        .header-actions { display: flex; gap: 8px; align-items: center; }
         .icon-btn {
             width: 42px; height: 42px; border-radius: 50%;
             background: var(--bg); color: var(--text);
             display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--border); cursor: pointer; font-size: 18px;
+            border: 1px solid var(--border); cursor: pointer; font-size: 18px; position: relative;
+        }
+        .icon-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .notif-badge { position: absolute; top: 0; right: 0; width: 8px; height: 8px; background: red; border-radius: 50%; border: 2px solid var(--card); }
+
+        /* NOTIF PANEL */
+        .notif-panel {
+            display: none; position: absolute; top: 75px; right: 20px;
+            width: 280px; background: var(--card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 1200;
         }
 
         /* SIDEBAR (Laptop) */
@@ -62,6 +70,9 @@
 
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 15px; }
 
+        /* POSTS */
+        .post-input { width: 100%; border: none; outline: none; background: transparent; color: var(--text); font-size: 15px; resize: none; }
+
         /* MODALS */
         .modal { 
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
@@ -71,7 +82,7 @@
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
 
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; box-sizing: border-box; }
-        .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
 
         .stat-box { padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; cursor: pointer; }
 
@@ -81,12 +92,19 @@
 <body>
 
     <header class="header">
-        <div class="logo">A-LIST <span>FX</span></div>
+        <div class="logo" onclick="showPage('home')">A-LIST <span>FX</span></div>
         <div class="header-actions">
             <button class="icon-btn active" id="m-home" onclick="showPage('home')">🏠</button>
             <button class="icon-btn" id="m-academy" onclick="showPage('academy')">🎓</button>
             <button class="icon-btn" id="m-signals" onclick="showPage('signals')">📡</button>
+            <button class="icon-btn" onclick="toggleNotif()">🔔 <div class="notif-badge"></div></button>
             <button class="icon-btn" id="m-profile" onclick="showPage('profile')">👤</button>
+        </div>
+
+        <div id="notif-panel" class="notif-panel">
+            <h4 style="margin:0 0 10px 0;">Мэдэгдэл</h4>
+            <div style="font-size:13px; padding:10px 0; border-bottom:1px solid var(--border);">🔥 NFP мэдээ 5 минутын дараа!</div>
+            <div style="font-size:13px; padding:10px 0;">💬 DM: Багш "Судалгааг хар" гэв.</div>
         </div>
     </header>
 
@@ -99,79 +117,99 @@
 
     <div class="main-wrapper">
         <div class="content-scroll">
-            <div id="home-page" class="page active"><div class="card">Мэдээ оруулаагүй байна.</div></div>
-            <div id="academy-page" class="page"><h2>🎓 Сургалт</h2><div class="card">1. Basic | 2. Advanced | 3. Elite</div></div>
-            <div id="signals-page" class="page"><h2>📡 Сигнал</h2><div class="card"><button class="btn-prime" style="background:#5865F2;">Discord</button></div></div>
+            
+            <div id="home-page" class="page active">
+                <div class="card">
+                    <textarea class="post-input" placeholder="Юу бодож байна?" rows="2"></textarea>
+                    <div style="border-top:1px solid var(--border); margin-top:10px; padding-top:10px; display:flex; justify-content:flex-end;">
+                        <button class="btn-prime" style="padding:8px 20px; width:auto;">Постлох</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+                        <div style="width:35px; height:35px; border-radius:50%; background:#ccc;"></div>
+                        <b>Top Trader</b>
+                    </div>
+                    <p style="font-size:14px;">Өнөөдрийн EURUSD-ийн хандлага эерэг байна.</p>
+                </div>
+            </div>
+
+            <div id="academy-page" class="page">
+                <h2 style="margin-top:0;">🎓 Сургалтын хэсэг</h2>
+                <div class="card">
+                    <h3 style="margin:0;">1. Анхан шат</h3>
+                    <p style="color:var(--secondary); font-size:13px;">Forex-ийн суурь ойлголтууд.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin:0;">2. Ахисан шат</h3>
+                    <p style="color:var(--secondary); font-size:13px;">Technical Analysis & Market Structure.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin:0;">3. Elite Strategy</h3>
+                    <p style="color:var(--secondary); font-size:13px;">SMC, ICT & Psychology.</p>
+                </div>
+                <a href="https://t.me/yourlink" class="btn-prime" style="background:#0088cc;">🔵 Сургалтын Telegram суваг</a>
+            </div>
+
+            <div id="signals-page" class="page">
+                <h2>📡 Сигнал & Групп</h2>
+                <div class="card">
+                    <a href="#" class="btn-prime" style="background:#5865F2; margin-bottom:10px;">Discord VIP Room</a>
+                    <a href="https://t.me/yourlink" class="btn-prime" style="background:#0088cc;">Telegram Channel</a>
+                </div>
+            </div>
 
             <div id="profile-page" class="page">
-                <div style="text-align:center; padding:20px 0;">
+                <div style="text-align:center; padding:10px 0;">
                     <div style="width:90px; height:90px; border-radius:50%; border:3px solid var(--accent); margin:0 auto 15px; background:#ddd;"></div>
                     <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
                         <h2 id="disp-name" style="margin:0;">Арилжаачин</h2>
-                        <span style="background:var(--accent); color:white; padding:2px 8px; border-radius:6px; font-size:10px;">ELITE</span>
                         <div style="cursor:pointer; font-size:20px;" onclick="openModal('edit-modal')">⋮</div>
                     </div>
                     <p id="disp-style" style="color:var(--secondary); font-size:12px;">Day Trader | Scalper</p>
                     
                     <div class="card" style="margin-top:20px;">
-                        <h4 style="margin:0 0 15px 0;">📊 Өнөөдрийн гүйцэтгэл</h4>
                         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <div class="stat-box" style="color:var(--success);" onclick="openNote('Ололт: EURUSD Buy\nШалтгаан: Support бүсээс Order block-оор оров.')">
+                            <div class="stat-box" style="color:var(--success);" onclick="openNote('Ололт: EURUSD +$1240\nШалтгаан: Support rebound.')">
                                 <small>Ашиг</small><br><b>+$1,240</b>
                             </div>
-                            <div class="stat-box" style="color:var(--danger);" onclick="openNote('Алдагдал: XAUUSD Sell\nШалтгаан: News spike - SL цохив.')">
+                            <div class="stat-box" style="color:var(--danger);" onclick="openNote('Алдагдал: Gold -$210\nШалтгаан: Fakeout - SL цохив.')">
                                 <small>Алдагдал</small><br><b>-$210</b>
                             </div>
                         </div>
                     </div>
                 </div>
-                <h4 style="border-bottom:1px solid var(--border); padding-bottom:8px;">Миний тэмдэглэл</h4>
-                <p id="disp-note" style="font-size:13px; color:var(--secondary);">Тэмдэглэл хоосон байна.</p>
+                <h4 style="border-bottom:1px solid var(--border); padding-bottom:8px;">Арилжаачны тэмдэглэл</h4>
+                <p id="disp-note" style="font-size:13px; color:var(--secondary);">Тэмдэглэл оруулаагүй.</p>
             </div>
+
         </div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
     <div class="modal" id="edit-modal">
-        <h3 style="margin:0 0 15px 0;">⚙️ Профайл засах</h3>
-        
-        <label>Арилжаачны нэр:</label>
-        <input type="text" id="in-name" placeholder="Нэр...">
-
-        <label>Арилжаачны тэмдэглэл:</label>
-        <textarea id="in-note" rows="3" placeholder="Өөрийн тухай эсвэл стратеги..."></textarea>
-
-        <label>Арга барил:</label>
+        <h3 style="margin:0 0 15px 0;">⚙️ Тохиргоо</h3>
+        <input type="text" id="in-name" placeholder="Нэр солих...">
+        <textarea id="in-note" rows="3" placeholder="Арилжаачны тэмдэглэл..."></textarea>
         <select id="in-style">
             <option value="Day Trader">Day Trader</option>
             <option value="Scalper">Scalper</option>
             <option value="Swing Trader">Swing Trader</option>
         </select>
-
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-            <div>
-                <label>Хэл:</label>
-                <select id="in-lang">
-                    <option value="MN">Монгол</option>
-                    <option value="EN">English</option>
-                </select>
-            </div>
-            <div>
-                <label>Горим:</label>
-                <select id="in-mode" onchange="toggleDarkMode(this.value)">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-            </div>
+            <select id="in-lang"><option>Монгол</option><option>English</option></select>
+            <select id="in-mode" onchange="toggleDarkMode(this.value)">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
         </div>
-
         <button class="btn-prime" onclick="saveProfile()">Хадгалах</button>
     </div>
 
     <div class="modal" id="note-modal" style="z-index:2500;">
-        <h4 style="margin:0 0 10px 0;">📝 Арилжааны тэмдэглэл</h4>
-        <p id="note-txt" style="font-size:13px; line-height:1.6; background:var(--bg); padding:15px; border-radius:12px;"></p>
+        <h4 style="margin:0 0 10px 0;">📝 Шалтгаан</h4>
+        <p id="note-txt" style="font-size:13px; line-height:1.6;"></p>
         <button class="btn-prime" onclick="document.getElementById('note-modal').style.display='none'">Хаах</button>
     </div>
 
@@ -182,6 +220,12 @@
             document.querySelectorAll('.icon-btn, .side-item').forEach(el => el.classList.remove('active'));
             document.getElementById('m-' + p).classList.add('active');
             if(document.getElementById('s-' + p)) document.getElementById('s-' + p).classList.add('active');
+            document.getElementById('notif-panel').style.display = 'none';
+        }
+
+        function toggleNotif() {
+            const panel = document.getElementById('notif-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
         function openModal(id) {
@@ -192,6 +236,7 @@
         function closeAllModals() {
             document.getElementById('overlay').style.display = 'none';
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            document.getElementById('notif-panel').style.display = 'none';
         }
 
         function openNote(txt) {
@@ -202,10 +247,9 @@
         function saveProfile() {
             const name = document.getElementById('in-name').value;
             const note = document.getElementById('in-note').value;
-            const style = document.getElementById('in-style').value;
             if(name) document.getElementById('disp-name').innerText = name;
             if(note) document.getElementById('disp-note').innerText = note;
-            document.getElementById('disp-style').innerText = style;
+            document.getElementById('disp-style').innerText = document.getElementById('in-style').value;
             closeAllModals();
         }
 
