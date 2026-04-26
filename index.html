@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Complete Edition</title>
+    <title>A-LIST FX | Ultimate Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #2563eb;
+            --accent: #0070f3; /* Тэр гоё цэнхэр өнгө */
             --bg: #f8fafc;
             --card: #ffffff;
             --text: #1e293b;
             --border: #e2e8f0;
             --secondary: #64748b;
-            --success: #16a34a;
-            --danger: #ef4444;
+            --success: #00c853;
+            --danger: #ff1744;
         }
 
         body.dark-mode {
@@ -36,8 +36,8 @@
         }
         .header .logo { font-size: 18px; font-weight: 800; cursor: pointer; }
         .header .logo span { color: var(--accent); }
-        
         .header-actions { display: flex; gap: 8px; align-items: center; }
+        
         .icon-btn {
             width: 42px; height: 42px; border-radius: 50%;
             background: var(--bg); color: var(--text);
@@ -45,14 +45,7 @@
             border: 1px solid var(--border); cursor: pointer; font-size: 18px; position: relative;
         }
         .icon-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-        .notif-badge { position: absolute; top: 0; right: 0; width: 8px; height: 8px; background: red; border-radius: 50%; border: 2px solid var(--card); }
-
-        /* NOTIF PANEL */
-        .notif-panel {
-            display: none; position: absolute; top: 75px; right: 20px;
-            width: 280px; background: var(--card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 1200;
-        }
+        .badge-dot { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background: red; border-radius: 50%; border: 2px solid var(--card); }
 
         /* SIDEBAR (Laptop) */
         .sidebar { 
@@ -62,7 +55,7 @@
         .side-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--secondary); display: flex; align-items: center; gap: 10px; }
         .side-item.active { background: var(--bg); color: var(--accent); border: 1px solid var(--border); }
 
-        /* MAIN */
+        /* MAIN CONTENT */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; margin-top: 70px; }
         .content-scroll { flex: 1; padding: 20px; overflow-y: auto; scrollbar-width: none; }
         .page { display: none; }
@@ -70,8 +63,32 @@
 
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 15px; }
 
-        /* POSTS */
-        .post-input { width: 100%; border: none; outline: none; background: transparent; color: var(--text); font-size: 15px; resize: none; }
+        /* CALENDAR STYLE */
+        .calendar-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day-box { 
+            height: 35px; border-radius: 8px; border: 1px solid var(--border); 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .day-box:active { transform: scale(0.9); }
+        .day-win { background: rgba(0, 200, 83, 0.15); color: var(--success); border-color: var(--success); }
+        .day-loss { background: rgba(255, 23, 68, 0.15); color: var(--danger); border-color: var(--danger); }
+
+        /* PREMIUM BADGE */
+        .elite-badge {
+            background: linear-gradient(135deg, #0070f3, #00c6ff);
+            color: white; padding: 3px 12px; border-radius: 8px;
+            font-size: 10px; font-weight: 800; letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 112, 243, 0.3);
+        }
+
+        /* NOTIF PANEL */
+        .notif-dropdown {
+            display: none; position: absolute; top: 75px; right: 20px; width: 280px;
+            background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); z-index: 1200;
+        }
 
         /* MODALS */
         .modal { 
@@ -82,9 +99,7 @@
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
 
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; box-sizing: border-box; }
-        .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
-
-        .stat-box { padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; cursor: pointer; }
+        .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 1024px) { .sidebar { display: none; } }
     </style>
@@ -97,14 +112,13 @@
             <button class="icon-btn active" id="m-home" onclick="showPage('home')">🏠</button>
             <button class="icon-btn" id="m-academy" onclick="showPage('academy')">🎓</button>
             <button class="icon-btn" id="m-signals" onclick="showPage('signals')">📡</button>
-            <button class="icon-btn" onclick="toggleNotif()">🔔 <div class="notif-badge"></div></button>
+            <button class="icon-btn" onclick="toggleNotif()">🔔 <div class="badge-dot"></div></button>
             <button class="icon-btn" id="m-profile" onclick="showPage('profile')">👤</button>
         </div>
-
-        <div id="notif-panel" class="notif-panel">
+        <div id="notif-panel" class="notif-dropdown">
             <h4 style="margin:0 0 10px 0;">Мэдэгдэл</h4>
-            <div style="font-size:13px; padding:10px 0; border-bottom:1px solid var(--border);">🔥 NFP мэдээ 5 минутын дараа!</div>
-            <div style="font-size:13px; padding:10px 0;">💬 DM: Багш "Судалгааг хар" гэв.</div>
+            <div style="font-size:13px; padding:10px 0; border-bottom:1px solid var(--border);">🔥 EURUSD 1.0850 бүсэд ирлээ!</div>
+            <div style="font-size:13px; padding:10px 0;">💬 DM: Бат-Эрдэнэ зурвас ирүүллээ.</div>
         </div>
     </header>
 
@@ -120,42 +134,27 @@
             
             <div id="home-page" class="page active">
                 <div class="card">
-                    <textarea class="post-input" placeholder="Юу бодож байна?" rows="2"></textarea>
-                    <div style="border-top:1px solid var(--border); margin-top:10px; padding-top:10px; display:flex; justify-content:flex-end;">
-                        <button class="btn-prime" style="padding:8px 20px; width:auto;">Постлох</button>
+                    <textarea placeholder="Өнөөдөр зах зээл ямар байна?" style="border:none; outline:none; font-size:15px; background:transparent; resize:none;"></textarea>
+                    <div style="border-top:1px solid var(--border); padding-top:10px; display:flex; justify-content:flex-end;">
+                        <button class="btn-prime" style="width:auto; padding:8px 20px;">Постлох</button>
                     </div>
                 </div>
-                <div class="card">
-                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-                        <div style="width:35px; height:35px; border-radius:50%; background:#ccc;"></div>
-                        <b>Top Trader</b>
-                    </div>
-                    <p style="font-size:14px;">Өнөөдрийн EURUSD-ийн хандлага эерэг байна.</p>
-                </div>
+                <div class="card"><b>Top Trader</b>: Gold Buy setup харагдаж байна...</div>
             </div>
 
             <div id="academy-page" class="page">
-                <h2 style="margin-top:0;">🎓 Сургалтын хэсэг</h2>
-                <div class="card">
-                    <h3 style="margin:0;">1. Анхан шат</h3>
-                    <p style="color:var(--secondary); font-size:13px;">Forex-ийн суурь ойлголтууд.</p>
-                </div>
-                <div class="card">
-                    <h3 style="margin:0;">2. Ахисан шат</h3>
-                    <p style="color:var(--secondary); font-size:13px;">Technical Analysis & Market Structure.</p>
-                </div>
-                <div class="card">
-                    <h3 style="margin:0;">3. Elite Strategy</h3>
-                    <p style="color:var(--secondary); font-size:13px;">SMC, ICT & Psychology.</p>
-                </div>
-                <a href="https://t.me/yourlink" class="btn-prime" style="background:#0088cc;">🔵 Сургалтын Telegram суваг</a>
+                <h2>🎓 Сургалт</h2>
+                <div class="card"><h3>1. Анхан шат</h3><p>Суурь онол</p></div>
+                <div class="card"><h3>2. Ахисан шат</h3><p>SMC & Technicals</p></div>
+                <div class="card"><h3>3. Elite Strategy</h3><p>Сэтгэл зүй & Risk</p></div>
+                <a href="https://t.me/yourlink" class="btn-prime" style="background:#0088cc;">🔵 Telegram Сувагт нэгдэх</a>
             </div>
 
             <div id="signals-page" class="page">
-                <h2>📡 Сигнал & Групп</h2>
+                <h2>📡 Сигнал</h2>
                 <div class="card">
-                    <a href="#" class="btn-prime" style="background:#5865F2; margin-bottom:10px;">Discord VIP Room</a>
-                    <a href="https://t.me/yourlink" class="btn-prime" style="background:#0088cc;">Telegram Channel</a>
+                    <button class="btn-prime" style="background:#5865F2; margin-bottom:10px;">Discord VIP</button>
+                    <button class="btn-prime" style="background:#0088cc;">Telegram Сигнал</button>
                 </div>
             </div>
 
@@ -164,23 +163,23 @@
                     <div style="width:90px; height:90px; border-radius:50%; border:3px solid var(--accent); margin:0 auto 15px; background:#ddd;"></div>
                     <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
                         <h2 id="disp-name" style="margin:0;">Арилжаачин</h2>
-                        <div style="cursor:pointer; font-size:20px;" onclick="openModal('edit-modal')">⋮</div>
+                        <span class="elite-badge">ELITE</span>
+                        <div style="cursor:pointer; font-size:22px;" onclick="openModal('edit-modal')">⋮</div>
                     </div>
-                    <p id="disp-style" style="color:var(--secondary); font-size:12px;">Day Trader | Scalper</p>
+                    <p id="disp-style" style="color:var(--secondary); font-size:13px; margin-top:5px;">Day Trader | Scalper</p>
                     
-                    <div class="card" style="margin-top:20px;">
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                            <div class="stat-box" style="color:var(--success);" onclick="openNote('Ололт: EURUSD +$1240\nШалтгаан: Support rebound.')">
-                                <small>Ашиг</small><br><b>+$1,240</b>
-                            </div>
-                            <div class="stat-box" style="color:var(--danger);" onclick="openNote('Алдагдал: Gold -$210\nШалтгаан: Fakeout - SL цохив.')">
-                                <small>Алдагдал</small><br><b>-$210</b>
-                            </div>
+                    <div class="card" style="margin-top:20px; text-align:left;">
+                        <div class="calendar-title">
+                            <span>📅 Арилжааны хуанли</span>
+                            <span style="color:var(--secondary); font-size:11px;">4-р сар</span>
                         </div>
+                        <div class="calendar-grid" id="profile-calendar"></div>
+                        <p style="font-size:11px; color:var(--secondary); margin-top:10px;">*Өдөр дээр дарж тухайн өдрийн тэмдэглэлийг харна уу.</p>
                     </div>
                 </div>
-                <h4 style="border-bottom:1px solid var(--border); padding-bottom:8px;">Арилжаачны тэмдэглэл</h4>
-                <p id="disp-note" style="font-size:13px; color:var(--secondary);">Тэмдэглэл оруулаагүй.</p>
+
+                <h4>Миний тэмдэглэл</h4>
+                <p id="disp-note" style="font-size:13px; color:var(--secondary); line-height:1.6;">Өөрийн тухай тэмдэглэл оруулаагүй байна.</p>
             </div>
 
         </div>
@@ -188,10 +187,19 @@
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
+    <div class="modal" id="day-note-modal">
+        <h4 id="day-title" style="margin:0 0 15px 0;">Өдрийн тэмдэглэл</h4>
+        <div id="day-content" style="font-size:14px; background:var(--bg); padding:15px; border-radius:15px; line-height:1.6;"></div>
+        <button class="btn-prime" style="margin-top:20px; background:var(--secondary);" onclick="closeAllModals()">Хаах</button>
+    </div>
+
     <div class="modal" id="edit-modal">
         <h3 style="margin:0 0 15px 0;">⚙️ Тохиргоо</h3>
-        <input type="text" id="in-name" placeholder="Нэр солих...">
-        <textarea id="in-note" rows="3" placeholder="Арилжаачны тэмдэглэл..."></textarea>
+        <label>Нэр солих:</label>
+        <input type="text" id="in-name" placeholder="Нэр...">
+        <label>Өөрийн тэмдэглэл (Bio):</label>
+        <textarea id="in-note" rows="3" placeholder="Би өөрийгөө..."></textarea>
+        <label>Арилжааны арга барил:</label>
         <select id="in-style">
             <option value="Day Trader">Day Trader</option>
             <option value="Scalper">Scalper</option>
@@ -200,17 +208,11 @@
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
             <select id="in-lang"><option>Монгол</option><option>English</option></select>
             <select id="in-mode" onchange="toggleDarkMode(this.value)">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
+                <option value="light">Гэрэлтэй</option>
+                <option value="dark">Харанхуй</option>
             </select>
         </div>
         <button class="btn-prime" onclick="saveProfile()">Хадгалах</button>
-    </div>
-
-    <div class="modal" id="note-modal" style="z-index:2500;">
-        <h4 style="margin:0 0 10px 0;">📝 Шалтгаан</h4>
-        <p id="note-txt" style="font-size:13px; line-height:1.6;"></p>
-        <button class="btn-prime" onclick="document.getElementById('note-modal').style.display='none'">Хаах</button>
     </div>
 
     <script>
@@ -220,6 +222,7 @@
             document.querySelectorAll('.icon-btn, .side-item').forEach(el => el.classList.remove('active'));
             document.getElementById('m-' + p).classList.add('active');
             if(document.getElementById('s-' + p)) document.getElementById('s-' + p).classList.add('active');
+            if(p === 'profile') renderCalendar();
             document.getElementById('notif-panel').style.display = 'none';
         }
 
@@ -236,12 +239,6 @@
         function closeAllModals() {
             document.getElementById('overlay').style.display = 'none';
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            document.getElementById('notif-panel').style.display = 'none';
-        }
-
-        function openNote(txt) {
-            document.getElementById('note-txt').innerText = txt;
-            document.getElementById('note-modal').style.display = 'block';
         }
 
         function saveProfile() {
@@ -251,6 +248,29 @@
             if(note) document.getElementById('disp-note').innerText = note;
             document.getElementById('disp-style').innerText = document.getElementById('in-style').value;
             closeAllModals();
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('profile-calendar');
+            grid.innerHTML = '';
+            for(let i=1; i<=30; i++) {
+                const day = document.createElement('div');
+                day.className = 'day-box';
+                day.innerText = i;
+                
+                // Жишээ болгож зарим өдрийг ашигтай, заримыг алдагдалтай болгов
+                if(i % 5 === 0) day.classList.add('day-loss');
+                else if(i % 2 === 0) day.classList.add('day-win');
+
+                day.onclick = () => {
+                    document.getElementById('day-title').innerText = `4-р сарын ${i}-ны тэмдэглэл`;
+                    document.getElementById('day-content').innerHTML = i % 5 === 0 ? 
+                        `❌ <b>Алдагдал:</b> -$210<br><b>Шалтгаан:</b> Мэдээний үеэр оролт хийсэн. SL цохисон.` : 
+                        `✅ <b>Ашиг:</b> +$450<br><b>Шалтгаан:</b> SMC Order block баталгаажсан. 1:3 RR авсан.`;
+                    openModal('day-note-modal');
+                };
+                grid.appendChild(day);
+            }
         }
 
         function toggleDarkMode(mode) {
