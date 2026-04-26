@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX TEAM | Premium Dashboard</title>
+    <title>A-LIST FX TEAM | Professional Social Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #F3F5F9;
-            --card: #FFFFFF;
-            --sidebar: #FFFFFF;
             --accent: #FF4D4D;
-            --text: #1A1D23;
-            --subtext: #788292;
-            --border: rgba(0, 0, 0, 0.06);
-            --shadow: 0 10px 40px rgba(0,0,0,0.04);
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --bg: #0b0c10;
+            --text: #ffffff;
         }
-
-        [data-theme="dark"] {
-            --bg: #0F1115;
-            --card: #1A1D23;
-            --sidebar: #1A1D23;
-            --text: #FFFFFF;
-            --subtext: #A0AEC0;
-            --border: rgba(255, 255, 255, 0.05);
-            --shadow: 0 10px 40px rgba(0,0,0,0.3);
+        [data-theme="light"] {
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --bg: #f0f2f5;
+            --text: #1a1a1a;
         }
 
         body {
@@ -32,143 +25,147 @@
             font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden;
         }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 260px; background: var(--sidebar); padding: 35px 20px;
-            display: flex; flex-direction: column; border-right: 1px solid var(--border);
-            box-shadow: var(--shadow); z-index: 100;
+        /* АРЫН ФОН ЗУРАГ (BLUR) */
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1611095773163-97a30b7aa24d?q=80&w=2071') no-repeat center center/cover;
+            filter: blur(50px) brightness(0.4); z-index: -1;
         }
 
-        .logo { font-size: 20px; font-weight: 800; margin-bottom: 40px; letter-spacing: -0.5px; }
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px; background: rgba(0,0,0,0.3); backdrop-filter: blur(30px);
+            border-right: 1px solid var(--glass-border); padding: 35px 20px;
+            display: flex; flex-direction: column; z-index: 100;
+        }
+
+        .logo { font-size: 20px; font-weight: 800; margin-bottom: 40px; }
         .logo span { color: var(--accent); }
 
         .nav-item {
             padding: 14px 18px; border-radius: 14px; cursor: pointer; margin-bottom: 6px;
             display: flex; align-items: center; gap: 12px; transition: 0.3s;
-            color: var(--subtext); font-weight: 500;
+            opacity: 0.7; font-weight: 500;
         }
-
-        .nav-item:hover, .nav-item.active { background: var(--bg); color: var(--text); box-shadow: var(--shadow); }
+        .nav-item:hover, .nav-item.active { background: var(--glass); opacity: 1; border: 1px solid var(--glass-border); }
 
         /* MAIN AREA */
-        .main-wrapper { flex: 1; display: flex; overflow: hidden; }
+        .main-wrapper { flex: 1; display: flex; overflow: hidden; position: relative; }
         .content-scroll { flex: 1; padding: 30px; overflow-y: auto; }
         
-        /* RIGHT PANEL */
         .right-panel {
-            width: 300px; padding: 30px 20px; background: var(--sidebar);
-            border-left: 1px solid var(--border); overflow-y: auto;
+            width: 300px; padding: 30px 20px; background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px); border-left: 1px solid var(--glass-border);
         }
 
-        /* CARDS & POSTS */
+        /* CARDS */
         .card {
-            background: var(--card); border-radius: 24px; padding: 22px;
-            box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 24px;
+            background: var(--glass); border-radius: 24px; padding: 22px;
+            border: 1px solid var(--glass-border); margin-bottom: 24px; backdrop-filter: blur(15px);
         }
 
-        .post-input {
-            width: 100%; background: var(--bg); border: 1px solid var(--border);
-            border-radius: 16px; padding: 15px; color: var(--text); margin-bottom: 12px;
-            font-family: inherit; resize: none; outline: none;
-        }
+        .avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--accent); cursor: pointer; }
 
-        .page { display: none; animation: slideUp 0.4s ease; }
-        .page.active { display: block; }
+        /* PROFILE VIEW */
+        #profile-view { display: none; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* REPORT SPECIAL */
-        .report-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .toggle-group { background: var(--bg); padding: 5px; border-radius: 12px; display: flex; gap: 5px; }
-        .tgl-btn {
-            border: none; background: none; padding: 8px 16px; border-radius: 10px;
-            cursor: pointer; font-weight: 600; color: var(--subtext); transition: 0.3s;
-        }
-        .tgl-btn.active { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
-
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+        /* CALENDAR */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 15px; }
         .day {
-            background: var(--bg); aspect-ratio: 1; border-radius: 15px; padding: 10px;
+            background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 12px; padding: 8px;
             display: flex; flex-direction: column; justify-content: space-between;
-            border: 1px solid var(--border); font-size: 11px;
+            border: 1px solid var(--glass-border); cursor: pointer; transition: 0.2s;
         }
+        .day:hover { transform: scale(1.05); background: var(--accent); }
         .profit { color: #10b981; font-weight: 700; }
         .loss { color: #FF4D4D; font-weight: 700; }
 
-        /* ACADEMY */
-        .academy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        .lesson { background: var(--card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: 0.3s; }
-        .lesson:hover { transform: translateY(-5px); }
-        .lesson-img { height: 120px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 30px; }
+        /* MODAL */
+        .modal {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 400px; background: #1a1d23; border: 1px solid var(--accent);
+            padding: 30px; border-radius: 20px; z-index: 1000; box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+        .btn-outline { background: none; border: 1px solid var(--glass-border); color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
-<body data-theme="light">
+<body>
+
+    <div class="bg-overlay"></div>
 
     <div class="sidebar">
         <div class="logo">A-LIST <span>FX TEAM</span></div>
         <div class="nav-item active" onclick="showPage('home')">🏠 Нүүр хуудас</div>
         <div class="nav-item" onclick="showPage('academy')">🎓 Сургалт</div>
-        <div class="nav-item" onclick="showPage('report')">📅 Тайлан</div>
         <div class="nav-item" onclick="showPage('signals')">📡 Сигнал</div>
         
         <div style="margin-top: auto;">
-            <button class="tgl-btn" style="width:100%" onclick="toggleTheme()">🌓 Dark Mode</button>
+            <div class="nav-item" onclick="showProfile('Миний Профайл')">👤 Профайл</div>
+            <button class="btn-outline" style="width:100%" onclick="toggleTheme()">🌓 Theme Change</button>
         </div>
     </div>
 
     <div class="main-wrapper">
-        
         <div class="content-scroll">
             
             <div id="home-page" class="page active">
                 <div class="card">
-                    <textarea class="post-input" rows="2" placeholder="Юу бодож байна?"></textarea>
-                    <button style="background:var(--accent); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:600; cursor:pointer; float:right;">Постлох</button>
+                    <textarea style="width:100%; background:none; border:none; color:white; outline:none;" placeholder="Өнөөдрийн дүн шинжилгээ..."></textarea>
+                    <button class="btn" style="float:right">Нийтлэх</button>
                     <div style="clear:both"></div>
                 </div>
 
                 <div class="card">
                     <div style="display:flex; gap:12px; align-items:center; margin-bottom:15px;">
-                        <div style="width:40px; height:40px; border-radius:50%; background:#ddd;"></div>
+                        <div class="avatar" onclick="showProfile('Б. Бат-Эрдэнэ')"></div>
                         <div>
-                            <div style="font-weight:700;">A-List Trader</div>
-                            <div style="font-size:12px; color:var(--subtext);">2 цагийн өмнө</div>
+                            <div style="font-weight:700; cursor:pointer;" onclick="showProfile('Б. Бат-Эрдэнэ')">Б. Бат-Эрдэнэ</div>
+                            <div style="font-size:12px; opacity:0.6;">Professional Trader</div>
                         </div>
                     </div>
-                    <p>Өнөөдөр XAUUSD дээр гоё setup харагдаж байна. Liquidity sweep хийгдсэн тул Buy орох боломжтой.</p>
-                    <div style="width:100%; height:250px; background:var(--bg); border-radius:15px; display:flex; align-items:center; justify-content:center; color:#888;">TradingView Chart Link</div>
+                    <p>EURUSD Setup: Liquidity sweep хийгдсэн, A-List Model 1-ээр оролт хийлээ.</p>
+                    <div style="height:200px; background:rgba(0,0,0,0.2); border-radius:15px; border:1px dashed #444; display:flex; align-items:center; justify-content:center;">Chart Image</div>
                 </div>
             </div>
 
             <div id="academy-page" class="page">
-                <h2 style="margin-bottom:25px;">Сургалтын сан</h2>
-                <div class="academy-grid">
-                    <div class="lesson">
-                        <div class="lesson-img">📉</div>
-                        <div style="padding:15px;">
-                            <span style="color:var(--accent); font-size:10px; font-weight:700;">АНХАН ШАТ</span>
-                            <h4 style="margin:5px 0;">Форекс суурь</h4>
-                        </div>
+                <h2>A-List Арга барил</h2>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div class="card">
+                        <span style="color:var(--accent)">A-LIST MODEL 1</span>
+                        <h4>Sniper Entry on M1</h4>
+                        <p style="font-size:14px; opacity:0.7;">Зах зээлийн шилжилтийг бага хугацаан дээр барьж авах арга.</p>
                     </div>
-                    <div class="lesson">
-                        <div class="lesson-img">📊</div>
-                        <div style="padding:15px;">
-                            <span style="color:var(--accent); font-size:10px; font-weight:700;">АХИСАН</span>
-                            <h4 style="margin:5px 0;">SMC & ICT Model</h4>
-                        </div>
+                    <div class="card">
+                        <span style="color:var(--accent)">ICT CONCEPTS</span>
+                        <h4>Liquidity & Imbalance</h4>
+                        <p style="font-size:14px; opacity:0.7;">Томоохон тоглогчдын мөрийг хэрхэн мөшгих вэ?</p>
                     </div>
                 </div>
             </div>
 
-            <div id="report-page" class="page">
-                <div class="report-header">
-                    <h2>4-р сарын тайлан</h2>
-                    <div class="toggle-group">
-                        <button id="pips-btn" class="tgl-btn active" onclick="setReportMode('pips')">Pips</button>
-                        <button id="usd-btn" class="tgl-btn" onclick="setReportMode('usd')">USD ($)</button>
+            <div id="profile-page" class="page">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                    <h2 id="profile-name">Хэрэглэгчийн Профайл</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button id="pips-btn" class="btn" onclick="setMode('pips')">Pips</button>
+                        <button id="usd-btn" class="btn-outline" onclick="setMode('usd')">USD ($)</button>
                     </div>
                 </div>
+                
                 <div class="card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <h3>Арилжааны тайлан</h3>
+                        <select class="btn-outline" style="background:none;">
+                            <option>Public View</option>
+                            <option>Private</option>
+                        </select>
+                    </div>
                     <div class="calendar-grid" id="calendar"></div>
                 </div>
             </div>
@@ -176,40 +173,46 @@
         </div>
 
         <div class="right-panel">
-            <h4 style="margin-top:0;">Мэдээний хуваарь</h4>
-            <div class="card" style="padding:15px; border-left:4px solid var(--accent);">
-                <span style="color:var(--accent); font-weight:bold;">21:30</span><br>
-                <b>USD: CPI Data</b>
-                <p style="margin:5px 0 0; font-size:12px; color:var(--subtext);">Өндөр хэлбэлзэлтэй</p>
+            <h4>Мэдээний хуваарь</h4>
+            <div class="card" style="padding:15px; border-left:4px solid var(--accent)">
+                <b style="color:var(--accent)">21:30</b><br>
+                <small>USD: NFP Report</small>
             </div>
-
-            <h4 style="margin-top:30px;">Онцлох мэдээ</h4>
-            <div class="card" style="padding:15px; font-size:13px;">Алтны ханш шинэ дээд түвшинд хүрлээ.</div>
-            <div class="card" style="padding:15px; font-size:13px;">DXY индекс суларч байна.</div>
+            <h4>Онцлох зүйлс</h4>
+            <div class="card">Алтны ханш 2400-г дахин шалгаж байна.</div>
         </div>
+    </div>
 
+    <div id="note-modal" class="modal">
+        <h3 id="modal-date">Тэмдэглэл</h3>
+        <p id="modal-val" style="font-size:24px;"></p>
+        <div style="background:rgba(0,0,0,0.2); padding:15px; border-radius:10px; margin-top:15px;">
+            <b>Тэмдэглэл:</b><br>
+            <span id="modal-note">Энэ өдөр A-List Model 2-оор оролт хийсэн. Stop loss-оо break-even болгож амжаагүй тул бага зэрэг алдагдал хүлээв.</span>
+        </div>
+        <button class="btn" style="width:100%; margin-top:20px;" onclick="closeModal()">Хаах</button>
     </div>
 
     <script>
-        let reportMode = 'pips';
+        let mode = 'pips';
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            if(event) event.currentTarget.classList.add('active');
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const isDark = body.getAttribute('data-theme') === 'dark';
-            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        function showProfile(name) {
+            showPage('profile');
+            document.getElementById('profile-name').innerText = name;
+            renderCalendar();
         }
 
-        function setReportMode(m) {
-            reportMode = m;
-            document.getElementById('pips-btn').classList.toggle('active', m === 'pips');
-            document.getElementById('usd-btn').classList.toggle('active', m === 'usd');
+        function setMode(m) {
+            mode = m;
+            document.getElementById('pips-btn').className = m === 'pips' ? 'btn' : 'btn-outline';
+            document.getElementById('usd-btn').className = m === 'usd' ? 'btn' : 'btn-outline';
             renderCalendar();
         }
 
@@ -217,21 +220,28 @@
             const cal = document.getElementById('calendar');
             cal.innerHTML = '';
             for(let i=1; i<=30; i++) {
-                const isProfit = Math.random() > 0.4;
-                const pips = (Math.random()*50).toFixed(0);
-                const usd = (pips * 10).toFixed(0);
+                const isUp = Math.random() > 0.4;
+                const p = (Math.random()*40).toFixed(0);
+                const u = (p * 12).toFixed(0);
                 const day = document.createElement('div');
                 day.className = 'day';
                 day.innerHTML = `
-                    <span style="opacity:0.5">${i}</span>
-                    <span class="${isProfit?'profit':'loss'}">
-                        ${isProfit?'+':'-'}${reportMode==='pips' ? pips+'P' : '$'+usd}
-                    </span>
+                    <span style="opacity:0.4">${i}</span>
+                    <span class="${isUp?'profit':'loss'}">${isUp?'+':'-'}${mode==='pips'?p+'P':'$'+u}</span>
                 `;
+                day.onclick = () => {
+                    document.getElementById('modal-date').innerText = `4-р сарын ${i}`;
+                    document.getElementById('modal-val').innerText = `${isUp?'+':'-'}${mode==='pips'?p+' Pips':'$'+u}`;
+                    document.getElementById('modal-val').className = isUp ? 'profit' : 'loss';
+                    document.getElementById('note-modal').style.display = 'block';
+                };
                 cal.appendChild(day);
             }
         }
 
+        function closeModal() { document.getElementById('note-modal').style.display = 'none'; }
+        function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+        
         renderCalendar();
     </script>
 </body>
