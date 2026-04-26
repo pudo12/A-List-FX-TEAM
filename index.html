@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Official Dashboard</title>
+    <title>A-LIST FX | Official Ultimate</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,59 +27,58 @@
 
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
-        /* HEADER */
+        /* HEADER (Mobile-д хэвээрээ) */
         .header {
-            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            position: fixed; top: 0; left: 0; right: 0; height: 65px;
             background: var(--card); border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 1100;
         }
-        .header .logo { font-size: 20px; font-weight: 800; color: var(--accent); cursor: pointer; }
-        .header-actions { display: none; } /* Mobile-д л харагдана */
+        .logo { font-size: 20px; font-weight: 800; color: var(--accent); cursor: pointer; }
+        
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+        .icon-btn { background: none; border: none; font-size: 22px; cursor: pointer; position: relative; color: var(--text); }
+        .badge { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: red; border-radius: 50%; }
 
-        /* MAIN STRUCTURE */
-        .app-container { display: flex; width: 100%; margin-top: 60px; height: calc(100vh - 60px); }
+        /* APP STRUCTURE */
+        .app-container { display: flex; width: 100%; margin-top: 65px; height: calc(100vh - 65px); }
 
         /* LEFT SIDEBAR (Laptop) */
-        .sidebar-left { width: 280px; background: var(--bg); padding: 20px; display: flex; flex-direction: column; gap: 5px; }
-        .nav-item { padding: 12px 15px; border-radius: 10px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 12px; transition: 0.2s; }
-        .nav-item:hover { background: rgba(0,0,0,0.05); }
-        .nav-item.active { color: var(--accent); background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar-left { width: 260px; background: var(--bg); padding: 20px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
+        .nav-item { padding: 12px 15px; border-radius: 12px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 12px; transition: 0.2s; color: var(--secondary); }
+        .nav-item.active { background: white; color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        /* CENTER CONTENT (Newsfeed) */
-        .main-content { flex: 1; overflow-y: auto; padding: 20px; scrollbar-width: none; background: var(--bg); }
+        /* MAIN AREA */
+        .main-content { flex: 1; overflow-y: auto; padding: 20px; scrollbar-width: none; }
         .feed-container { max-width: 600px; margin: 0 auto; }
 
-        /* RIGHT SIDEBAR (News & Notif) */
-        .sidebar-right { width: 350px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        /* RIGHT SIDEBAR (Laptop News & Notif) */
+        .sidebar-right { width: 340px; padding: 20px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--border); overflow-y: auto; }
 
         /* CARDS */
-        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid var(--border); margin-bottom: 15px; }
+        .card { background: var(--card); border-radius: 15px; padding: 18px; border: 1px solid var(--border); margin-bottom: 15px; }
         
-        /* NOTIFICATION LIST */
-        .notif-item { padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 8px; border-left: 4px solid var(--accent); background: var(--bg); }
+        /* CALENDAR (Дарж нээдэг) */
+        #calendar-section { display: none; margin-top: 15px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .day { height: 32px; border-radius: 6px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; }
+        .win { background: rgba(0, 200, 83, 0.1); color: var(--success); border-color: var(--success); }
+        .loss { background: rgba(255, 23, 68, 0.1); color: var(--danger); border-color: var(--danger); }
 
-        /* CALENDAR */
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 10px; }
-        .day { height: 30px; border-radius: 5px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
-        .win { background: rgba(0, 200, 83, 0.1); color: var(--success); }
-        .loss { background: rgba(255, 23, 68, 0.1); color: var(--danger); }
-
-        /* BADGE */
-        .elite-badge { background: linear-gradient(135deg, #0070f3, #00c6ff); color: white; padding: 2px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; }
+        /* PREMIUM BADGE */
+        .elite-badge { background: linear-gradient(135deg, #0070f3, #00c6ff); color: white; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; }
 
         /* MODALS */
-        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: var(--card); padding: 25px; border-radius: 20px; z-index: 2000; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: var(--card); padding: 25px; border-radius: 20px; z-index: 2000; box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1500; }
+        .btn-prime { background: var(--accent); color: white; border: none; padding: 14px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; box-sizing: border-box; }
 
-        .btn-prime { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
-
-        /* MOBILE RESPONSIVE */
+        /* MOBILE */
         @media (max-width: 1024px) {
             .sidebar-left, .sidebar-right { display: none; }
-            .header-actions { display: flex; gap: 15px; }
-            .main-content { padding: 10px; }
+            .header-actions { display: flex; }
+            .main-content { padding: 15px; }
         }
     </style>
 </head>
@@ -88,8 +87,10 @@
     <header class="header">
         <div class="logo" onclick="showPage('home')">A-LIST FX</div>
         <div class="header-actions">
-            <button onclick="showPage('home')" style="background:none; border:none; font-size:20px;">🏠</button>
-            <button onclick="showPage('profile')" style="background:none; border:none; font-size:20px;">👤</button>
+            <button class="icon-btn" onclick="toggleNotifPanel()">🔔<div class="badge"></div></button>
+            <button class="icon-btn" onclick="showPage('academy')">🎓</button>
+            <button class="icon-btn" onclick="showPage('signals')">📡</button>
+            <button class="icon-btn" onclick="showPage('profile')">👤</button>
         </div>
     </header>
 
@@ -106,65 +107,75 @@
                 
                 <div id="home-page" class="page active">
                     <div class="card">
-                        <textarea placeholder="Юу бодож байна?" style="width:100%; border:none; outline:none; resize:none; font-family:inherit;"></textarea>
-                        <div style="text-align:right; border-top:1px solid var(--border); padding-top:10px;">
-                            <button class="btn-prime" style="width:auto; padding:5px 20px;">Нийтлэх</button>
+                        <textarea placeholder="Зах зээлийн дүн шинжилгээ..." style="width:100%; border:none; outline:none; resize:none; font-size:15px; background:transparent; color:var(--text);"></textarea>
+                        <div style="text-align:right; border-top:1px solid var(--border); padding-top:10px; margin-top:5px;">
+                            <button class="btn-prime" style="width:auto; padding:6px 20px;">Постлох</button>
                         </div>
                     </div>
                     <div class="card">
-                        <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-                            <div style="width:40px; height:40px; border-radius:50%; background:#ddd;"></div>
-                            <b>Бат-Эрдэнэ</b>
+                        <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+                            <div style="width:40px; height:40px; border-radius:50%; background:#ccc;"></div>
+                            <b>VIP Trader</b>
                         </div>
-                        <p>Өнөөдрийн EUR/USD арилжааны төлөвлөгөө...</p>
+                        <p style="font-size:14px; line-height:1.5;">USD Index чухал түвшинд ирлээ. Ажиглаж байна...</p>
                     </div>
                 </div>
 
                 <div id="academy-page" class="page">
-                    <h2>🎓 Сургалтууд</h2>
-                    <div class="card"><h3>1. Анхан шат</h3><p>Суурь ойлголт</p></div>
-                    <div class="card"><h3>2. Ахисан шат</h3><p>Technical Analysis</p></div>
-                    <div class="card"><h3>3. Elite Strategy</h3><p>SMC/ICT</p></div>
+                    <h2>🎓 Сургалтын хөтөлбөр</h2>
+                    <div class="card"><h3>1. Анхан шат</h3></div>
+                    <div class="card"><h3>2. Ахисан шат</h3></div>
+                    <div class="card"><h3>3. Elite Strategy</h3></div>
                 </div>
 
                 <div id="signals-page" class="page">
-                    <h2>📡 Групп & Холбоос</h2>
+                    <h2>📡 Сигнал & Групп</h2>
                     <div class="card">
-                        <button class="btn-prime" style="background:#0088cc;">🔵 Telegram Сигнал</button>
+                        <button class="btn-prime" style="background:#0088cc;">🔵 Telegram Channel</button>
                         <button class="btn-prime" style="background:#5865F2; margin-top:10px;">🟣 Discord VIP</button>
                     </div>
                 </div>
 
                 <div id="profile-page" class="page">
                     <div style="text-align:center;">
-                        <div style="width:100px; height:100px; border-radius:50%; background:#ddd; margin:0 auto 15px; border:3px solid var(--accent);"></div>
-                        <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+                        <div style="width:95px; height:95px; border-radius:50%; background:#ddd; margin:0 auto 15px; border:3px solid var(--accent);"></div>
+                        <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
                             <h2 style="margin:0;">Арилжаачин</h2>
                             <span class="elite-badge">ELITE</span>
-                            <div style="cursor:pointer; font-size:20px;" onclick="openModal('edit-modal')">⋮</div>
+                            <div style="cursor:pointer; font-size:22px;" onclick="openModal('edit-modal')">⋮</div>
                         </div>
-                        <p onclick="openModal('edit-modal')" style="color:var(--accent); cursor:pointer; text-decoration:underline; font-size:14px; margin-top:10px;">Арилжаачны тэмдэглэл</p>
+                        
+                        <h4 onclick="openModal('edit-modal')" style="color:var(--accent); cursor:pointer; text-decoration:underline; margin-top:15px; font-size:15px;">Арилжаачны тэмдэглэл</h4>
+                        <p id="disp-note" style="color:var(--secondary); font-size:13px;">Тэмдэглэл оруулаагүй байна.</p>
                         
                         <div class="card" style="text-align:left; margin-top:20px;">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <b>📅 Тайлан шүүлтүүр</b>
-                                <select style="width:auto; font-size:11px;"><option>Доллар ($)</option><option>Pips (P)</option></select>
+                                <b>📊 Арилжааны тайлан</b>
+                                <select id="unit-sel" style="width:auto; margin:0; padding:4px; font-size:11px;">
+                                    <option value="$">Доллар ($)</option>
+                                    <option value="P">Pips (P)</option>
+                                </select>
                             </div>
-                            <div style="display:flex; gap:10px; margin-top:10px;">
-                                <input type="date" style="font-size:11px;">
-                                <input type="date" style="font-size:11px;">
+                            <div style="display:flex; gap:8px; margin-top:10px;">
+                                <input type="date" style="font-size:11px; margin:0;">
+                                <input type="date" style="font-size:11px; margin:0;">
                             </div>
+
                             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:15px;">
-                                <div style="background:var(--bg); padding:10px; border-radius:10px; text-align:center;">
+                                <div style="background:var(--bg); padding:12px; border-radius:12px; text-align:center;">
                                     <small>Ашиг</small><br>
-                                    <b style="color:var(--success); cursor:pointer;" onclick="openDetail('✅ Ашиг: +$1,200\nШалтгаан: SMC 15m OB оролт амжилттай.')">Дэлгэрэнгүй</b>
+                                    <b style="color:var(--success); cursor:pointer; font-size:14px;" onclick="openDetail('✅ Ашиг: +$1,240\nШалтгаан: SMC 1h Order Block оролт амжилттай.')">Дэлгэрэнгүй</b>
                                 </div>
-                                <div style="background:var(--bg); padding:10px; border-radius:10px; text-align:center;">
+                                <div style="background:var(--bg); padding:12px; border-radius:12px; text-align:center;">
                                     <small>Алдагдал</small><br>
-                                    <b style="color:var(--danger); cursor:pointer;" onclick="openDetail('❌ Алдагдал: -$300\nШалтгаан: Мэдээний хэлбэлзэлд SL цохив.')">Дэлгэрэнгүй</b>
+                                    <b style="color:var(--danger); cursor:pointer; font-size:14px;" onclick="openDetail('❌ Алдагдал: -$210\nШалтгаан: News spike - SL цохив.')">Дэлгэрэнгүй</b>
                                 </div>
                             </div>
-                            <div class="calendar-grid" id="prof-cal"></div>
+
+                            <h4 onclick="toggleCalendar()" style="color:var(--accent); cursor:pointer; margin:15px 0 5px 0; font-size:14px;">📅 Хуанли</h4>
+                            <div id="calendar-section">
+                                <div class="calendar-grid" id="prof-cal"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,32 +183,38 @@
             </div>
         </main>
 
-        <aside class="sidebar-right">
+        <aside class="sidebar-right" id="laptop-right">
             <div class="card" style="margin-bottom:0;">
-                <h4 style="margin:0 0 15px 0;">🔔 Мэдэгдэл</h4>
-                <div class="notif-item">🔥 NFP мэдээ 10 минутын дараа!</div>
-                <div class="notif-item">📈 EUR/USD шинэ рекорд тогтоолоо.</div>
-                <div class="notif-item">💬 Багш: "Шинэ сургалт орлоо."</div>
+                <h4 style="margin:0 0- 15px 0;">🔔 Мэдэгдэл</h4>
+                <div style="font-size:13px; padding:10px; background:var(--bg); border-radius:10px; margin-bottom:8px; border-left:3px solid var(--accent);">🔥 NFP мэдээ 5 минутын дараа!</div>
+                <div style="font-size:13px; padding:10px; background:var(--bg); border-radius:10px; margin-bottom:8px;">💬 DM: Багшаас зурвас ирлээ.</div>
             </div>
             <div class="card">
                 <h4 style="margin:0 0 15px 0;">🌍 Зах зээлийн мэдээ</h4>
-                <p style="font-size:13px; color:var(--secondary);">USD-ийн индекс өнөөдөр тогтвортой байна...</p>
+                <p style="font-size:13px; color:var(--secondary); line-height:1.5;">Өнөөдөр FOMC хуралдаантай тул зах зээл хэлбэлзэл ихтэй байна.</p>
             </div>
         </aside>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
+    <div class="modal" id="notif-modal">
+        <h3>🔔 Мэдэгдэл</h3>
+        <p>🔥 NFP мэдээ 5 минутын дараа!</p>
+        <p>💬 DM: Багшаас зурвас ирлээ.</p>
+        <button class="btn-prime" onclick="closeAllModals()">Хаах</button>
+    </div>
+
     <div class="modal" id="edit-modal">
-        <h3>⚙️ Тохиргоо</h3>
+        <h3>⚙️ Профайл & Тэмдэглэл</h3>
         <label>Тэмдэглэл (Bio):</label>
-        <textarea rows="3" placeholder="Өөрийн тухай..."></textarea>
+        <textarea id="in-note" rows="3" placeholder="Өөрийн тухай..."></textarea>
         <label>Харагдах горим:</label>
         <select onchange="toggleDark(this.value)">
             <option value="light">Light Mode</option>
             <option value="dark">Dark Mode</option>
         </select>
-        <button class="btn-prime" onclick="closeAllModals()">Хадгалах</button>
+        <button class="btn-prime" onclick="saveBio()">Хадгалах</button>
     </div>
 
     <div class="modal" id="detail-modal">
@@ -213,6 +230,16 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             if(document.getElementById('l-'+p)) document.getElementById('l-'+p).classList.add('active');
             if(p === 'profile') renderCal();
+            closeAllModals();
+        }
+
+        function toggleNotifPanel() {
+            if(window.innerWidth <= 1024) openModal('notif-modal');
+        }
+
+        function toggleCalendar() {
+            const sec = document.getElementById('calendar-section');
+            sec.style.display = sec.style.display === 'block' ? 'none' : 'block';
         }
 
         function openModal(id) {
@@ -230,6 +257,12 @@
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         }
 
+        function saveBio() {
+            const val = document.getElementById('in-note').value;
+            if(val) document.getElementById('disp-note').innerText = val;
+            closeAllModals();
+        }
+
         function renderCal() {
             const grid = document.getElementById('prof-cal');
             grid.innerHTML = '';
@@ -237,8 +270,9 @@
                 const d = document.createElement('div');
                 d.className = 'day';
                 d.innerText = i;
-                if(i % 3 === 0) d.classList.add('win');
-                d.onclick = () => openDetail(`4-р сарын ${i}-ны тэмдэглэл: Өнөөдөр арилжаанд ороогүй.`);
+                if(i % 4 === 0) d.classList.add('win');
+                else if(i % 9 === 0) d.classList.add('loss');
+                d.onclick = () => openDetail(`${i}-ны өдрийн арилжааны тэмдэглэл одоогоор хоосон байна.`);
                 grid.appendChild(d);
             }
         }
