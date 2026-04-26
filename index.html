@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX TEAM | Social Platform</title>
+    <title>A-LIST FX TEAM | Professional Social Network</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,16 +20,12 @@
             --glass-border: rgba(0, 0, 0, 0.1); --card-bg: #ffffff;
         }
 
-        body {
-            margin: 0; background: var(--bg); color: var(--text);
-            font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden;
-        }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
-        /* АРЫН ФОН */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1611095773163-97a30b7aa24d?q=80&w=2071') no-repeat center center/cover;
-            filter: blur(50px) brightness(0.35); z-index: -1;
+            filter: blur(50px) brightness(0.3); z-index: -1;
         }
 
         /* SIDEBAR */
@@ -38,70 +34,54 @@
             border-right: 1px solid var(--glass-border); padding: 35px 20px;
             display: flex; flex-direction: column; z-index: 100;
         }
-
         .logo { font-size: 22px; font-weight: 800; margin-bottom: 40px; }
         .logo span { color: var(--accent); }
-
-        .nav-item {
-            padding: 14px 18px; border-radius: 14px; cursor: pointer; margin-bottom: 6px;
-            display: flex; align-items: center; gap: 12px; transition: 0.3s; opacity: 0.7;
-        }
+        .nav-item { padding: 14px 18px; border-radius: 14px; cursor: pointer; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; transition: 0.3s; opacity: 0.7; }
         .nav-item:hover, .nav-item.active { background: var(--glass); opacity: 1; border: 1px solid var(--glass-border); }
-
-        /* TOP SETTINGS */
-        .top-settings { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 200; }
 
         /* MAIN CONTENT */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; }
-        .content-scroll { flex: 1; padding: 30px; overflow-y: auto; padding-top: 80px; }
-        
-        .right-panel {
-            width: 320px; padding: 30px 20px; background: rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px); border-left: 1px solid var(--glass-border); padding-top: 80px;
-        }
+        .content-scroll { flex: 1; padding: 30px; overflow-y: auto; padding-top: 20px; }
+        .right-panel { width: 320px; padding: 30px 20px; background: rgba(0,0,0,0.1); backdrop-filter: blur(20px); border-left: 1px solid var(--glass-border); }
 
-        .card {
-            background: var(--card-bg); border-radius: 24px; padding: 22px;
-            border: 1px solid var(--glass-border); margin-bottom: 24px; backdrop-filter: blur(15px);
+        /* STORIES */
+        .stories-container { display: flex; gap: 15px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px; }
+        .story-card {
+            min-width: 80px; height: 110px; border-radius: 15px; background: var(--glass);
+            border: 2px solid var(--accent); display: flex; flex-direction: column; align-items: center;
+            justify-content: center; cursor: pointer; font-size: 10px; transition: 0.3s; background-size: cover;
         }
+        .story-card:hover { transform: scale(1.05); }
+
+        /* CARD STYLE */
+        .card { background: var(--card-bg); border-radius: 24px; padding: 22px; border: 1px solid var(--glass-border); margin-bottom: 24px; backdrop-filter: blur(15px); }
+        .badge { background: var(--accent); color: white; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
 
         /* MODALS */
-        .modal {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 90%; max-width: 800px; background: var(--card-bg);
-            border: 1px solid var(--glass-border); padding: 30px; border-radius: 30px; z-index: 1000;
-            backdrop-filter: blur(50px); max-height: 85vh; overflow-y: auto;
-        }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 500px; background: #1a1d23; border: 1px solid var(--glass-border); padding: 30px; border-radius: 30px; z-index: 1000; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .btn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 14px; cursor: pointer; font-weight: 600; width: 100%; margin-top: 10px; }
+        input, select, textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 12px; border-radius: 10px; margin-bottom: 15px; font-family: inherit; }
 
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.2s; }
-        .btn:hover { opacity: 0.8; }
-        .btn-outline { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; }
-
-        /* SOCIAL */
-        .avatar-circle { width: 50px; height: 50px; border-radius: 50%; background: #444; border: 2px solid var(--accent); cursor: pointer; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 15px; }
-        .day { background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 10px; padding: 6px; border: 1px solid var(--glass-border); cursor: pointer; font-size: 10px; text-align: center; }
-        
         .page { display: none; }
         .page.active { display: block; }
+        
+        /* CALENDAR FOR PROFILE */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .day { background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 8px; font-size: 9px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
     <div class="bg-overlay"></div>
-
-    <div class="top-settings">
-        <button class="btn-outline" onclick="toggleTheme()">🌓 Theme</button>
-    </div>
 
     <div class="sidebar">
         <div class="logo">A-LIST <span>FX TEAM</span></div>
         <div class="nav-item active" onclick="showPage('home')">🏠 Нүүр хуудас</div>
         <div class="nav-item" onclick="showPage('academy')">🎓 Сургалт</div>
         <div class="nav-item" onclick="showPage('signals')">📡 Сигнал</div>
-        <div class="nav-item" onclick="showPage('messages')">💬 Мессеж</div>
         <div style="margin-top: auto;">
-            <div class="nav-item" onclick="showProfile('Миний Профайл')">👤 Профайл</div>
+            <div class="nav-item" onclick="showPage('profile')">👤 Миний Профайл</div>
+            <button class="btn" style="background:none; border:1px solid var(--glass-border); padding:8px;" onclick="openModal('edit-modal')">⚙️ Засварлах</button>
         </div>
     </div>
 
@@ -109,179 +89,143 @@
         <div class="content-scroll">
             
             <div id="home-page" class="page active">
+                <div class="stories-container">
+                    <div class="story-card" style="border-style: dashed;" onclick="alert('Story нэмэх')">+<br>Story</div>
+                    <div class="story-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz-8Z3Zz5XW_7-K8e-Rj2Z2Y0f8l5J4P0A6Q&s');"></div>
+                    <div class="story-card" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW9q1u1XW_7-K8e-Rj2Z2Y0f8l5J4P0A6Q&s');"></div>
+                </div>
+
                 <div class="card">
-                    <textarea id="main-post-text" style="width:100%; background:none; border:none; color:inherit; outline:none; font-family:inherit;" rows="2" placeholder="Арилжааны санаагаа хуваалцах..."></textarea>
-                    <button class="btn" style="float:right">Постлох</button>
+                    <textarea style="width:100%; background:none; border:none; color:inherit; outline:none;" rows="2" placeholder="Шинэ дүн шинжилгээ..."></textarea>
+                    <button class="btn" style="width:auto; float:right;">Постлох</button>
                     <div style="clear:both"></div>
                 </div>
 
                 <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items:start;">
-                        <div style="display:flex; gap:12px; align-items:center; margin-bottom:15px;">
-                            <div class="avatar-circle" onclick="showProfile('Б. Бат-Эрдэнэ')"></div>
-                            <div onclick="showProfile('Б. Бат-Эрдэнэ')" style="cursor:pointer;">
-                                <div style="font-weight:700;">Б. Бат-Эрдэнэ</div>
-                                <div style="font-size:12px; opacity:0.6;">A-List Elite Trader</div>
-                            </div>
+                    <div style="display:flex; gap:12px; align-items:center; margin-bottom:15px;">
+                        <div id="display-avatar" style="width:45px; height:45px; border-radius:50%; background:var(--accent);"></div>
+                        <div>
+                            <div style="font-weight:700;"><span id="display-name">A-List Trader</span> <span class="badge" id="display-rank">Elite</span></div>
+                            <div style="font-size:12px; opacity:0.6;"><span id="display-type">Day Trader</span> | <span id="display-broker">IC Markets</span></div>
                         </div>
-                        <button class="btn-outline" style="font-size:12px;" onclick="followUser(this)">+ Дагах</button>
                     </div>
-                    <p>Gold: Liquidity sweep on H4. A-List Model 1 confirmed.</p>
+                    <p>Өнөөдрийн арилжааны төлөвлөгөө...</p>
                 </div>
             </div>
 
             <div id="academy-page" class="page">
-                <h2>Сургалт</h2>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                    <div class="card"><h3>Анхан</h3><p>Форекс суурь ба Лааны онол</p></div>
-                    <div class="card"><h3>Ахисан</h3><p>SMC & ICT Concepts</p></div>
-                    <div class="card" style="border:1px solid var(--accent)"><h3>A-List Model</h3><p>Execution & Sniper Entry</p></div>
-                </div>
+                <h2>Сургалтын хэсэг</h2>
+                <div class="card"><h3>Анхан шат</h3><p>Суурь ойлголт</p></div>
+                <div class="card"><h3>Ахисан түвшин</h3><p>SMC/ICT</p></div>
+                <div class="card" style="border:1px solid var(--accent)"><h3>A-List Арга барил</h3><p>Тусгай загварууд</p></div>
             </div>
 
             <div id="signals-page" class="page">
-                <h2>VIP Сувгууд</h2>
-                <div class="card" style="text-align:center; display:flex; flex-direction:column; gap:10px;">
-                    <a href="#" class="btn" style="background:#5865F2; text-decoration:none;">Discord суваг</a>
-                    <a href="#" class="btn" style="background:#0088cc; text-decoration:none;">Telegram суваг</a>
+                <h2>Сигнал сувгууд</h2>
+                <div class="card" style="text-align:center;">
+                    <a href="#" class="btn" style="background:#5865F2; text-decoration:none; display:block; margin-bottom:10px;">Discord</a>
+                    <a href="#" class="btn" style="background:#0088cc; text-decoration:none; display:block;">Telegram</a>
                 </div>
-            </div>
-
-            <div id="messages-page" class="page">
-                <h2>Шууд мессеж</h2>
-                <div class="card">Таны мессежүүд энд харагдана.</div>
             </div>
 
             <div id="profile-page" class="page">
-                <div style="display:flex; gap:25px; align-items:center; margin-bottom:30px;">
-                    <div class="avatar-circle" style="width:80px; height:80px;"></div>
-                    <div>
-                        <h1 id="profile-name" style="margin:0;">Профайл</h1>
-                        <p style="opacity:0.6;">Followers: 1.2k | Following: 150</p>
-                        <div style="display:flex; gap:10px; margin-top:10px;">
-                            <button class="btn" onclick="openDM()">💬 DM Бичих</button>
-                            <button class="btn-outline" onclick="openMentionPost()">📝 Пост зориулах</button>
-                        </div>
+                <div class="card" style="text-align:center;">
+                    <div style="width:100px; height:100px; border-radius:50%; background:var(--accent); margin: 0 auto 15px;"></div>
+                    <h2 id="prof-name">A-List Trader</h2>
+                    <div style="display:flex; justify-content:center; gap:10px; margin-bottom:20px;">
+                        <span class="badge" id="prof-rank">Elite</span>
+                        <span class="badge" style="background:#444;" id="prof-type">Day Trader</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; font-size:12px;">
+                        <div class="card" style="padding:10px;"><b>Брокер</b><br><span id="prof-broker">IC Markets</span></div>
+                        <div class="card" style="padding:10px;"><b>Дагагчид</b><br>1,250</div>
+                        <div class="card" style="padding:10px;"><b>Win Rate</b><br>72%</div>
                     </div>
                 </div>
-                <div class="card"><h3>Постууд</h3><p>Сүүлийн үеийн постууд энд жагсана.</p></div>
+                <h3>Миний тайлан</h3>
+                <div class="card"><div class="calendar-grid" id="prof-cal"></div></div>
             </div>
         </div>
 
         <div class="right-panel">
-            <div id="default-side">
-                <h4>Мэдээний хуваарь</h4>
-                <div class="card" style="border-left:4px solid var(--accent)"><b>21:30</b><br><small>USD: CPI Data</small></div>
-            </div>
-
-            <div id="profile-side" style="display:none;">
-                <h4>Арилжаачны үйлдэл</h4>
-                <button class="btn" style="width:100%; margin-bottom:15px;" onclick="openReport()">📈 Арилжаачны тайлан харах</button>
-                <div class="card">
-                    <small>Win Rate</small>
-                    <div style="font-size:20px; font-weight:800; color:#10b981;">78%</div>
-                </div>
+            <h4>Мэдээний хуваарь</h4>
+            <div class="card" style="border-left:4px solid var(--accent)"><b>21:30</b><br><small>USD: CPI Data</small></div>
+            <h4>Шилдэг арилжаачид</h4>
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+                <div style="width:30px; height:30px; border-radius:50%; background:#777;"></div>
+                <span>Baterdene (Elite)</span>
             </div>
         </div>
     </div>
 
-    <div id="report-modal" class="modal">
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-            <h2>Арилжааны тайлан</h2>
-            <button class="btn-outline" onclick="closeModal('report-modal')">X</button>
-        </div>
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <select class="btn-outline"><option>2026 он</option><option>2025 он</option></select>
-            <select class="btn-outline"><option>4-р сар</option><option>3-р сар</option></select>
-            <div style="margin-left:auto; display:flex; gap:5px;">
-                <button id="pips-btn" class="btn" onclick="setMode('pips')">Pips</button>
-                <button id="usd-btn" class="btn-outline" onclick="setMode('usd')">USD</button>
-            </div>
-        </div>
-        <div class="calendar-grid" id="calendar"></div>
-    </div>
+    <div id="edit-modal" class="modal">
+        <h3>Профайл засах</h3>
+        <label>Нэр:</label>
+        <input type="text" id="edit-name" value="A-List Trader">
+        
+        <label>Арилжааны төрөл:</label>
+        <select id="edit-type">
+            <option>Day Trader</option>
+            <option>Scalper</option>
+            <option>Swing Trader</option>
+            <option>Position Trader</option>
+        </select>
 
-    <div id="journal-modal" class="modal" style="max-width:400px;">
-        <h3 id="j-date">Тэмдэглэл</h3>
-        <p id="j-val" style="font-size:24px; font-weight:800;"></p>
-        <div style="background:rgba(0,0,0,0.2); padding:15px; border-radius:15px;">
-            <p>A-List Model 1 ашигласан. Оролт маш цэвэрхэн боллоо.</p>
-        </div>
-        <button class="btn" style="width:100%; margin-top:20px;" onclick="closeModal('journal-modal')">Хаах</button>
-    </div>
+        <label>Түвшин (Rank):</label>
+        <select id="edit-rank">
+            <option>Beginner</option>
+            <option>Advanced</option>
+            <option>Pro Trader</option>
+            <option>Elite</option>
+        </select>
 
-    <div id="mention-modal" class="modal" style="max-width:500px;">
-        <h3 id="mention-title">Пост бичих</h3>
-        <textarea style="width:100%; background:rgba(0,0,0,0.2); border:1px solid var(--glass-border); color:white; border-radius:15px; padding:15px;" rows="4" placeholder="Асуулт эсвэл шинжилгээний хариу..."></textarea>
-        <button class="btn" style="width:100%; margin-top:15px;" onclick="closeModal('mention-modal')">Илгээх</button>
+        <label>Ашигладаг Брокер:</label>
+        <input type="text" id="edit-broker" value="IC Markets">
+
+        <button class="btn" onclick="saveProfile()">Хадгалах</button>
+        <button class="btn" style="background:none;" onclick="closeModal('edit-modal')">Болих</button>
     </div>
 
     <script>
-        let mode = 'pips';
-
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            document.getElementById('profile-side').style.display = (p === 'profile') ? 'block' : 'none';
-            document.getElementById('default-side').style.display = (p === 'profile') ? 'none' : 'block';
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(p === 'profile') renderProfCal();
         }
 
-        function showProfile(name) {
-            showPage('profile');
-            document.getElementById('profile-name').innerText = name;
-        }
-
-        function openReport() {
-            document.getElementById('report-modal').style.display = 'block';
-            renderCalendar();
-        }
-
-        function openMentionPost() {
-            const name = document.getElementById('profile-name').innerText;
-            document.getElementById('mention-title').innerText = name + "-д пост бичих";
-            document.getElementById('mention-modal').style.display = 'block';
-        }
-
-        function openDM() {
-            showPage('messages');
-            alert("DM систем рүү шилжлээ...");
-        }
-
-        function followUser(btn) {
-            btn.innerText = (btn.innerText === '+ Дагах') ? 'Дагасан' : '+ Дагах';
-            btn.style.background = (btn.innerText === 'Дагасан') ? 'var(--accent)' : 'none';
-        }
-
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function setMode(m) {
-            mode = m;
-            document.getElementById('pips-btn').className = m === 'pips' ? 'btn' : 'btn-outline';
-            document.getElementById('usd-btn').className = m === 'usd' ? 'btn' : 'btn-outline';
-            renderCalendar();
+        function saveProfile() {
+            const name = document.getElementById('edit-name').value;
+            const type = document.getElementById('edit-type').value;
+            const rank = document.getElementById('edit-rank').value;
+            const broker = document.getElementById('edit-broker').value;
+
+            // Update UI
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('prof-name').innerText = name;
+            document.getElementById('display-type').innerText = type;
+            document.getElementById('prof-type').innerText = type;
+            document.getElementById('display-rank').innerText = rank;
+            document.getElementById('prof-rank').innerText = rank;
+            document.getElementById('display-broker').innerText = broker;
+            document.getElementById('prof-broker').innerText = broker;
+
+            closeModal('edit-modal');
         }
 
-        function renderCalendar() {
-            const cal = document.getElementById('calendar');
+        function renderProfCal() {
+            const cal = document.getElementById('prof-cal');
             cal.innerHTML = '';
-            for(let i=1; i<=30; i++) {
-                const isUp = Math.random() > 0.4;
-                const val = (Math.random()*40).toFixed(0);
+            for(let i=1; i<=28; i++) {
                 const day = document.createElement('div');
                 day.className = 'day';
-                day.innerHTML = `<span style="opacity:0.3">${i}</span><br><b style="color:${isUp?'#10b981':'#FF4D4D'}">${isUp?'+':'-'}${mode==='pips'?val+'P':'$'+(val*10)}</b>`;
-                day.onclick = () => {
-                    document.getElementById('j-val').innerText = (isUp?'+':'-') + (mode==='pips'?val+'P':(val*10)+'$');
-                    document.getElementById('journal-modal').style.display = 'block';
-                };
+                day.innerText = i;
+                if(Math.random() > 0.5) day.style.color = '#10b981'; else day.style.color = '#FF4D4D';
                 cal.appendChild(day);
             }
-        }
-
-        function toggleTheme() {
-            const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', theme);
         }
     </script>
 </body>
