@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Ultimate Control</title>
+    <title>A-LIST FX | Professional Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,6 +13,8 @@
             --text: #1e293b;
             --border: #e2e8f0;
             --secondary: #64748b;
+            --success: #16a34a;
+            --danger: #ef4444;
         }
 
         body { 
@@ -27,9 +29,8 @@
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 1100;
         }
-        .header .logo { font-size: 18px; font-weight: 800; cursor: pointer; }
+        .header .logo { font-size: 18px; font-weight: 800; }
         .header .logo span { color: var(--accent); }
-
         .header-actions { display: flex; gap: 8px; align-items: center; }
         
         .icon-btn {
@@ -51,7 +52,6 @@
         /* MAIN */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; margin-top: 70px; }
         .content-scroll { flex: 1; padding: 20px; overflow-y: auto; scrollbar-width: none; }
-        
         .page { display: none; }
         .page.active { display: block; }
 
@@ -59,29 +59,28 @@
         .card { 
             background: var(--card); border: 1px solid var(--border); 
             border-radius: 20px; padding: 20px; margin-bottom: 15px;
-            position: relative;
         }
 
-        /* THREE DOTS */
-        .dots-btn { font-size: 20px; cursor: pointer; color: var(--secondary); padding: 5px; }
+        /* REPORT STUFF */
+        .report-stat { padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; cursor: pointer; transition: 0.2s; }
+        .report-stat:active { transform: scale(0.98); }
+        
+        .time-filter { display: flex; gap: 5px; margin-bottom: 15px; overflow-x: auto; scrollbar-width: none; }
+        .filter-btn { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 12px; white-space: nowrap; cursor: pointer; }
+        .filter-btn.active { background: var(--text); color: white; border-color: var(--text); }
 
-        /* CALENDAR */
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 15px; }
-        .day { height: 35px; border-radius: 6px; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+        .day { height: 30px; border-radius: 6px; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 10px; }
 
         /* MODALS */
         .modal { 
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 90%; max-width: 420px; background: white; padding: 25px; border-radius: 24px; 
+            width: 90%; max-width: 400px; background: white; padding: 25px; border-radius: 24px; 
             z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
         }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1500; }
 
-        input, select { 
-            width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; 
-            border: 1px solid var(--border); font-family: inherit; box-sizing: border-box;
-        }
-
+        select, input { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; border: 1px solid var(--border); font-family: inherit; box-sizing: border-box; }
         .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
         @media (max-width: 1024px) { .sidebar { display: none; } }
@@ -90,12 +89,11 @@
 <body>
 
     <header class="header">
-        <div class="logo" onclick="showPage('home')">A-LIST <span>FX</span></div>
+        <div class="logo">A-LIST <span>FX</span></div>
         <div class="header-actions">
             <button class="icon-btn active" id="m-home" onclick="showPage('home')">🏠</button>
             <button class="icon-btn" id="m-academy" onclick="showPage('academy')">🎓</button>
             <button class="icon-btn" id="m-signals" onclick="showPage('signals')">📡</button>
-            <button class="icon-btn" onclick="toggleNotif()">🔔</button>
             <button class="icon-btn" id="m-profile" onclick="showPage('profile')">👤</button>
         </div>
     </header>
@@ -111,22 +109,19 @@
         <div class="content-scroll">
             
             <div id="home-page" class="page active">
-                <div class="card"><b>Admin</b>: Өнөөдрийн мэдээг шалгаарай.</div>
-                <div class="card"><b>Trader X</b>: Gold Long setup...</div>
+                <div class="card"><b>Admin</b>: Өнөөдрийн мэдээ гарлаа.</div>
             </div>
 
             <div id="academy-page" class="page">
                 <h2>🎓 Сургалт</h2>
-                <div class="card"><h3>1. Анхан шат</h3></div>
-                <div class="card"><h3>2. Ахисан шат</h3></div>
-                <div class="card"><h3>3. Elite Strategy</h3></div>
+                <div class="card">1. Анхан | 2. Ахисан | 3. Elite</div>
             </div>
 
             <div id="signals-page" class="page">
-                <h2>📡 Сувгууд</h2>
-                <div class="card" style="display:flex; flex-direction:column; gap:10px;">
-                    <button class="btn-prime" style="background:#5865F2;">Discord VIP</button>
-                    <button class="btn-prime" style="background:#0088cc;">Telegram Signal</button>
+                <h2>📡 Сигнал</h2>
+                <div class="card">
+                    <button class="btn-prime" style="background:#5865F2; margin-bottom:10px;">Discord</button>
+                    <button class="btn-prime" style="background:#0088cc;">Telegram</button>
                 </div>
             </div>
 
@@ -135,15 +130,14 @@
                     <div style="width:100px; height:100px; border-radius:50%; border:4px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.05); margin:0 auto 15px; background:#ddd;"></div>
                     <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
                         <h2 id="display-name" style="margin:0;">Арилжаачин</h2>
-                        <span id="display-rank" style="background:var(--accent); color:white; padding:2px 10px; border-radius:8px; font-size:11px; font-weight:700;">ELITE</span>
-                        <div class="dots-btn" onclick="openModal('report-modal')">⋮</div>
+                        <span style="background:var(--accent); color:white; padding:2px 10px; border-radius:8px; font-size:11px; font-weight:700;">ELITE</span>
+                        <div style="font-size:20px; cursor:pointer;" onclick="openModal('report-modal')">⋮</div>
                     </div>
                     <p id="display-type" style="color:var(--secondary); font-size:13px; margin-top:5px;">Day Trader | Scalper</p>
-                    <button onclick="openModal('edit-modal')" style="background:none; border:1px solid var(--border); padding:5px 15px; border-radius:10px; font-size:12px; margin-top:10px; cursor:pointer;">Профайл засах ⚙️</button>
+                    <button onclick="openModal('edit-modal')" style="background:none; border:1px solid var(--border); padding:6px 15px; border-radius:10px; font-size:12px; margin-top:10px; cursor:pointer;">Профайл засах ⚙️</button>
                 </div>
-
                 <h4 style="border-bottom:1px solid var(--border); padding-bottom:10px;">Миний постууд</h4>
-                <div class="card">Та одоогоор пост оруулаагүй байна.</div>
+                <div class="card">Одоогоор пост оруулаагүй байна.</div>
             </div>
 
         </div>
@@ -152,32 +146,40 @@
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
     <div class="modal" id="report-modal">
-        <h3 style="margin-top:0;">📊 Арилжааны тайлан</h3>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
-            <div class="card" style="margin:0; text-align:center; background:#f0fdf4; border-color:#bbf7d0;">
-                <small>Нийт Ашиг</small><br><b style="color:#16a34a; font-size:18px;">+$1,240</b>
+        <h3 style="margin-top:0;">📊 Тайлан & Шүүлтүүр</h3>
+        
+        <div class="time-filter">
+            <button class="filter-btn active">Өнөөдөр</button>
+            <button class="filter-btn">7 хоног</button>
+            <button class="filter-btn">Сар</button>
+            <button class="filter-btn">Бүх цаг</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
+            <div class="report-stat" style="background:#f0fdf4; border-color:#bbf7d0;" onclick="openNote('Profit: $1,240\nPair: EUR/USD\nStrategy: SMC')">
+                <small>Ашиг</small><br><b style="color:var(--success);">+$1,240</b>
             </div>
-            <div class="card" style="margin:0; text-align:center; background:#eff6ff; border-color:#bfdbfe;">
-                <small>Нийт Pips</small><br><b style="color:var(--accent); font-size:18px;">+450 P</b>
+            <div class="report-stat" style="background:#fef2f2; border-color:#fecaca;" onclick="openNote('Loss: -$210\nPair: XAU/USD\nReason: Stop Loss hit')">
+                <small>Алдагдал</small><br><b style="color:var(--danger);">-$210</b>
             </div>
         </div>
-        <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:5px;">
-            <span>✅ Оносон: 18</span>
-            <span>❌ Алдсан: 5</span>
+        
+        <div class="report-stat" style="background:#eff6ff; border-color:#bfdbfe; margin-bottom:15px;" onclick="openNote('Total Pips: 450\nAverage: 45 pips per trade')">
+            <small>Нийт Pips</small><br><b style="color:var(--accent);">+450 P</b>
         </div>
-        <div style="width:100%; height:8px; background:#fee2e2; border-radius:10px; overflow:hidden; display:flex;">
-            <div style="width:78%; background:#22c55e; height:100%;"></div>
-        </div>
+
         <div class="calendar-grid" id="report-cal"></div>
         <button class="btn-prime" style="margin-top:20px; background:#64748b;" onclick="closeAllModals()">Хаах</button>
     </div>
 
-    <div class="modal" id="edit-modal">
-        <h3 style="margin-top:0;">⚙️ Тохиргоо</h3>
-        
-        <label style="font-size:12px; font-weight:700;">Нэр:</label>
-        <input type="text" id="in-name" placeholder="Нэр оруулах...">
+    <div class="modal" id="note-modal" style="z-index:2100;">
+        <h3 style="margin:0 0 10px 0;">📝 Арилжааны тэмдэглэл</h3>
+        <p id="note-content" style="font-size:14px; line-height:1.6; white-space:pre-line; color:var(--secondary); background:#f8fafc; padding:15px; border-radius:12px;"></p>
+        <button class="btn-prime" onclick="document.getElementById('note-modal').style.display='none'">Ойлголоо</button>
+    </div>
 
+    <div class="modal" id="edit-modal">
+        <h3>⚙️ Тохиргоо</h3>
         <label style="font-size:12px; font-weight:700;">Арилжааны арга барил:</label>
         <select id="in-type">
             <option value="Day Trader">Day Trader</option>
@@ -185,13 +187,11 @@
             <option value="Swing Trader">Swing Trader</option>
             <option value="Position Trader">Position Trader</option>
         </select>
-
-        <label style="font-size:12px; font-weight:700;">Профайл харагдац:</label>
+        <label style="font-size:12px; font-weight:700;">Харагдац:</label>
         <select id="in-privacy">
-            <option value="Public">Public (Бүгдэд нээлттэй)</option>
-            <option value="Private">Private (Зөвхөн надад)</option>
+            <option value="Public">Public (Нээлттэй)</option>
+            <option value="Private">Private (Нууц)</option>
         </select>
-
         <button class="btn-prime" onclick="saveProfile()">Хадгалах</button>
     </div>
 
@@ -199,14 +199,10 @@
         function showPage(p) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-
             document.querySelectorAll('.icon-btn').forEach(btn => btn.classList.remove('active'));
-            const mBtn = document.getElementById('m-' + p);
-            if(mBtn) mBtn.classList.add('active');
-
+            document.getElementById('m-' + p).classList.add('active');
             document.querySelectorAll('.side-item').forEach(item => item.classList.remove('active'));
-            const sItem = document.getElementById('s-' + p);
-            if(sItem) sItem.classList.add('active');
+            document.getElementById('s-' + p).classList.add('active');
         }
 
         function openModal(id) {
@@ -215,16 +211,18 @@
             if(id === 'report-modal') renderReportCal();
         }
 
+        function openNote(content) {
+            document.getElementById('note-content').innerText = content;
+            document.getElementById('note-modal').style.display = 'block';
+        }
+
         function closeAllModals() {
             document.getElementById('overlay').style.display = 'none';
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         }
 
         function saveProfile() {
-            const name = document.getElementById('in-name').value;
-            const type = document.getElementById('in-type').value;
-            if(name) document.getElementById('display-name').innerText = name;
-            document.getElementById('display-type').innerText = type;
+            document.getElementById('display-type').innerText = document.getElementById('in-type').value;
             closeAllModals();
         }
 
@@ -240,7 +238,13 @@
             }
         }
 
-        function toggleNotif() { alert("Мэдэгдэл хоосон байна."); }
+        // Time Filter Button Toggle
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
