@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Premium Minimalist</title>
+    <title>A-LIST FX | Organized Minimalist</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,117 +20,90 @@
             font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; 
         }
 
-        /* HEADER (Khan Bank Style - Full Control) */
+        /* HEADER */
         .header {
             position: fixed; top: 0; left: 0; right: 0; height: 70px;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
+            background: white; border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 1100;
         }
-        .header .logo { font-size: 20px; font-weight: 800; }
+        .header .logo { font-size: 18px; font-weight: 800; }
         .header .logo span { color: var(--accent); }
 
         .header-actions { display: flex; gap: 8px; align-items: center; }
         
-        /* Premium Icon Style */
         .icon-btn {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: #ffffff; color: var(--text);
+            width: 42px; height: 42px; border-radius: 50%;
+            background: #f1f5f9; color: var(--text);
             display: flex; align-items: center; justify-content: center;
-            border: 1px solid var(--border); cursor: pointer; font-size: 16px; 
-            transition: 0.2s; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border: none; cursor: pointer; font-size: 18px; transition: 0.2s;
         }
-        .icon-btn:hover { background: #f1f5f9; border-color: var(--accent); }
-        .icon-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-        
-        .badge {
-            position: absolute; top: 0; right: 0; width: 8px; height: 8px;
-            background: #ef4444; border-radius: 50%; border: 2px solid white;
-        }
+        .icon-btn.active { background: var(--accent); color: white; }
 
-        /* SIDEBAR (Laptop only) */
+        /* SIDEBAR (Laptop) */
         .sidebar { 
-            width: 240px; background: white; border-right: 1px solid var(--border); 
-            padding: 90px 15px 20px; display: flex; flex-direction: column; gap: 5px;
+            width: 250px; background: white; border-right: 1px solid var(--border); 
+            padding: 90px 15px 20px; display: flex; flex-direction: column; gap: 8px;
         }
         .side-item {
-            padding: 12px 15px; border-radius: 12px; cursor: pointer;
-            display: flex; align-items: center; gap: 12px; color: var(--secondary); font-weight: 500; transition: 0.2s;
+            padding: 14px 18px; border-radius: 12px; cursor: pointer;
+            display: flex; align-items: center; gap: 12px; color: var(--secondary); font-weight: 600;
         }
         .side-item.active { background: #eff6ff; color: var(--accent); }
 
-        /* MAIN */
+        /* MAIN CONTENT */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; margin-top: 70px; }
-        .content-scroll { flex: 1; padding: 25px; overflow-y: auto; scrollbar-width: none; }
+        .content-scroll { flex: 1; padding: 20px; overflow-y: auto; scrollbar-width: none; }
         
-        /* CONTENT STYLING */
+        /* PAGES - Ганц ганцаараа харагдана */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
         .card { 
             background: var(--card); border: 1px solid var(--border); 
-            border-radius: 20px; padding: 20px; margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-        }
-        
-        /* NEWSFEED SPECIFIC */
-        .news-item { border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; }
-        .news-item:last-child { border: none; }
-
-        /* NOTIF PANEL */
-        #notif-panel {
-            display: none; position: absolute; top: 75px; right: 20px;
-            width: 300px; background: white; border: 1px solid var(--border);
-            border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); padding: 15px; z-index: 1200;
+            border-radius: 20px; padding: 20px; margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        /* MODALS */
-        .modal { 
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 90%; max-width: 400px; background: white; border-radius: 24px; padding: 25px; 
-            z-index: 2000; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        .btn-link {
+            width: 100%; padding: 16px; border-radius: 15px; border: none;
+            font-weight: 700; cursor: pointer; margin-bottom: 10px; color: white;
+            display: block; text-align: center; text-decoration: none;
         }
 
         @media (max-width: 1024px) {
             .sidebar { display: none; }
-            .content-scroll { padding: 15px; }
-            .header .logo { font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="logo" onclick="showPage('home')">A-LIST <span>FX</span></div>
-        
+        <div class="logo">A-LIST <span>FX</span></div>
         <div class="header-actions">
-            <button class="icon-btn" title="Home" onclick="showPage('home')" id="btn-home">🏠</button>
-            <button class="icon-btn" title="Academy" onclick="showPage('academy')" id="btn-academy">🎓</button>
-            <button class="icon-btn" title="Signals" onclick="showPage('signals')" id="btn-signals">📡</button>
-            <button class="icon-btn" title="Notifications" onclick="toggleNotif()">
-                🔔 <div class="badge"></div>
-            </button>
-            <button class="icon-btn" title="Profile" onclick="showPage('profile')" id="btn-profile">👤</button>
-            
-            <button id="header-settings" class="icon-btn" style="display:none; background: #f8fafc;" onclick="openModal('edit-modal')">⚙️</button>
+            <button class="icon-btn active" id="m-home" onclick="showPage('home')">🏠</button>
+            <button class="icon-btn" id="m-academy" onclick="showPage('academy')">🎓</button>
+            <button class="icon-btn" id="m-signals" onclick="showPage('signals')">📡</button>
+            <button class="icon-btn" id="m-notif" onclick="toggleNotif()">🔔</button>
+            <button class="icon-btn" id="m-profile" onclick="showPage('profile')">👤</button>
+            <button id="header-settings" class="icon-btn" style="display:none; background:#fff; border:1px solid var(--border);" onclick="openModal('edit-modal')">⚙️</button>
         </div>
-
-        <div id="notif-panel">
-            <h4 style="margin:0 0 12px 0;">Шуурхай мэдэгдэл</h4>
-            <div class="news-item">
-                <small style="color:var(--accent)">🔥 Онцлох</small>
-                <p style="margin:5px 0; font-size:13px;">EURUSD 1.0850 бүс дээр хүчтэй дэмжлэг авлаа.</p>
-            </div>
-            <div class="news-item">
-                <small style="color:var(--secondary)">💬 Зурвас</small>
-                <p style="margin:5px 0; font-size:13px;">Team Leader: "Шинжилгээг шалгаарай."</p>
-            </div>
+        
+        <div id="notif-panel" style="display:none; position:absolute; top:75px; right:20px; width:280px; background:white; border:1px solid var(--border); border-radius:18px; padding:15px; box-shadow:0 10px 30px rgba(0,0,0,0.1); z-index:1200;">
+            <h4 style="margin:0 0 10px 0;">Мэдэгдэл</h4>
+            <div style="font-size:13px; border-bottom:1px solid #eee; padding:8px 0;">🔥 CPI Data гарах гэж байна!</div>
+            <div style="font-size:13px; padding:8px 0;">💬 DM: Бат-Эрдэнэ зурвас явууллаа.</div>
         </div>
     </header>
 
     <div class="sidebar">
-        <div class="side-item active" onclick="showPage('home')">🏠 Нүүр хуудас</div>
-        <div class="side-item" onclick="showPage('academy')">🎓 Сургалт</div>
-        <div class="side-item" onclick="showPage('signals')">📡 Сигнал</div>
-        <div class="side-item" onclick="showPage('profile')">👤 Профайл</div>
+        <div class="side-item active" id="s-home" onclick="showPage('home')">🏠 Нүүр хуудас</div>
+        <div class="side-item" id="s-academy" onclick="showPage('academy')">🎓 Сургалт</div>
+        <div class="side-item" id="s-signals" onclick="showPage('signals')">📡 Сигнал</div>
+        <div class="side-item" id="s-profile" onclick="showPage('profile')">👤 Профайл</div>
     </div>
 
     <div class="main-wrapper">
@@ -138,56 +111,61 @@
             
             <div id="home-page" class="page active">
                 <div class="card">
-                    <h4 style="margin:0 0 15px 0;">Шинэ мэдээлэл</h4>
-                    <div class="news-item">
-                        <b style="font-size:14px;">Gold Market Analysis</b>
-                        <p style="font-size:13px; color:var(--secondary);">Алтны ханш 2400 ам.долларт хүрэх магадлалтай байна.</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px;">
+                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
                         <div style="width:40px; height:40px; border-radius:50%; background:#e2e8f0;"></div>
-                        <div><b>Admin</b><br><small>15 минутын өмнө</small></div>
+                        <b>Admin</b>
                     </div>
-                    <p>Өнөөдрийн арилжааны төлөвлөгөө бэлэн боллоо.</p>
+                    <p style="font-size:15px; line-height:1.5;">EURUSD-ийн шинэ шинжилгээ нэмэгдлээ. 1.0820 бүсийг анхаараарай.</p>
+                </div>
+                <div class="card">
+                    <p style="font-size:14px; color:var(--secondary)">NFP мэдээ зах зээлд хүчтэй нөлөөлж байна.</p>
                 </div>
             </div>
 
             <div id="academy-page" class="page">
-                <h2>🎓 Сургалтын хэсэг</h2>
-                <div class="card"><h3>Анхан шатны хичээлүүд</h3><p>Нийт 12 хичээл</p></div>
-                <div class="card"><h3>Ахисан түвшний SMC</h3><p>Нийт 8 хичээл</p></div>
+                <h2 style="margin-top:0;">🎓 Сургалтын хэсэг</h2>
+                <div class="card" style="border-left:5px solid #22c55e;">
+                    <h3 style="margin:0;">1. Анхан шат</h3>
+                    <p style="color:var(--secondary); font-size:14px;">Суурь ойлголт болон техникийн шинжилгээний эхлэл.</p>
+                </div>
+                <div class="card" style="border-left:5px solid #eab308;">
+                    <h3 style="margin:0;">2. Ахисан шат</h3>
+                    <p style="color:var(--secondary); font-size:14px;">SMC, ICT болон Liquidity-ийн гүнзгийрүүлсэн хичээл.</p>
+                </div>
+                <div class="card" style="border-left:5px solid #3b82f6;">
+                    <h3 style="margin:0;">3. Professional / Elite</h3>
+                    <p style="color:var(--secondary); font-size:14px;">Бодит арилжааны стратеги, Risk Management.</p>
+                </div>
             </div>
 
             <div id="signals-page" class="page">
-                <h2>📡 Сигнал / Өрөө</h2>
-                <div class="card" style="display:flex; gap:10px; flex-direction:column;">
-                    <button style="background:#5865F2; color:white; border:none; padding:15px; border-radius:15px; font-weight:700; cursor:pointer;">Discord-д нэгдэх</button>
-                    <button style="background:#0088cc; color:white; border:none; padding:15px; border-radius:15px; font-weight:700; cursor:pointer;">Telegram суваг</button>
+                <h2 style="margin-top:0;">📡 Групп & Сигнал</h2>
+                <div class="card">
+                    <p style="text-align:center; margin-bottom:20px;">Манай албан ёсны сувгууд руу эндээс шууд нэгдээрэй.</p>
+                    <a href="#" class="btn-link" style="background:#5865F2;">Discord VIP Room</a>
+                    <a href="#" class="btn-link" style="background:#0088cc;">Telegram Channel</a>
                 </div>
             </div>
 
             <div id="profile-page" class="page">
-                <div style="text-align:center; padding:30px 0;">
-                    <div style="width:110px; height:110px; border-radius:50%; border:5px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.1); margin:0 auto 15px; background:#ddd;"></div>
+                <div style="text-align:center; padding:20px 0;">
+                    <div style="width:100px; height:100px; border-radius:50%; border:4px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.1); margin:0 auto 15px; background:#ddd;"></div>
                     <h2 style="margin:0;">Арилжаачин</h2>
-                    <p style="color:var(--secondary)">ID: 889201 | Elite Member</p>
+                    <p style="color:var(--secondary); font-size:14px;">Elite Member</p>
                 </div>
                 <div class="card">
-                    <h4>📊 Арилжааны гүйцэтгэл</h4>
-                    <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:5px;" id="profile-cal"></div>
+                    <h4>📊 Арилжааны тайлан</h4>
+                    <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:5px;" id="p-cal"></div>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div id="edit-modal" class="modal">
-        <h3>⚙️ Профайл тохиргоо</h3>
-        <p style="font-size:13px; color:var(--secondary);">Эндээс нэр, нууц үг, брокерийн мэдээллээ солих боломжтой.</p>
-        <input type="text" placeholder="Нэр солих" style="width:100%; padding:12px; margin:10px 0; border:1px solid var(--border); border-radius:10px; box-sizing:border-box;">
-        <button style="background:var(--accent); color:white; border:none; width:100%; padding:12px; border-radius:12px; font-weight:700; margin-top:10px;">Хадгалах</button>
+    <div id="edit-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:400px; background:white; padding:25px; border-radius:24px; z-index:2000; box-shadow:0 30px 60px rgba(0,0,0,0.2);">
+        <h3 style="margin-top:0;">⚙️ Тохиргоо</h3>
+        <input type="text" placeholder="Нэр солих" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid var(--border); border-radius:12px; box-sizing:border-box;">
+        <button style="background:var(--accent); color:white; border:none; width:100%; padding:12px; border-radius:12px; font-weight:700;">Хадгалах</button>
         <button onclick="closeModal('edit-modal')" style="background:none; border:none; width:100%; margin-top:10px; color:var(--secondary); cursor:pointer;">Хаах</button>
     </div>
 
@@ -195,24 +173,20 @@
         function showPage(p) {
             // Бүх хуудсыг нуух
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            const target = document.getElementById(p + '-page');
-            if(target) target.classList.add('active');
+            document.getElementById(p + '-page').classList.add('active');
 
-            // Header Icon идэвхжүүлэх
+            // Header Icon-уудыг идэвхгүй болгож, зөвийг идэвхжүүлэх
             document.querySelectorAll('.icon-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById('btn-' + p);
-            if(activeBtn) activeBtn.classList.add('active');
+            document.getElementById('m-' + p).classList.add('active');
 
-            // Settings товчийг зөвхөн Profile дээр харуулах
+            // Sidebar (Laptop) идэвхжүүлэх
+            document.querySelectorAll('.side-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('s-' + p).classList.add('active');
+
+            // Settings товч зөвхөн Profile дээр
             document.getElementById('header-settings').style.display = (p === 'profile') ? 'flex' : 'none';
 
-            // Sidebar идэвхжүүлэх (Laptop)
-            document.querySelectorAll('.side-item').forEach(item => {
-                item.classList.remove('active');
-                if(item.innerText.toLowerCase().includes(p)) item.classList.add('active');
-            });
-
-            if(p === 'profile') renderProfileCal();
+            if(p === 'profile') renderCal();
             document.getElementById('notif-panel').style.display = 'none';
         }
 
@@ -224,19 +198,15 @@
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function renderProfileCal() {
-            const grid = document.getElementById('profile-cal');
-            if(!grid) return;
+        function renderCal() {
+            const grid = document.getElementById('p-cal');
             grid.innerHTML = '';
             for(let i=1; i<=28; i++) {
                 const day = document.createElement('div');
-                day.style.cssText = `height:30px; border-radius:6px; background:${Math.random()>0.5?'#dcfce7':'#fee2e2'}; border:1px solid var(--border);`;
+                day.style.cssText = `height:30px; border-radius:6px; background:${Math.random()>0.5?'#dcfce7':'#fee2e2'}; border:1px solid #eee;`;
                 grid.appendChild(day);
             }
         }
-
-        // Эхлэхэд Home харуулах
-        showPage('home');
     </script>
 </body>
 </html>
