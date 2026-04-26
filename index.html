@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>34 Forex Elite | Dashboard</title>
+    <title>34 Forex Elite</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,12 +33,12 @@
             position: relative;
         }
 
-        /* Арын фон зураг (Blur) */
+        /* Арын фон зураг (Таны явуулсан зураг) */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://raw.githubusercontent.com/_your_image_path_') no-repeat center center/cover;
-            filter: blur(40px) brightness(0.4);
+            background: url('https://images.unsplash.com/photo-1614332287897-cdc485fa562d?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            filter: blur(50px) brightness(0.4);
             z-index: -1;
             transition: 0.5s;
         }
@@ -52,7 +52,11 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
+            z-index: 100;
         }
+
+        .logo { font-size: 24px; font-weight: 700; margin-bottom: 40px; }
+        .logo span { color: var(--accent); }
 
         .nav-item {
             padding: 15px;
@@ -64,54 +68,49 @@
             gap: 12px;
             transition: 0.3s;
             border: 1px solid transparent;
+            color: #888;
         }
 
         .nav-item:hover, .nav-item.active {
             background: var(--glass);
             border-color: var(--glass-border);
+            color: #fff;
         }
 
-        /* HEADER & SETTINGS */
-        .top-nav {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            padding: 20px;
-            position: absolute;
-            top: 0; right: 0; width: 100%;
-            z-index: 10;
-        }
-
-        .toggle-btn {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            font-size: 13px;
-        }
-
-        /* CALENDAR SECTION (REPORT) */
+        /* CONTENT */
         .main-content {
             flex: 1;
-            padding: 80px 40px 40px 40px;
+            padding: 40px;
             overflow-y: auto;
+            position: relative;
+        }
+
+        .page-section { display: none; animation: fadeIn 0.5s ease; }
+        .page-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* POST & CALENDAR CARDS */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 10px;
-            margin-top: 20px;
         }
 
         .day-card {
-            background: var(--glass);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--glass-border);
             aspect-ratio: 1/1;
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 10px;
             display: flex;
             flex-direction: column;
@@ -120,21 +119,23 @@
             transition: 0.2s;
         }
 
-        .day-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
+        .day-card:hover { background: var(--glass); transform: scale(1.05); }
+        .profit { color: #10b981; font-weight: bold; }
+        .loss { color: #ef4444; font-weight: bold; }
 
-        .profit { color: #10b981; font-weight: bold; font-size: 14px; }
-        .loss { color: #ef4444; font-weight: bold; font-size: 14px; }
-        .day-num { font-size: 12px; opacity: 0.5; }
+        /* TOP NAV */
+        .top-nav {
+            position: absolute; top: 20px; right: 40px; display: flex; gap: 10px; z-index: 50;
+        }
 
-        /* MODAL (Тэмдэглэл харах) */
-        #note-modal {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 400px; background: var(--bg);
-            border: 1px solid var(--accent);
-            padding: 30px; border-radius: 20px; z-index: 100;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        .toggle-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
@@ -143,79 +144,93 @@
     <div class="bg-overlay"></div>
 
     <div class="top-nav">
-        <button class="toggle-btn" onclick="toggleLang()" id="langBtn">Mongolia (MN)</button>
-        <button class="toggle-btn" onclick="toggleTheme()" id="themeBtn">Dark Mode</button>
+        <button class="toggle-btn" onclick="toggleLang()" id="langBtn">MN</button>
+        <button class="toggle-btn" onclick="toggleTheme()" id="themeBtn">Dark</button>
     </div>
 
     <div class="sidebar">
-        <h2 style="margin-left: 15px;">34 <span style="color: var(--accent);">FOREX</span></h2>
-        <div class="nav-item" onclick="showSection('feed')"><span>🏠</span> <span class="ln" data-mn="Нүүр хуудас" data-en="Home">Нүүр хуудас</span></div>
-        <div class="nav-item active" onclick="showSection('report')"><span>📅</span> <span class="ln" data-mn="Тайлан" data-en="Report">Тайлан</span></div>
+        <div class="logo">34 <span>FOREX</span></div>
+        <div class="nav-item active" id="nav-home" onclick="showPage('home')">
+            <span>🏠</span> <span class="ln" data-mn="Нүүр хуудас" data-en="Home">Нүүр хуудас</span>
+        </div>
+        <div class="nav-item" id="nav-report" onclick="showPage('report')">
+            <span>📅</span> <span class="ln" data-mn="Тайлан" data-en="Report">Тайлан</span>
+        </div>
         <div class="nav-item"><span>🎓</span> <span class="ln" data-mn="Сургалт" data-en="Academy">Сургалт</span></div>
         <div class="nav-item"><span>📡</span> <span class="ln" data-mn="Дохио" data-en="Signals">Дохио</span></div>
     </div>
 
-    <div class="main-content" id="report-section">
-        <h2 class="ln" data-mn="4-р сарын тайлан" data-en="April Report">4-р сарын тайлан</h2>
+    <div class="main-content">
         
-        <div class="calendar-grid" id="calendar">
+        <div id="home-page" class="page-section active">
+            <h2 class="ln" data-mn="Арилжаачдын талбар" data-en="Traders Feed">Арилжаачдын талбар</h2>
+            <div class="card">
+                <div style="display:flex; gap:15px; align-items:center; margin-bottom:15px;">
+                    <div style="width:40px; height:40px; background:var(--accent); border-radius:50%;"></div>
+                    <b>Б. Бат-Эрдэнэ</b>
+                </div>
+                <p>Gold дээр өнөөдөр маш гоё Buy Setup харагдаж байна. Liquidity sweep хийгдлээ.</p>
+                <div style="width:100%; height:200px; background:#111; border-radius:10px; margin-top:10px; border:1px dashed #333; display:flex; align-items:center; justify-content:center; color:#555;">
+                    TradingView Chart Image Here
+                </div>
             </div>
-    </div>
+        </div>
 
-    <div id="note-modal">
-        <h3 id="modal-date">2026.04.15</h3>
-        <p id="modal-profit" class="profit">+50 Pips ($120)</p>
-        <p style="color: #888; line-height: 1.6;">Сургамж: RSI overbought байх үед хүлээцтэй байж, supply zone дээр баталгаажуулалт авч орсон нь зөв байлаа.</p>
-        <button class="toggle-btn" style="width: 100%; margin-top: 20px;" onclick="closeModal()">Хаах</button>
+        <div id="report-page" class="page-section">
+            <h2 class="ln" data-mn="Арилжааны тайлан (4-р сар)" data-en="Trading Report (April)">Арилжааны тайлан (4-р сар)</h2>
+            <div class="calendar-grid" id="calendar">
+                </div>
+        </div>
+
     </div>
 
     <script>
-        // Theme & Lang Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const isDark = body.getAttribute('data-theme') === 'dark';
-            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            document.getElementById('themeBtn').innerText = isDark ? 'Light Mode' : 'Dark Mode';
+        // ХУУДАС СОЛИХ ФУНКЦ
+        function showPage(pageName) {
+            // Бүх хуудсыг нуух
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('report-page').classList.remove('active');
+            
+            // Цэсний идэвхийг арилгах
+            document.getElementById('nav-home').classList.remove('active');
+            document.getElementById('nav-report').classList.remove('active');
+
+            // Сонгосон хуудсыг харуулах
+            document.getElementById(pageName + '-page').classList.add('active');
+            document.getElementById('nav-' + pageName).classList.add('active');
         }
 
+        // ХУАНЛИ ҮҮСГЭХ
+        const calendar = document.getElementById('calendar');
+        for (let i = 1; i <= 30; i++) {
+            const isProfit = Math.random() > 0.5;
+            const amount = (Math.random() * 100).toFixed(0);
+            const day = document.createElement('div');
+            day.className = 'day-card';
+            day.innerHTML = `
+                <span style="font-size:12px; opacity:0.5;">${i}</span>
+                <span class="${isProfit ? 'profit' : 'loss'}">${isProfit ? '+' : '-'}${amount}P</span>
+            `;
+            calendar.appendChild(day);
+        }
+
+        // ХЭЛ СОЛИХ
         function toggleLang() {
             const btn = document.getElementById('langBtn');
-            const isMN = btn.innerText.includes('MN');
-            btn.innerText = isMN ? 'English (EN)' : 'Mongolia (MN)';
-            
+            const isMN = btn.innerText === 'MN';
+            btn.innerText = isMN ? 'EN' : 'MN';
             document.querySelectorAll('.ln').forEach(el => {
                 el.innerText = isMN ? el.getAttribute('data-en') : el.getAttribute('data-mn');
             });
         }
 
-        // Хуанли үүсгэх
-        const calendar = document.getElementById('calendar');
-        for (let i = 1; i <= 30; i++) {
-            const day = document.createElement('div');
-            day.className = 'day-card';
-            
-            // Дурын өгөгдөл оруулав (Жишээ)
-            const isProfit = Math.random() > 0.4;
-            const amount = (Math.random() * 100).toFixed(0);
-            
-            day.innerHTML = `
-                <span class="day-num">${i}</span>
-                <span class="${isProfit ? 'profit' : 'loss'}">${isProfit ? '+' : '-'}${amount} P</span>
-                <span style="font-size: 10px; opacity: 0.6;">0.50 Lot</span>
-            `;
-            
-            day.onclick = () => showModal(i, isProfit, amount);
-            calendar.appendChild(day);
+        // DARK/LIGHT MODE
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('themeBtn').innerText = isDark ? 'Light' : 'Dark';
         }
-
-        function showModal(day, isProfit, amount) {
-            document.getElementById('modal-date').innerText = `2026.04.${day}`;
-            document.getElementById('modal-profit').innerText = `${isProfit ? '+' : '-'}${amount} Pips`;
-            document.getElementById('modal-profit').className = isProfit ? 'profit' : 'loss';
-            document.getElementById('note-modal').style.display = 'block';
-        }
-
-        function closeModal() { document.getElementById('note-modal').style.display = 'none'; }
     </script>
 </body>
 </html>
