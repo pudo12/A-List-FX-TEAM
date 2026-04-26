@@ -3,132 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>34 | Forex Academy & Journal</title>
+    <title>34 | Forex Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #000000; --card: #0a0a0a; --text: #ffffff;
             --blue: #1a56db; --green: #10b981; --red: #ef4444; --border: #222222;
         }
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
-        nav { padding: 1rem 5%; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); margin: 0; transition: 0.3s; }
         
+        /* 1. НЭВТРЭХ ХЭСЭГ (ЭХЛЭЭД ХАРАГДАНА) */
+        #auth-gate {
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+            background: radial-gradient(circle at center, #1a56db22 0%, #000 70%);
+        }
+        .auth-card {
+            background: var(--card); padding: 3rem; border-radius: 2rem; border: 1px solid var(--border);
+            width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* 2. ҮНДСЭН КОНТЕНТ (НЭВТЭРСНИЙ ДАРАА ХАРАГДАНА) */
+        #main-app { display: none; } /* Эхлээд нуух */
+
+        nav { padding: 1rem 5%; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
         .container { padding: 2rem 5%; max-width: 1200px; margin: 0 auto; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        
-        /* Статистик хэсэг */
-        .stat-card { background: var(--card); padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border); text-align: center; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: var(--green); }
-        
-        /* Журнал болон Пост */
         .card { background: var(--card); padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
-        input, textarea, select { 
-            width: 100%; padding: 0.8rem; margin: 0.5rem 0; border-radius: 0.5rem; 
-            border: 1px solid var(--border); background: #111; color: white; box-sizing: border-box;
+        
+        input, textarea { 
+            width: 100%; padding: 1rem; margin: 0.5rem 0; border-radius: 0.8rem; 
+            border: 1px solid var(--border); background: #111; color: white; box-sizing: border-box; font-size: 1rem;
         }
-        .btn { background: var(--blue); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 0.5rem; cursor: pointer; width: 100%; font-weight: 600; }
-        
-        /* TradingView Image Link */
-        .tv-img { width: 100%; border-radius: 0.5rem; margin-top: 1rem; border: 1px solid var(--border); }
-        
-        .tab-menu { display: flex; gap: 1rem; margin-bottom: 2rem; overflow-x: auto; }
-        .tab-btn { background: none; border: 1px solid var(--border); color: white; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; }
+        .btn { background: var(--blue); color: white; border: none; padding: 1rem; border-radius: 0.8rem; cursor: pointer; width: 100%; font-weight: 600; font-size: 1rem; }
+        .btn:hover { opacity: 0.9; }
+
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--green); }
+        .tab-menu { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .tab-btn { background: none; border: 1px solid var(--border); color: white; padding: 0.6rem 1.2rem; border-radius: 2rem; cursor: pointer; }
         .tab-btn.active { background: var(--blue); border-color: var(--blue); }
+        .tv-img { width: 100%; border-radius: 0.5rem; margin-top: 1rem; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div style="font-size: 1.5rem; font-weight: 700;">34 <span style="color: var(--blue);">FOREX</span></div>
-    <div id="userStatus">Шалгаж байна...</div>
-</nav>
-
-<div class="container">
-    <div class="tab-menu">
-        <button class="tab-btn active" onclick="showPage('stats')">Статистик</button>
-        <button class="tab-btn" onclick="showPage('journal')">Арилжааны Журнал</button>
-        <button class="tab-btn" onclick="showPage('training')">Сургалт</button>
-        <button class="tab-btn" onclick="showPage('community')">Хэлэлцүүлэг</button>
-    </div>
-
-    <div id="stats-page">
-        <div class="grid">
-            <div class="stat-card"><div>Өнөөдрийн Ашиг</div><div class="stat-value">+120 Pips</div></div>
-            <div class="stat-card"><div>Энэ сарын Ашиг</div><div class="stat-value" style="color: var(--blue);">+1,450 Pips</div></div>
-            <div class="stat-card"><div>Нийт Ололт</div><div class="stat-value">$3,420</div></div>
-        </div>
-    </div>
-
-    <div id="journal-page" style="display:none;">
-        <div class="card">
-            <h3>Шинэ тэмдэглэл хөтлөх</h3>
-            <div class="grid" style="grid-template-columns: 1fr 1fr;">
-                <input type="number" id="pips" placeholder="Pips (жишээ: +50)">
-                <input type="number" id="profit" placeholder="Ашиг/Алдагдал ($)">
-            </div>
-            <input type="text" id="tvLink" placeholder="TradingView Зургийн линк">
-            <textarea id="lesson" placeholder="Энэ арилжаанаас сурсан сургамж..."></textarea>
-            <button class="btn" onclick="saveTrade()">Журналд хадгалах</button>
-        </div>
+<div id="auth-gate">
+    <div class="auth-card">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">34 <span style="color: var(--blue);">FOREX</span></h1>
+        <p id="auth-sub" style="color: #888; margin-bottom: 2rem;">Арилжааны ертөнцөд тавтай морил</p>
         
-        <div id="tradeLogs">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; color: var(--green);">
-                    <strong>+45 Pips ($200)</strong>
-                    <span>2026-04-26</span>
-                </div>
-                <p><strong>Сургамж:</strong> Хүлээцтэй байж баталгаажуулалт хүлээсэн нь зөв байлаа.</p>
-                <img src="https://s3.tradingview.com/i/i9u3NfXp_mid.png" class="tv-img" alt="Chart">
+        <input type="email" id="email" placeholder="Email хаяг">
+        <input type="password" id="password" placeholder="Нууц үг">
+        <button class="btn" onclick="handleAuth()">Нэвтрэх / Бүртгүүлэх</button>
+        
+        <p style="font-size: 0.8rem; color: #555; margin-top: 1.5rem;">
+            Шинэ хэрэглэгч бол автоматаар бүртгэл үүснэ.
+        </p>
+    </div>
+</div>
+
+<div id="main-app">
+    <nav>
+        <div style="font-size: 1.5rem; font-weight: 700;">34 <span style="color: var(--blue);">FOREX</span></div>
+        <button class="tab-btn" onclick="handleLogout()" style="border-color: var(--red); color: var(--red);">Гарах</button>
+    </nav>
+
+    <div class="container">
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="showPage('stats')">Статистик</button>
+            <button class="tab-btn" onclick="showPage('journal')">Журнал</button>
+            <button class="tab-btn" onclick="showPage('training')">Сургалт</button>
+        </div>
+
+        <div id="stats-page">
+            <div class="grid">
+                <div class="card" style="text-align: center;"><div>Өнөөдрийн Ашиг</div><div class="stat-value">+120 Pips</div></div>
+                <div class="card" style="text-align: center;"><div>Сарын Ашиг</div><div class="stat-value" style="color: var(--blue);">+1,450 Pips</div></div>
+                <div class="card" style="text-align: center;"><div>Нийт Balance</div><div class="stat-value">$3,420</div></div>
             </div>
         </div>
-    </div>
 
-    <div id="training-page" style="display:none;">
-        <div class="grid">
+        <div id="journal-page" style="display:none;">
             <div class="card">
-                <div style="background: #111; height: 180px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;">
-                    ▶️ Video Thumbnail
-                </div>
-                <h4>1. SMC-ийн үндсэн ойлголт</h4>
-                <p style="font-size: 0.8rem; color: #888;">Order Block ба Liquidity хэрхэн тодорхойлох вэ?</p>
-                <button class="btn" style="margin-top: 1rem;">Үзэх</button>
+                <h3>Шинэ тэмдэглэл</h3>
+                <input type="number" id="pips" placeholder="Pips (+/-)">
+                <input type="text" id="tvLink" placeholder="TradingView Link">
+                <textarea id="lesson" placeholder="Сургамж..."></textarea>
+                <button class="btn" onclick="alert('Хадгалагдлаа!')">Хадгалах</button>
             </div>
         </div>
-    </div>
 
-    <div id="community-page" style="display:none;">
-        <div class="card">
-            <textarea placeholder="Юу бодож байна? Санал бодлоо хуваалцаарай..."></textarea>
-            <button class="btn">Постлох</button>
+        <div id="training-page" style="display:none;">
+            <div class="grid">
+                <div class="card">
+                    <div style="background: #111; height: 150px; border-radius: 0.5rem; margin-bottom: 1rem;"></div>
+                    <h4>SMC Strategy Guide</h4>
+                    <button class="btn">Үзэх</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+    // SUPABASE ТОХИРГОО (ӨӨРИЙНХӨӨГ ТАВИАРАЙ)
+    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+    const SUPABASE_KEY = 'YOUR_ANON_KEY';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // АУТЕНТИКАЦИ ШАЛГАХ
+    async function handleAuth() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Эхлээд нэвтрэх оролдлого хийнэ
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        
+        if (error) {
+            // Хэрэв байхгүй бол бүртгэнэ
+            const { error: signUpError } = await supabase.auth.signUp({ email, password });
+            if (signUpError) alert(signUpError.message);
+            else alert("Бүртгэл үүслээ! Имелээ шалгана уу.");
+        } else {
+            checkUser();
+        }
+    }
+
+    async function checkUser() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            document.getElementById('auth-gate').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+        }
+    }
+
+    async function handleLogout() {
+        await supabase.auth.signOut();
+        location.reload();
+    }
+
     function showPage(pageId) {
         document.getElementById('stats-page').style.display = 'none';
         document.getElementById('journal-page').style.display = 'none';
         document.getElementById('training-page').style.display = 'none';
-        document.getElementById('community-page').style.display = 'none';
-        
         document.getElementById(pageId + '-page').style.display = 'block';
         
-        // Tab идэвхжүүлэх
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
     }
 
-    async function saveTrade() {
-        const pips = document.getElementById('pips').value;
-        const profit = document.getElementById('profit').value;
-        const tvLink = document.getElementById('tvLink').value;
-        const lesson = document.getElementById('lesson').value;
-
-        if(!pips || !profit) return alert("Мэдээллээ бүрэн оруулна уу!");
-
-        // Энд Supabase руу хадгалах код орно
-        alert("Арилжаа амжилттай хадгалагдлаа! (Supabase холбогдсон үед)");
-    }
+    // Хуудас ачаалахад нэвтэрсэн эсэхийг шалгах
+    checkUser();
 </script>
 
 </body>
