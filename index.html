@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Full Dashboard</title>
+    <title>A-LIST FX | Final Masterpiece</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,6 +13,8 @@
         body.dark-mode {
             --bg: #0b1426; --card: #1e293b; --text: #f8fafc; --border: #334155; --secondary: #94a3b8;
         }
+        
+        /* SCROLL FIX: Body-г хөдөлгөөнгүй болгож, доторх хэсгийг гүйдэг болгоно */
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
         /* HEADER */
@@ -23,44 +25,52 @@
             padding: 0 20px; z-index: 1100;
         }
         .header-actions { display: flex; gap: 20px; }
-        .icon-btn { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text); }
+        .icon-btn { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text); outline: none; }
 
-        /* LAYOUT */
+        /* APP LAYOUT */
         .app-container { display: flex; width: 100%; margin-top: 60px; height: calc(100vh - 60px); }
-        .sidebar-left, .sidebar-right { width: 320px; padding: 20px; border-right: 1px solid var(--border); overflow-y: auto; }
+        
+        .sidebar-left, .sidebar-right { width: 300px; padding: 20px; border-right: 1px solid var(--border); overflow-y: auto; background: var(--bg); }
         .sidebar-right { border-right: none; border-left: 1px solid var(--border); }
-        .main-content { flex: 1; overflow-y: auto; padding: 20px; scrollbar-width: none; }
-        .page { display: none; max-width: 600px; margin: 0 auto; }
+
+        /* MAIN CONTENT - ЭНД SCROLL АЖИЛЛАНА */
+        .main-content { flex: 1; overflow-y: auto; padding: 20px 10px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+        .page { display: none; max-width: 580px; margin: 0 auto; padding-bottom: 100px; } /* Доод зай авсан */
         .page.active { display: block; }
 
         /* STORY */
         .story-wrapper { display: flex; gap: 12px; padding-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
-        .story { min-width: 100px; height: 160px; border-radius: 15px; background: #ddd; position: relative; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
-        .story b { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 11px; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+        .story { min-width: 105px; height: 165px; border-radius: 15px; background: #ddd; position: relative; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
+        .story b { position: absolute; bottom: 10px; left: 10px; color: white; font-size: 11px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
         /* POSTS */
-        .post-card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); }
-        .avatar { width: 42px; height: 42px; border-radius: 50%; background: #ccc; border: 2px solid var(--accent); overflow: hidden; }
+        .post-card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .avatar { width: 45px; height: 45px; border-radius: 50%; background: #ccc; border: 2px solid var(--accent); overflow: hidden; }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* PROFILE */
+        /* PROFILE SPECIAL */
         .elite-badge { background: linear-gradient(135deg, #0070f3, #00c6ff); color: white; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; }
-        .trader-type-tag { font-size: 11px; background: var(--bg); padding: 2px 8px; border-radius: 4px; color: var(--secondary); margin-top: 5px; display: inline-block; }
+        .trader-tag { font-size: 11px; background: var(--bg); padding: 3px 10px; border-radius: 6px; color: var(--secondary); margin-top: 5px; display: inline-block; }
 
-        /* CALENDAR */
+        /* JOURNAL CALENDAR */
         #calendar-view { display: none; margin-top: 20px; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-        .cal-day { min-height: 55px; border-radius: 10px; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; background: var(--card); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .cal-day { min-height: 60px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; background: var(--card); }
         .cal-day span { font-weight: 800; font-size: 11px; margin-top: 4px; }
-        .win { border-color: var(--success); color: var(--success); }
-        .loss { border-color: var(--danger); color: var(--danger); }
+        .win { border-color: var(--success); color: var(--success); background: rgba(0, 200, 83, 0.03); }
+        .loss { border-color: var(--danger); color: var(--danger); background: rgba(255, 23, 68, 0.03); }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 420px; background: var(--card); padding: 25px; border-radius: 24px; z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        /* MODALS */
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 420px; background: var(--card); padding: 25px; border-radius: 24px; z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.4); max-height: 80vh; overflow-y: auto; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1500; }
-        .btn-prime { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: 700; cursor: pointer; margin-top: 15px; }
-        label { display: block; margin-top: 12px; font-size: 13px; font-weight: 600; }
-        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); box-sizing: border-box; font-family: inherit; }
+        .btn-prime { background: var(--accent); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: 700; cursor: pointer; margin-top: 15px; }
+
+        /* SETTINGS ELEMENTS */
+        .set-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border); }
+        .check-item { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; font-size: 14px; }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        label { font-size: 13px; font-weight: 700; color: var(--secondary); display: block; margin-bottom: 5px; }
+        input[type="text"], select, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; box-sizing: border-box; }
 
         @media (max-width: 1024px) { .sidebar-left, .sidebar-right { display: none; } }
     </style>
@@ -68,7 +78,7 @@
 <body>
 
     <header class="header">
-        <div class="logo" style="font-weight: 800; color: var(--accent); font-size: 24px;">A-LIST FX</div>
+        <div class="logo" style="font-weight: 800; color: var(--accent); font-size: 24px; letter-spacing: -1px;">A-LIST FX</div>
         <div class="header-actions">
             <button class="icon-btn" onclick="showPage('home')">🏠</button>
             <button class="icon-btn" onclick="showPage('academy')">🎓</button>
@@ -80,66 +90,78 @@
     <div class="app-container">
         <aside class="sidebar-left">
             <h3 style="color:var(--accent);">Dashboard</h3>
-            <div onclick="showPage('home')" style="padding:10px; cursor:pointer;">🏠 Newsfeed</div>
-            <div onclick="showPage('academy')" style="padding:10px; cursor:pointer;">🎓 Сургалт</div>
-            <div onclick="showPage('signals')" style="padding:10px; cursor:pointer;">📡 Сигнал</div>
-            <div onclick="showPage('profile')" style="padding:10px; cursor:pointer;">👤 Профайл</div>
+            <div onclick="showPage('home')" style="padding:12px; cursor:pointer; font-weight:600;">🏠 Newsfeed</div>
+            <div onclick="showPage('academy')" style="padding:12px; cursor:pointer; font-weight:600;">🎓 Academy</div>
+            <div onclick="showPage('signals')" style="padding:12px; cursor:pointer; font-weight:600;">📡 VIP Signals</div>
+            <div onclick="showPage('profile')" style="padding:12px; cursor:pointer; font-weight:600;">👤 My Profile</div>
         </aside>
 
-        <main class="main-content">
+        <main class="main-content" id="scroll-area">
             
             <div id="home-page" class="page active">
                 <div class="story-wrapper">
-                    <div class="story" style="background:var(--accent); display:flex; align-items:center; justify-content:center; color:white; font-size:35px;">+</div>
-                    <div class="story"><b>GD-7</b></div>
-                    <div class="story"><b>Profit</b></div>
-                    <div class="story"><b>SMC</b></div>
+                    <div class="story" style="background:var(--accent); display:flex; align-items:center; justify-content:center; color:white; font-size:40px;">+</div>
+                    <div class="story"><img src="https://via.placeholder.com/105x165" alt=""><b>My Day</b></div>
+                    <div class="story"><img src="https://via.placeholder.com/105x165" alt=""><b>Market</b></div>
+                    <div class="story"><img src="https://via.placeholder.com/105x165" alt=""><b>Lifestyle</b></div>
                 </div>
+
                 <div class="post-card">
-                    <textarea placeholder="Шинэ шинжилгээ..." style="width:100%; border:none; outline:none; resize:none; background:transparent;"></textarea>
-                    <button class="btn-prime" style="width:auto; padding:5px 20px; float:right;">Нийтлэх</button>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <div class="avatar"></div>
+                        <textarea placeholder="Юу болж байна?" style="flex:1; border:none; outline:none; resize:none; padding:10px; background:transparent;"></textarea>
+                    </div>
+                    <button class="btn-prime" style="width:auto; padding:7px 25px; float:right;">Нийтлэх</button>
                     <div style="clear:both;"></div>
                 </div>
+
+                <div class="post-card">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <div class="avatar" style="background:gold;"></div>
+                        <div><b>Admin Master</b><br><small>1 цагийн өмнө</small></div>
+                    </div>
+                    <p>Өнөөдрийн EUR/USD шинжилгээ бэлэн боллоо.</p>
+                    <div style="width:100%; height:300px; background:#f9f9f9; border-radius:10px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border);">Chart Preview</div>
+                </div>
+                <div class="post-card"><p>Scroll шалгах пост 2...</p></div>
+                <div class="post-card"><p>Scroll шалгах пост 3...</p></div>
             </div>
 
             <div id="academy-page" class="page">
-                <h2>🎓 Сургалтууд</h2>
-                <div class="post-card"><h3>1. Анхан шат</h3></div>
-                <div class="post-card"><h3>2. Ахисан шат</h3></div>
-                <div class="post-card"><h3>3. Elite Strategy</h3></div>
+                <h2>🎓 Academy</h2>
+                <div class="post-card"><h3>Level 1: Beginner</h3></div>
+                <div class="post-card"><h3>Level 2: Advanced</h3></div>
+                <div class="post-card"><h3>Level 3: Elite SMC</h3></div>
             </div>
 
             <div id="signals-page" class="page">
-                <h2>📡 Сигнал</h2>
-                <button class="btn-prime" style="background:#0088cc;">🔵 Telegram Channel</button>
-                <button class="btn-prime" style="background:#5865F2; margin-top:10px;">🟣 Discord Community</button>
+                <h2>📡 VIP Signals</h2>
+                <button class="btn-prime" style="background:#0088cc;">Join Telegram Group</button>
+                <button class="btn-prime" style="background:#5865f2; margin-top:10px;">Join Discord Server</button>
             </div>
 
             <div id="profile-page" class="page">
                 <div style="text-align:center;">
-                    <div id="prof-img-display" onclick="openModal('settings-modal')" style="width:100px; height:100px; border-radius:50%; background:#ddd; margin:0 auto 15px; border:4px solid var(--accent); cursor:pointer; overflow:hidden;">
-                        <img src="https://via.placeholder.com/100" id="user-photo" style="width:100%; height:100%; object-fit:cover;">
+                    <div onclick="openModal('settings-modal')" style="width:110px; height:110px; border-radius:50%; background:#ddd; margin:0 auto 15px; border:4px solid var(--accent); cursor:pointer; overflow:hidden;">
+                        <img src="https://via.placeholder.com/110" id="user-photo-view" style="width:100%; height:100%; object-fit:cover;">
                     </div>
-                    
-                    <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                        <h2 id="user-name-display" style="margin:0;">Арилжаачин</h2>
+                    <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+                        <h2 id="user-name-view" style="margin:0;">Day Trader</h2>
                         <span class="elite-badge">ELITE</span>
                         <div style="cursor:pointer; font-size:20px;" onclick="openModal('settings-modal')">⋮</div>
                     </div>
-                    
-                    <div class="trader-type-tag" id="user-type-display">Day Trader</div>
-                    <br>
-                    <h4 onclick="openModal('settings-modal')" style="color:var(--accent); cursor:pointer; text-decoration:underline; margin-top:15px;">Арилжаачны тэмдэглэл</h4>
-                    
+                    <div class="trader-tag" id="user-type-view">Day Trader</div>
+                    <p id="user-bio-view" style="color:var(--secondary); font-size:13px; margin-top:10px;">Арилжааны тэмдэглэл...</p>
+
                     <div class="post-card" style="text-align:left; margin-top:25px;">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <b>📊 Журнал</b>
-                            <select id="unit-switch" onchange="renderCal()" style="padding:4px; border-radius:8px; font-size:11px;">
-                                <option value="usd">Доллар ($)</option>
-                                <option value="pip">Pips (P)</option>
+                            <b>📊 Journal</b>
+                            <select id="unit-toggle" onchange="renderCal()" style="padding:5px; border-radius:8px;">
+                                <option value="usd">$</option>
+                                <option value="pip">P</option>
                             </select>
                         </div>
-                        <h4 onclick="toggleCal()" style="color:var(--accent); cursor:pointer; margin-top:20px; text-align:center; background:rgba(0,112,243,0.05); padding:10px; border-radius:10px;">📅 Хуанли (Ашиг/Алдагдал)</h4>
+                        <h4 onclick="toggleCal()" style="color:var(--accent); cursor:pointer; text-align:center; background:rgba(0,112,243,0.05); padding:12px; border-radius:12px; margin-top:20px;">📅 View Calendar Profits</h4>
                         <div id="calendar-view"><div class="cal-grid" id="main-cal"></div></div>
                     </div>
                 </div>
@@ -148,60 +170,64 @@
         </main>
 
         <aside class="sidebar-right">
-            <h4>🔔 Мэдэгдэл</h4>
-            <div class="post-card" style="font-size:12px;">🔥 NFP мэдээ 5 минутын дараа!</div>
-            <h4 style="margin-top:20px;">🌍 Мэдээ</h4>
-            <p style="font-size:12px; color:var(--secondary);">USD Index өсөлттэй байна.</p>
+            <h4>🔔 Notifications</h4>
+            <div class="post-card" style="font-size:12px;">Welcome back!</div>
         </aside>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
     <div class="modal" id="settings-modal">
-        <h3 style="margin-top:0;">⚙️ Профайл тохиргоо</h3>
+        <h3 style="margin-top:0; border-bottom:1px solid var(--border); padding-bottom:10px;">⚙️ Settings</h3>
         
-        <label>Профайл зураг (URL):</label>
-        <input type="text" id="in-photo" placeholder="Зургийн линк...">
+        <div class="set-group">
+            <label>Profile Image URL:</label>
+            <input type="text" id="in-photo">
+            <label>Display Name:</label>
+            <input type="text" id="in-name">
+            <label>Trader Type:</label>
+            <select id="in-type">
+                <option value="Day Trader">Day Trader</option>
+                <option value="Swing Trader">Swing Trader</option>
+                <option value="Scalper">Scalper</option>
+            </select>
+        </div>
 
-        <label>Нэр:</label>
-        <input type="text" id="in-name" placeholder="Таны нэр...">
+        <div class="set-group">
+            <label>🔔 Notifications:</label>
+            <div class="check-item"><span>VIP Signals</span><input type="checkbox" checked></div>
+            <div class="check-item"><span>Market News</span><input type="checkbox" checked></div>
+            <div class="check-item"><span>System Alerts</span><input type="checkbox"></div>
+        </div>
 
-        <label>Арилжааны төрөл:</label>
-        <select id="in-type">
-            <option value="Day Trader">Day Trader</option>
-            <option value="Swing Trader">Swing Trader</option>
-            <option value="Scalper">Scalper</option>
-        </select>
+        <div class="set-group">
+            <label>Language & Mode:</label>
+            <select id="in-lang"><option>Mongolian</option><option>English</option></select>
+            <select style="margin-top:10px;" onchange="toggleDark(this.value)">
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
 
-        <label>Хэл сонгох:</label>
-        <select id="in-lang">
-            <option value="mn">Монгол</option>
-            <option value="en">English</option>
-        </select>
-
-        <label>Тэмдэглэл (Bio):</label>
+        <label>Bio / Notes:</label>
         <textarea id="in-bio" rows="2"></textarea>
 
-        <label>Горим:</label>
-        <select id="in-mode" onchange="toggleDark(this.value)">
-            <option value="light">Light Mode</option>
-            <option value="dark">Dark Mode</option>
-        </select>
-
-        <button class="btn-prime" onclick="saveAllSettings()">Бүгдийг хадгалах</button>
+        <button class="btn-prime" onclick="saveSettings()">Save All Changes</button>
     </div>
 
     <div class="modal" id="trade-modal">
-        <h3 id="mt-date">Арилжаа</h3>
-        <p id="mt-status" style="font-weight:800; font-size:20px;"></p>
-        <p id="mt-note" style="background:var(--bg); padding:15px; border-radius:12px; font-size:14px; line-height:1.6;"></p>
-        <button class="btn-prime" onclick="closeAllModals()">Хаах</button>
+        <h3 id="mt-date">Date</h3>
+        <p id="mt-status" style="font-weight:800; font-size:22px;"></p>
+        <p id="mt-note" style="background:var(--bg); padding:15px; border-radius:15px; font-size:14px; line-height:1.6;"></p>
+        <button class="btn-prime" onclick="closeAllModals()">Close</button>
     </div>
 
     <script>
         function showPage(p) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
+            // Хуудас солиход scroll-ыг дээш нь авна
+            document.getElementById('scroll-area').scrollTop = 0;
         }
 
         function toggleCal() {
@@ -220,34 +246,35 @@
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         }
 
-        function saveAllSettings() {
+        function saveSettings() {
             const name = document.getElementById('in-name').value;
             const photo = document.getElementById('in-photo').value;
             const type = document.getElementById('in-type').value;
             const bio = document.getElementById('in-bio').value;
 
-            if(name) document.getElementById('user-name-display').innerText = name;
-            if(photo) document.getElementById('user-photo').src = photo;
-            if(type) document.getElementById('user-type-display').innerText = type;
-            
+            if(name) document.getElementById('user-name-view').innerText = name;
+            if(photo) document.getElementById('user-photo-view').src = photo;
+            if(type) document.getElementById('user-type-view').innerText = type;
+            if(bio) document.getElementById('user-bio-view').innerText = bio;
+
             closeAllModals();
         }
 
         function renderCal() {
             const grid = document.getElementById('main-cal');
-            const unit = document.getElementById('unit-switch').value;
+            const unit = document.getElementById('unit-toggle').value;
             grid.innerHTML = '';
             for(let i=1; i<=30; i++) {
-                const d = document.createElement('div');
                 const isWin = i % 3 !== 0;
+                const d = document.createElement('div');
                 d.className = 'cal-day ' + (isWin ? 'win' : 'loss');
-                const valTxt = unit === 'usd' ? (isWin?`+$${i*20}`:`-$${i*10}`) : (isWin?`+${i}P`:`-${i/2}P`);
-                d.innerHTML = `<small>${i}</small><span>${valTxt}</span>`;
+                const val = unit === 'usd' ? (isWin?`+$${i*30}`:`-$${i*15}`) : (isWin?`+${i*2}P`:`-${i}P`);
+                d.innerHTML = `<small>${i}</small><span>${val}</span>`;
                 d.onclick = () => {
-                    document.getElementById('mt-date').innerText = `${i}-ны арилжаа`;
-                    document.getElementById('mt-status').innerText = valTxt;
+                    document.getElementById('mt-date').innerText = `April ${i}, 2026`;
+                    document.getElementById('mt-status').innerText = val;
                     document.getElementById('mt-status').style.color = isWin ? 'var(--success)' : 'var(--danger)';
-                    document.getElementById('mt-note').innerText = isWin ? "✅ Баримталсан төлөвлөгөөний дагуу ашигтай ажиллалаа." : "❌ Эрсдэлийн удирдлага алдагдсан тул алдагдал хүлээв.";
+                    document.getElementById('mt-note').innerText = isWin ? "✅ Trade hit Take Profit. SMC Strategy followed." : "❌ Stop Loss hit. Market volatility was high.";
                     openModal('trade-modal');
                 };
                 grid.appendChild(d);
