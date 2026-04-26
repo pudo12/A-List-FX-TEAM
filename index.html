@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX | Professional Dashboard</title>
+    <title>A-LIST FX | Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,15 +17,21 @@
             --danger: #ef4444;
         }
 
-        body { 
-            margin: 0; background: var(--bg); color: var(--text); 
-            font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; 
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --secondary: #94a3b8;
         }
+
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; transition: 0.3s; }
 
         /* HEADER */
         .header {
             position: fixed; top: 0; left: 0; right: 0; height: 70px;
-            background: white; border-bottom: 1px solid var(--border);
+            background: var(--card); border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 1100;
         }
@@ -35,19 +41,18 @@
         
         .icon-btn {
             width: 42px; height: 42px; border-radius: 50%;
-            background: #f1f5f9; color: var(--text);
+            background: var(--bg); color: var(--text);
             display: flex; align-items: center; justify-content: center;
-            border: none; cursor: pointer; font-size: 18px; transition: 0.2s;
+            border: 1px solid var(--border); cursor: pointer; font-size: 18px;
         }
-        .icon-btn.active { background: var(--accent); color: white; }
 
         /* SIDEBAR (Laptop) */
         .sidebar { 
-            width: 250px; background: white; border-right: 1px solid var(--border); 
+            width: 250px; background: var(--card); border-right: 1px solid var(--border); 
             padding: 90px 15px 20px; display: flex; flex-direction: column; gap: 8px;
         }
         .side-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--secondary); display: flex; align-items: center; gap: 10px; }
-        .side-item.active { background: #eff6ff; color: var(--accent); }
+        .side-item.active { background: var(--bg); color: var(--accent); border: 1px solid var(--border); }
 
         /* MAIN */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; margin-top: 70px; }
@@ -55,33 +60,20 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* CARDS */
-        .card { 
-            background: var(--card); border: 1px solid var(--border); 
-            border-radius: 20px; padding: 20px; margin-bottom: 15px;
-        }
-
-        /* REPORT STUFF */
-        .report-stat { padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; cursor: pointer; transition: 0.2s; }
-        .report-stat:active { transform: scale(0.98); }
-        
-        .time-filter { display: flex; gap: 5px; margin-bottom: 15px; overflow-x: auto; scrollbar-width: none; }
-        .filter-btn { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 12px; white-space: nowrap; cursor: pointer; }
-        .filter-btn.active { background: var(--text); color: white; border-color: var(--text); }
-
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 15px; }
-        .day { height: 30px; border-radius: 6px; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 15px; }
 
         /* MODALS */
         .modal { 
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 90%; max-width: 400px; background: white; padding: 25px; border-radius: 24px; 
-            z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
+            width: 90%; max-width: 400px; background: var(--card); padding: 25px; border-radius: 24px; 
+            z-index: 2000; box-shadow: 0 30px 60px rgba(0,0,0,0.2); border: 1px solid var(--border);
         }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1500; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
 
-        select, input { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; border: 1px solid var(--border); font-family: inherit; box-sizing: border-box; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-family: inherit; box-sizing: border-box; }
         .btn-prime { background: var(--accent); color: white; border: none; width: 100%; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+
+        .stat-box { padding: 15px; border-radius: 15px; border: 1px solid var(--border); text-align: center; cursor: pointer; }
 
         @media (max-width: 1024px) { .sidebar { display: none; } }
     </style>
@@ -107,113 +99,94 @@
 
     <div class="main-wrapper">
         <div class="content-scroll">
-            
-            <div id="home-page" class="page active">
-                <div class="card"><b>Admin</b>: Өнөөдрийн мэдээ гарлаа.</div>
-            </div>
-
-            <div id="academy-page" class="page">
-                <h2>🎓 Сургалт</h2>
-                <div class="card">1. Анхан | 2. Ахисан | 3. Elite</div>
-            </div>
-
-            <div id="signals-page" class="page">
-                <h2>📡 Сигнал</h2>
-                <div class="card">
-                    <button class="btn-prime" style="background:#5865F2; margin-bottom:10px;">Discord</button>
-                    <button class="btn-prime" style="background:#0088cc;">Telegram</button>
-                </div>
-            </div>
+            <div id="home-page" class="page active"><div class="card">Мэдээ оруулаагүй байна.</div></div>
+            <div id="academy-page" class="page"><h2>🎓 Сургалт</h2><div class="card">1. Basic | 2. Advanced | 3. Elite</div></div>
+            <div id="signals-page" class="page"><h2>📡 Сигнал</h2><div class="card"><button class="btn-prime" style="background:#5865F2;">Discord</button></div></div>
 
             <div id="profile-page" class="page">
                 <div style="text-align:center; padding:20px 0;">
-                    <div style="width:100px; height:100px; border-radius:50%; border:4px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.05); margin:0 auto 15px; background:#ddd;"></div>
+                    <div style="width:90px; height:90px; border-radius:50%; border:3px solid var(--accent); margin:0 auto 15px; background:#ddd;"></div>
                     <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                        <h2 id="display-name" style="margin:0;">Арилжаачин</h2>
-                        <span style="background:var(--accent); color:white; padding:2px 10px; border-radius:8px; font-size:11px; font-weight:700;">ELITE</span>
-                        <div style="font-size:20px; cursor:pointer;" onclick="openModal('report-modal')">⋮</div>
+                        <h2 id="disp-name" style="margin:0;">Арилжаачин</h2>
+                        <span style="background:var(--accent); color:white; padding:2px 8px; border-radius:6px; font-size:10px;">ELITE</span>
+                        <div style="cursor:pointer; font-size:20px;" onclick="openModal('edit-modal')">⋮</div>
                     </div>
-                    <p id="display-type" style="color:var(--secondary); font-size:13px; margin-top:5px;">Day Trader | Scalper</p>
-                    <button onclick="openModal('edit-modal')" style="background:none; border:1px solid var(--border); padding:6px 15px; border-radius:10px; font-size:12px; margin-top:10px; cursor:pointer;">Профайл засах ⚙️</button>
+                    <p id="disp-style" style="color:var(--secondary); font-size:12px;">Day Trader | Scalper</p>
+                    
+                    <div class="card" style="margin-top:20px;">
+                        <h4 style="margin:0 0 15px 0;">📊 Өнөөдрийн гүйцэтгэл</h4>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <div class="stat-box" style="color:var(--success);" onclick="openNote('Ололт: EURUSD Buy\nШалтгаан: Support бүсээс Order block-оор оров.')">
+                                <small>Ашиг</small><br><b>+$1,240</b>
+                            </div>
+                            <div class="stat-box" style="color:var(--danger);" onclick="openNote('Алдагдал: XAUUSD Sell\nШалтгаан: News spike - SL цохив.')">
+                                <small>Алдагдал</small><br><b>-$210</b>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h4 style="border-bottom:1px solid var(--border); padding-bottom:10px;">Миний постууд</h4>
-                <div class="card">Одоогоор пост оруулаагүй байна.</div>
+                <h4 style="border-bottom:1px solid var(--border); padding-bottom:8px;">Миний тэмдэглэл</h4>
+                <p id="disp-note" style="font-size:13px; color:var(--secondary);">Тэмдэглэл хоосон байна.</p>
             </div>
-
         </div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
 
-    <div class="modal" id="report-modal">
-        <h3 style="margin-top:0;">📊 Тайлан & Шүүлтүүр</h3>
-        
-        <div class="time-filter">
-            <button class="filter-btn active">Өнөөдөр</button>
-            <button class="filter-btn">7 хоног</button>
-            <button class="filter-btn">Сар</button>
-            <button class="filter-btn">Бүх цаг</button>
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
-            <div class="report-stat" style="background:#f0fdf4; border-color:#bbf7d0;" onclick="openNote('Profit: $1,240\nPair: EUR/USD\nStrategy: SMC')">
-                <small>Ашиг</small><br><b style="color:var(--success);">+$1,240</b>
-            </div>
-            <div class="report-stat" style="background:#fef2f2; border-color:#fecaca;" onclick="openNote('Loss: -$210\nPair: XAU/USD\nReason: Stop Loss hit')">
-                <small>Алдагдал</small><br><b style="color:var(--danger);">-$210</b>
-            </div>
-        </div>
-        
-        <div class="report-stat" style="background:#eff6ff; border-color:#bfdbfe; margin-bottom:15px;" onclick="openNote('Total Pips: 450\nAverage: 45 pips per trade')">
-            <small>Нийт Pips</small><br><b style="color:var(--accent);">+450 P</b>
-        </div>
-
-        <div class="calendar-grid" id="report-cal"></div>
-        <button class="btn-prime" style="margin-top:20px; background:#64748b;" onclick="closeAllModals()">Хаах</button>
-    </div>
-
-    <div class="modal" id="note-modal" style="z-index:2100;">
-        <h3 style="margin:0 0 10px 0;">📝 Арилжааны тэмдэглэл</h3>
-        <p id="note-content" style="font-size:14px; line-height:1.6; white-space:pre-line; color:var(--secondary); background:#f8fafc; padding:15px; border-radius:12px;"></p>
-        <button class="btn-prime" onclick="document.getElementById('note-modal').style.display='none'">Ойлголоо</button>
-    </div>
-
     <div class="modal" id="edit-modal">
-        <h3>⚙️ Тохиргоо</h3>
-        <label style="font-size:12px; font-weight:700;">Арилжааны арга барил:</label>
-        <select id="in-type">
+        <h3 style="margin:0 0 15px 0;">⚙️ Профайл засах</h3>
+        
+        <label>Арилжаачны нэр:</label>
+        <input type="text" id="in-name" placeholder="Нэр...">
+
+        <label>Арилжаачны тэмдэглэл:</label>
+        <textarea id="in-note" rows="3" placeholder="Өөрийн тухай эсвэл стратеги..."></textarea>
+
+        <label>Арга барил:</label>
+        <select id="in-style">
             <option value="Day Trader">Day Trader</option>
             <option value="Scalper">Scalper</option>
             <option value="Swing Trader">Swing Trader</option>
-            <option value="Position Trader">Position Trader</option>
         </select>
-        <label style="font-size:12px; font-weight:700;">Харагдац:</label>
-        <select id="in-privacy">
-            <option value="Public">Public (Нээлттэй)</option>
-            <option value="Private">Private (Нууц)</option>
-        </select>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div>
+                <label>Хэл:</label>
+                <select id="in-lang">
+                    <option value="MN">Монгол</option>
+                    <option value="EN">English</option>
+                </select>
+            </div>
+            <div>
+                <label>Горим:</label>
+                <select id="in-mode" onchange="toggleDarkMode(this.value)">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+        </div>
+
         <button class="btn-prime" onclick="saveProfile()">Хадгалах</button>
+    </div>
+
+    <div class="modal" id="note-modal" style="z-index:2500;">
+        <h4 style="margin:0 0 10px 0;">📝 Арилжааны тэмдэглэл</h4>
+        <p id="note-txt" style="font-size:13px; line-height:1.6; background:var(--bg); padding:15px; border-radius:12px;"></p>
+        <button class="btn-prime" onclick="document.getElementById('note-modal').style.display='none'">Хаах</button>
     </div>
 
     <script>
         function showPage(p) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            document.querySelectorAll('.icon-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.icon-btn, .side-item').forEach(el => el.classList.remove('active'));
             document.getElementById('m-' + p).classList.add('active');
-            document.querySelectorAll('.side-item').forEach(item => item.classList.remove('active'));
-            document.getElementById('s-' + p).classList.add('active');
+            if(document.getElementById('s-' + p)) document.getElementById('s-' + p).classList.add('active');
         }
 
         function openModal(id) {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById(id).style.display = 'block';
-            if(id === 'report-modal') renderReportCal();
-        }
-
-        function openNote(content) {
-            document.getElementById('note-content').innerText = content;
-            document.getElementById('note-modal').style.display = 'block';
         }
 
         function closeAllModals() {
@@ -221,30 +194,25 @@
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         }
 
+        function openNote(txt) {
+            document.getElementById('note-txt').innerText = txt;
+            document.getElementById('note-modal').style.display = 'block';
+        }
+
         function saveProfile() {
-            document.getElementById('display-type').innerText = document.getElementById('in-type').value;
+            const name = document.getElementById('in-name').value;
+            const note = document.getElementById('in-note').value;
+            const style = document.getElementById('in-style').value;
+            if(name) document.getElementById('disp-name').innerText = name;
+            if(note) document.getElementById('disp-note').innerText = note;
+            document.getElementById('disp-style').innerText = style;
             closeAllModals();
         }
 
-        function renderReportCal() {
-            const grid = document.getElementById('report-cal');
-            grid.innerHTML = '';
-            for(let i=1; i<=28; i++) {
-                const day = document.createElement('div');
-                day.className = 'day';
-                day.innerText = i;
-                day.style.background = Math.random() > 0.4 ? '#dcfce7' : '#fee2e2';
-                grid.appendChild(day);
-            }
+        function toggleDarkMode(mode) {
+            if(mode === 'dark') document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
         }
-
-        // Time Filter Button Toggle
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
     </script>
 </body>
 </html>
