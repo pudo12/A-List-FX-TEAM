@@ -3,37 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-LIST FX TEAM | Full Platform</title>
+    <title>A-LIST FX TEAM | Ultimate Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #FF4D4D;
             --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --bg: #0b0c10;
             --text: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] {
+            --bg: #f0f2f5;
+            --text: #1a1a1a;
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
         }
 
         body {
             margin: 0; background: var(--bg); color: var(--text);
             font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden;
+            transition: 0.3s;
         }
 
         /* АРЫН ФОН */
         .bg-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1611095773163-97a30b7aa24d?q=80&w=2071') no-repeat center center/cover;
-            filter: blur(50px) brightness(0.35); z-index: -1;
+            filter: blur(40px) brightness(0.4); z-index: -1;
         }
 
         /* SIDEBAR */
         .sidebar {
-            width: 260px; background: rgba(0,0,0,0.4); backdrop-filter: blur(40px);
+            width: 260px; background: rgba(0,0,0,0.3); backdrop-filter: blur(35px);
             border-right: 1px solid var(--glass-border); padding: 35px 20px;
             display: flex; flex-direction: column; z-index: 100;
         }
 
-        .logo { font-size: 20px; font-weight: 800; margin-bottom: 40px; color: #fff; }
+        .logo { font-size: 22px; font-weight: 800; margin-bottom: 40px; }
         .logo span { color: var(--accent); }
 
         .nav-item {
@@ -42,47 +52,61 @@
         }
         .nav-item:hover, .nav-item.active { background: var(--glass); opacity: 1; border: 1px solid var(--glass-border); }
 
-        /* MAIN CONTENT */
-        .main-wrapper { flex: 1; display: flex; overflow: hidden; }
-        .content-scroll { flex: 1; padding: 30px; overflow-y: auto; }
-        
-        .right-panel {
-            width: 320px; padding: 30px 20px; background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(25px); border-left: 1px solid var(--glass-border);
+        /* SETTINGS (Top Right) */
+        .top-settings {
+            position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 200;
         }
 
-        /* CARDS */
+        /* MAIN CONTENT */
+        .main-wrapper { flex: 1; display: flex; overflow: hidden; }
+        .content-scroll { flex: 1; padding: 30px; overflow-y: auto; padding-top: 70px; }
+        
+        .right-panel {
+            width: 320px; padding: 30px 20px; background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px); border-left: 1px solid var(--glass-border);
+            padding-top: 70px;
+        }
+
         .card {
-            background: var(--glass); border-radius: 24px; padding: 22px;
+            background: var(--card-bg); border-radius: 24px; padding: 22px;
             border: 1px solid var(--glass-border); margin-bottom: 24px; backdrop-filter: blur(15px);
         }
 
-        .avatar { width: 45px; height: 45px; border-radius: 50%; background: #444; cursor: pointer; border: 2px solid var(--accent); }
-
         /* CALENDAR */
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 15px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 15px; }
         .day {
-            background: rgba(255,255,255,0.03); aspect-ratio: 1; border-radius: 10px; padding: 6px;
-            border: 1px solid var(--glass-border); cursor: pointer; font-size: 10px;
+            background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 15px; padding: 10px;
+            border: 1px solid var(--glass-border); cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
         }
-        .profit { color: #10b981; font-weight: 700; }
-        .loss { color: #FF4D4D; font-weight: 700; }
+        .day:hover { background: var(--accent); }
+        .profit { color: #10b981; font-weight: 800; }
+        .loss { color: #FF4D4D; font-weight: 800; }
 
-        /* SOCIAL LINKS */
-        .social-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 600; margin-bottom: 12px; transition: 0.3s; }
-        .discord { background: #5865F2; color: white; }
-        .telegram { background: #0088cc; color: white; }
+        /* MODAL */
+        .modal {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 90%; max-width: 800px; max-height: 80vh; background: var(--card-bg);
+            border: 1px solid var(--glass-border); padding: 30px; border-radius: 30px; z-index: 1000;
+            backdrop-filter: blur(50px); overflow-y: auto;
+        }
 
+        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; }
+        .btn-outline { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; }
+        
         .page { display: none; }
         .page.active { display: block; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: 600; }
-        
-        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--accent); }
+
+        .social-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: 15px; text-decoration: none; font-weight: 600; margin-bottom: 12px; }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
     <div class="bg-overlay"></div>
+
+    <div class="top-settings">
+        <button class="btn-outline" onclick="toggleLang()">MN / EN</button>
+        <button class="btn-outline" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
 
     <div class="sidebar">
         <div class="logo">A-LIST <span>FX TEAM</span></div>
@@ -90,7 +114,7 @@
         <div class="nav-item" onclick="showPage('academy')">🎓 Сургалт</div>
         <div class="nav-item" onclick="showPage('signals')">📡 Сигнал</div>
         <div style="margin-top: auto;">
-            <div class="nav-item" onclick="showProfile('Миний Профайл')">👤 Миний Профайл</div>
+            <div class="nav-item" onclick="showProfile('Миний Профайл')">👤 Профайл</div>
         </div>
     </div>
 
@@ -99,127 +123,149 @@
             
             <div id="home-page" class="page active">
                 <div class="card">
-                    <textarea style="width:100%; background:none; border:none; color:white; outline:none; font-family:inherit;" rows="2" placeholder="Өнөөдрийн арилжааны төлөвлөгөө..."></textarea>
-                    <button class="btn" style="float:right">Постлох</button>
+                    <textarea style="width:100%; background:none; border:none; color:inherit; outline:none; font-family:inherit;" rows="2" placeholder="Шинэ шинжилгээ хуваалцах..."></textarea>
+                    <button class="btn" style="float:right">Нийтлэх</button>
                     <div style="clear:both"></div>
                 </div>
 
                 <div class="card">
                     <div style="display:flex; gap:12px; align-items:center; margin-bottom:15px;">
-                        <div class="avatar" onclick="showProfile('Б. Бат-Эрдэнэ')"></div>
-                        <div>
-                            <div style="font-weight:700; cursor:pointer;" onclick="showProfile('Б. Бат-Эрдэнэ')">Б. Бат-Эрдэнэ</div>
-                            <div style="font-size:12px; opacity:0.6;">A-List Elite Trader</div>
+                        <div style="width:45px; height:45px; border-radius:50%; background:var(--accent);" onclick="showProfile('Б. Бат-Эрдэнэ')"></div>
+                        <div onclick="showProfile('Б. Бат-Эрдэнэ')" style="cursor:pointer;">
+                            <div style="font-weight:700;">Б. Бат-Эрдэнэ</div>
+                            <div style="font-size:12px; opacity:0.6;">A-List Trader</div>
                         </div>
                     </div>
-                    <p>Gold (XAUUSD) Buy Setup: Model 1 баталгаажлаа.</p>
-                    <div style="height:200px; background:rgba(0,0,0,0.3); border-radius:15px; border:1px solid #333; display:flex; align-items:center; justify-content:center;">TradingView Chart Link</div>
+                    <p>EUR/USD: A-List Model 1 баталгаажлаа. Stop loss-оо 1.0850 дээр тавьж Buy орлоо.</p>
+                    <div style="height:200px; border:1px dashed #555; border-radius:15px; display:flex; align-items:center; justify-content:center;">Chart Image Here</div>
                 </div>
             </div>
 
             <div id="academy-page" class="page">
-                <div class="section-title">Сургалтын сан</div>
-                
-                <h3>1. Анхан шат</h3>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:30px;">
-                    <div class="card">📈 Форекс суурь ойлголт</div>
-                    <div class="card">🕯️ Лааны онол (Candlestick)</div>
-                </div>
-
-                <h3>2. Ахисан түвшин</h3>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:30px;">
-                    <div class="card">🏛️ Market Structure (SMC)</div>
-                    <div class="card">💧 Liquidity & Inducement</div>
-                </div>
-
-                <h3>3. A-List Арга барил</h3>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <div class="card" style="border:1px solid var(--accent)">⚡ A-List Model 1 (Execution)</div>
-                    <div class="card" style="border:1px solid var(--accent)">🎯 Sniper Entry Strategy</div>
-                </div>
+                <h2>Сургалтын хөтөлбөр</h2>
+                <div class="card"><h3>1. Анхан шат</h3><p>Форекс гэж юу вэ? Лааны онол, Суурь шинжилгээ.</p></div>
+                <div class="card"><h3>2. Ахисан түвшин</h3><p>Market Structure, SMC, Liquidity, ICT Concept.</p></div>
+                <div class="card" style="border:1px solid var(--accent);"><h3>3. A-List Арга барил</h3><p>Model 1, Model 2, Sniper Entry Strategy.</p></div>
             </div>
 
             <div id="signals-page" class="page">
-                <div class="section-title">VIP Сигнал сувгууд</div>
+                <h2>Сигнал сувгууд</h2>
                 <div class="card" style="text-align:center;">
-                    <p>Албан ёсны сувгуудад нэгдэж бодит цагийн дохио аваарай.</p>
-                    <a href="https://discord.com" target="_blank" class="social-btn discord">Discord сувагт орох</a>
-                    <a href="https://t.me" target="_blank" class="social-btn telegram">Telegram сувагт орох</a>
+                    <a href="#" class="social-btn" style="background:#5865F2; color:white;">Discord сувагт орох</a>
+                    <a href="#" class="social-btn" style="background:#0088cc; color:white;">Telegram сувагт орох</a>
                 </div>
             </div>
 
             <div id="profile-page" class="page">
                 <h2 id="profile-name">Профайл</h2>
-                <div id="profile-posts-container">
-                    <div class="section-title">Нийтэлсэн постууд</div>
-                    <div class="card">Энэ арилжаачийн сүүлийн үеийн постууд энд жагсаж харагдана.</div>
+                <div class="card">
+                    <h3>Нийтэлсэн постууд</h3>
+                    <p style="opacity:0.6;">Сүүлийн үед нийтэлсэн постууд энд харагдана.</p>
                 </div>
             </div>
-
         </div>
 
         <div class="right-panel">
-            <div id="profile-report-side" style="display:none;">
-                <div class="section-title">Арилжаачны тайлан</div>
-                <div style="display:flex; gap:5px; margin-bottom:15px;">
-                    <button class="btn" style="padding:5px 10px; font-size:12px;" onclick="setMode('pips')">Pips</button>
-                    <button class="btn" style="padding:5px 10px; font-size:12px; background:#444;" onclick="setMode('usd')">USD</button>
-                </div>
-                <div class="card" style="padding:10px;">
-                    <div class="calendar-grid" id="calendar"></div>
+            <div id="news-side">
+                <h4>Мэдээний хуваарь</h4>
+                <div class="card" style="padding:15px; border-left:4px solid var(--accent)">
+                    <b style="color:var(--accent)">21:30</b><br><small>USD: CPI Report</small>
                 </div>
             </div>
 
-            <div id="news-side">
-                <div class="section-title">Мэдээний хуваарь</div>
-                <div class="card" style="padding:15px; border-left:4px solid var(--accent)">
-                    <b style="color:var(--accent)">21:30</b><br><small>USD: NFP News</small>
-                </div>
-                <div class="section-title">Онцлох</div>
-                <div class="card" style="font-size:13px;">DXY Индекс дэмжлэгээ эвдлээ.</div>
+            <div id="profile-report-side" style="display:none;">
+                <h4>Арилжаачны үйлдэл</h4>
+                <button class="btn" style="width:100%; margin-bottom:15px;" onclick="openLargeReport()">📈 Арилжаачны тайлан харах</button>
+                <div class="card">Амжилт: 75%<br>Ашиг: +1240 Pips</div>
             </div>
         </div>
     </div>
 
+    <div id="report-modal" class="modal">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2>Арилжааны дэлгэрэнгүй тайлан</h2>
+            <button class="btn-outline" onclick="closeLargeReport()">Хаах</button>
+        </div>
+        
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <select class="btn-outline"><option>2026 он</option></select>
+            <select class="btn-outline"><option>4-р сар</option><option>3-р сар</option></select>
+            <div style="margin-left:auto; display:flex; gap:5px;">
+                <button id="pips-btn" class="btn" onclick="setMode('pips')">Pips</button>
+                <button id="usd-btn" class="btn-outline" onclick="setMode('usd')">USD ($)</button>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="calendar"></div>
+    </div>
+
+    <div id="journal-modal" class="modal" style="max-width:400px; z-index:1100;">
+        <h3 id="j-date">4-р сарын 15</h3>
+        <p id="j-val" style="font-size:24px;"></p>
+        <div style="background:rgba(0,0,0,0.2); padding:15px; border-radius:15px;">
+            <b>Тэмдэглэл:</b><br>
+            <p id="j-note">A-List Model 1 ашиглан EURUSD дээр 1:3 RR-тэй арилжаа хийсэн. Liquidity sweep-ийг зөв тодорхойлсон.</p>
+        </div>
+        <button class="btn" style="width:100%; margin-top:20px;" onclick="closeJournal()">Хаах</button>
+    </div>
+
     <script>
-        let reportMode = 'pips';
+        let mode = 'pips';
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            
-            // Баруун талын самбарыг солих
             document.getElementById('profile-report-side').style.display = (p === 'profile') ? 'block' : 'none';
             document.getElementById('news-side').style.display = (p === 'profile') ? 'none' : 'block';
-            
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            if(event && event.currentTarget.classList) event.currentTarget.classList.add('active');
         }
 
         function showProfile(name) {
             showPage('profile');
             document.getElementById('profile-name').innerText = name;
+        }
+
+        function openLargeReport() {
+            document.getElementById('report-modal').style.display = 'block';
             renderCalendar();
         }
 
+        function closeLargeReport() { document.getElementById('report-modal').style.display = 'none'; }
+
         function setMode(m) {
-            reportMode = m;
+            mode = m;
+            document.getElementById('pips-btn').className = m === 'pips' ? 'btn' : 'btn-outline';
+            document.getElementById('usd-btn').className = m === 'usd' ? 'btn' : 'btn-outline';
             renderCalendar();
         }
 
         function renderCalendar() {
             const cal = document.getElementById('calendar');
             cal.innerHTML = '';
-            for(let i=1; i<=28; i++) {
+            for(let i=1; i<=30; i++) {
                 const isUp = Math.random() > 0.4;
-                const p = (Math.random()*40).toFixed(0);
+                const p = (Math.random()*45).toFixed(0);
                 const u = (p * 10).toFixed(0);
                 const day = document.createElement('div');
                 day.className = 'day';
-                day.innerHTML = `<span class="${isUp?'profit':'loss'}">${isUp?'+':'-'}${reportMode==='pips'?p+'P':u+'$'}</span>`;
+                day.innerHTML = `<span style="opacity:0.4">${i}</span><span class="${isUp?'profit':'loss'}">${isUp?'+':'-'}${mode==='pips'?p+'P':'$'+u}</span>`;
+                day.onclick = (e) => {
+                    e.stopPropagation();
+                    openJournal(i, isUp, mode==='pips'?p+' Pips':'$'+u);
+                };
                 cal.appendChild(day);
             }
         }
+
+        function openJournal(day, isUp, val) {
+            document.getElementById('j-date').innerText = `4-р сарын ${day}`;
+            document.getElementById('j-val').innerText = val;
+            document.getElementById('j-val').className = isUp ? 'profit' : 'loss';
+            document.getElementById('journal-modal').style.display = 'block';
+        }
+
+        function closeJournal() { document.getElementById('journal-modal').style.display = 'none'; }
+        function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+        function toggleLang() { alert("Хэл солих функц бэлэн боллоо (MN/EN)"); }
     </script>
 </body>
 </html>
