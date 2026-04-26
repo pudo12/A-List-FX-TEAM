@@ -2,8 +2,8 @@
 <html lang="mn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A-LIST FX | Swipe & Trade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-LIST FX | Premium Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,51 +15,49 @@
             --card-bg: rgba(255, 255, 255, 0.05);
         }
 
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; touch-action: pan-y; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; height: 100vh; overflow: hidden; }
 
         .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1611095773163-97a30b7aa24d?q=80&w=2071') no-repeat center center/cover; filter: blur(60px) brightness(0.2); z-index: -1; }
 
         /* DESKTOP SIDEBAR */
-        .sidebar { width: 280px; background: rgba(0,0,0,0.4); backdrop-filter: blur(40px); border-right: 1px solid var(--glass-border); padding: 35px 25px; display: flex; flex-direction: column; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 800; margin-bottom: 40px; }
+        .sidebar { width: 260px; background: rgba(0,0,0,0.4); backdrop-filter: blur(40px); border-right: 1px solid var(--glass-border); padding: 35px 20px; display: flex; flex-direction: column; z-index: 100; }
+        .logo { font-size: 22px; font-weight: 800; margin-bottom: 40px; color: white; text-decoration: none; }
         .logo span { color: var(--accent); }
-        .nav-item { padding: 14px 18px; border-radius: 15px; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: 0.3s; opacity: 0.7; }
+        .nav-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; transition: 0.3s; opacity: 0.7; }
         .nav-item.active { background: var(--glass); opacity: 1; border: 1px solid var(--glass-border); }
 
         /* MAIN CONTENT */
         .main-wrapper { flex: 1; display: flex; overflow: hidden; position: relative; }
-        .content-scroll { flex: 1; padding: 25px; overflow-y: auto; scrollbar-width: none; }
-        .right-panel { width: 350px; padding: 25px; background: rgba(0,0,0,0.1); backdrop-filter: blur(30px); border-left: 1px solid var(--glass-border); }
+        .content-scroll { flex: 1; padding: 20px; overflow-y: auto; scrollbar-width: none; }
+        .right-panel { width: 340px; padding: 25px; background: rgba(0,0,0,0.1); backdrop-filter: blur(30px); border-left: 1px solid var(--glass-border); }
 
         /* CARDS */
-        .card { background: var(--card-bg); border-radius: 24px; padding: 20px; border: 1px solid var(--glass-border); margin-bottom: 20px; backdrop-filter: blur(20px); }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 18px; border: 1px solid var(--glass-border); margin-bottom: 15px; backdrop-filter: blur(15px); }
         
-        /* STORY */
-        .stories-wrapper { display: flex; gap: 12px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
-        .story-card { min-width: 90px; height: 150px; border-radius: 18px; border: 2px solid var(--accent); background-size: cover; cursor: pointer; flex-shrink: 0; }
+        /* STORY & NEWS */
+        .stories-wrapper { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
+        .story-card { min-width: 85px; height: 130px; border-radius: 15px; border: 2px solid var(--accent); background-size: cover; cursor: pointer; flex-shrink: 0; }
+        .news-strip { background: linear-gradient(90deg, var(--accent), #ff8e8e); color: white; padding: 10px; border-radius: 12px; font-weight: 700; margin-bottom: 20px; font-size: 14px; }
 
-        /* MOBILE BOTTOM NAV */
-        .mobile-nav { display: none; position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); justify-content: space-around; align-items: center; z-index: 1000; }
+        /* MOBILE TOP & BOTTOM */
+        .mobile-header { display: none; position: fixed; top: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; box-sizing: border-box; }
+        .mobile-nav { display: none; position: fixed; bottom: 0; width: 100%; height: 65px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); justify-content: space-around; align-items: center; z-index: 1000; }
 
-        /* SWIPE OVERLAYS (Mobile Only) */
-        .swipe-overlay { display: none; position: fixed; top: 0; width: 100%; height: calc(100% - 70px); background: #0b0c10; z-index: 900; overflow-y: auto; padding: 20px; box-sizing: border-box; transition: transform 0.3s ease; transform: translateX(100%); }
-        .swipe-overlay.active { display: block; transform: translateX(0); }
-        .swipe-left { transform: translateX(-100%); }
+        /* THREE DOTS MENU */
+        .three-dots { cursor: pointer; font-size: 24px; padding: 5px; }
 
-        .avatar-lg { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent); margin: 0 auto 15px; position: relative; cursor: pointer; background-size: cover; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .day { background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 6px; font-size: 9px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); }
+        /* CALENDAR */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .day { background: rgba(255,255,255,0.05); aspect-ratio: 1; border-radius: 5px; font-size: 9px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); }
 
-        /* INPUTS */
-        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; }
-        .btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700; width: 100%; }
+        /* MODALS */
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; background: #16181d; border: 1px solid var(--glass-border); padding: 25px; border-radius: 25px; z-index: 2000; }
+        .btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 10px; }
 
         @media (max-width: 1024px) {
             .sidebar, .right-panel { display: none; }
-            .mobile-nav { display: flex; }
-            .main-wrapper { margin-bottom: 70px; }
-            .content-scroll { padding: 15px; }
-            .swipe-hint { display: block; text-align: center; font-size: 10px; opacity: 0.5; margin-bottom: 10px; }
+            .mobile-header, .mobile-nav { display: flex; }
+            .content-scroll { padding-top: 75px; padding-bottom: 80px; }
         }
     </style>
 </head>
@@ -67,160 +65,150 @@
 
     <div class="bg-overlay"></div>
 
+    <div class="mobile-header">
+        <div style="font-weight: 800; font-size: 18px;">A-LIST <span style="color:var(--accent)">FX</span></div>
+        <div id="prof-settings-btn" style="display:none;" onclick="openModal('edit-modal')">
+            <div class="three-dots">⋮</div>
+        </div>
+        <div id="general-btns" style="display:flex; gap:10px;">
+            <button onclick="toggleTheme()" style="background:none; border:none; color:white;">🌓</button>
+        </div>
+    </div>
+
     <div class="sidebar">
         <div class="logo">A-LIST <span>FX</span></div>
-        <div class="nav-item active" onclick="showPage('home')">🏠 Нүүр хуудас</div>
-        <div class="nav-item" onclick="showPage('academy')">🎓 Сургалт</div>
-        <div class="nav-item" onclick="showPage('signals')">📡 Сигнал</div>
-        <div class="nav-item" onclick="showPage('profile')">👤 Профайл</div>
+        <div class="nav-item active" onclick="showPage('home', this)">🏠 Нүүр хуудас</div>
+        <div class="nav-item" onclick="showPage('academy', this)">🎓 Сургалт</div>
+        <div class="nav-item" onclick="showPage('signals', this)">📡 Сигнал</div>
+        <div class="nav-item" onclick="showPage('profile', this)">👤 Профайл</div>
     </div>
 
-    <div id="overlay-academy" class="swipe-overlay swipe-left">
-        <h2>🎓 Сургалтын сан</h2>
-        <div class="card"><h3>Анхан</h3><p>Суурь ойлголт</p></div>
-        <div class="card"><h3>Ахисан</h3><p>SMC/ICT</p></div>
-        <button class="btn" onclick="closeOverlays()">Буцах</button>
-    </div>
-
-    <div id="overlay-news" class="swipe-overlay">
-        <h2>🔥 Онцлох мэдээ</h2>
-        <div class="card"><b>21:30</b><br>USD: CPI Inflation Data Coming</div>
-        <div class="card"><b>Top Trader</b><br>Baterdene +500 Pips today</div>
-        <button class="btn" onclick="closeOverlays()">Буцах</button>
-    </div>
-
-    <div id="overlay-edit" class="swipe-overlay swipe-left">
-        <h2>⚙️ Профайл засах</h2>
-        <input type="text" id="in-name" placeholder="Шинэ нэр">
-        <input type="text" id="in-broker" placeholder="Брокер">
-        <select id="in-rank"><option>Beginner</option><option>Elite</option></select>
-        <button class="btn" onclick="saveSettings()">Хадгалах</button>
-    </div>
-
-    <div id="overlay-report" class="swipe-overlay">
-        <h2>📊 Арилжааны тайлан</h2>
-        <div class="card">
-            <div class="calendar-grid" id="large-cal"></div>
-        </div>
-        <button class="btn" onclick="closeOverlays()">Буцах</button>
-    </div>
-
-    <div class="main-wrapper" id="swipe-zone">
+    <div class="main-wrapper">
         <div class="content-scroll">
             
             <div id="home-page" class="page active">
-                <div class="swipe-hint">← Мэдээ | Сургалт →</div>
+                <div class="news-strip">🔥 CPI Мэдээ: USD хүчтэй хөдөлгөөн үзүүллээ!</div>
                 <div class="stories-wrapper">
                     <div class="story-card" style="border-style:dashed; display:flex; align-items:center; justify-content:center;">+</div>
                     <div class="story-card" style="background-image:url('https://images.unsplash.com/photo-1611095773163-97a30b7aa24d?q=80&w=100')"></div>
                 </div>
                 <div class="card">
-                    <textarea style="width:100%; background:none; border:none; color:white; outline:none;" placeholder="Шинжилгээ..."></textarea>
-                    <button class="btn" style="width:auto; float:right; padding:5px 15px;">Постлох</button>
+                    <textarea style="width:100%; background:none; border:none; color:white; outline:none;" placeholder="Шинжилгээ хуваалцах..."></textarea>
+                    <button class="btn" style="width:auto; float:right; padding:6px 20px; margin:0;">Постлох</button>
                     <div style="clear:both"></div>
                 </div>
-                <div class="card"><b>A-List Elite Trader</b>: Gold looking clean.</div>
+                <div class="card"><b>A-List Trader</b>: Gold-ыг Sell хийхэд тохиромжтой бүс.</div>
             </div>
 
             <div id="profile-page" class="page">
-                <div class="swipe-hint">← Тайлан | Засварлах →</div>
                 <div class="card" style="text-align:center;">
-                    <div class="avatar-lg" id="prof-avatar" onclick="document.getElementById('file-input').click()"></div>
+                    <div style="width:90px; height:90px; border-radius:50%; border:3px solid var(--accent); margin:0 auto 10px; background-size:cover; cursor:pointer;" id="prof-avatar" onclick="document.getElementById('file-input').click()"></div>
                     <input type="file" id="file-input" hidden onchange="changeAvatar(this)">
-                    <h2 id="prof-name-text">Арилжаачин</h2>
-                    <span class="badge" id="prof-rank-text" style="background:var(--accent); padding:4px 10px; border-radius:8px;">Elite</span>
-                    <p id="prof-broker-text" style="opacity:0.6; font-size:12px;">IC Markets</p>
+                    <h2 id="prof-name-text" style="margin:5px 0;">Арилжаачин</h2>
+                    <span id="prof-rank-text" style="background:var(--accent); padding:3px 12px; border-radius:8px; font-size:12px;">Elite</span>
+                    <p id="prof-broker-text" style="opacity:0.6; font-size:13px; margin-top:8px;">Брокер: IC Markets</p>
                 </div>
-                <h3>Миний постууд</h3>
-                <div class="card">Пост байхгүй байна.</div>
+                
+                <div class="card" onclick="openModal('report-modal')" style="cursor:pointer;">
+                    <h4 style="margin-top:0;">Арилжааны тайлан</h4>
+                    <div class="calendar-grid" id="mini-cal"></div>
+                    <p style="font-size:10px; text-align:center; opacity:0.5; margin-top:10px;">Дарж дэлгэрэнгүйг үзэх</p>
+                </div>
+                
+                <h3>Нийтэлсэн постууд</h3>
+                <div class="card">Пост одоогоор байхгүй байна.</div>
             </div>
 
-            <div id="academy-page" class="page"><h2>Сургалт</h2></div>
+            <div id="academy-page" class="page">
+                <h2>🎓 Сургалтын сан</h2>
+                <div class="card"><h3>1. Анхан шат</h3></div>
+                <div class="card"><h3>2. Ахисан түвшин</h3></div>
+                <div class="card" style="border:1px solid var(--accent)"><h3>3. A-List Strategy</h3></div>
+            </div>
+
             <div id="signals-page" class="page">
-                <h2>Сигнал</h2>
+                <h2>📡 Сигнал</h2>
                 <div class="card" style="text-align:center;">
-                    <button class="btn" style="background:#5865F2; margin-bottom:10px;">Discord</button>
+                    <button class="btn" style="background:#5865F2;">Discord</button>
                     <button class="btn" style="background:#0088cc;">Telegram</button>
                 </div>
             </div>
+
         </div>
 
         <div class="right-panel">
-            <div id="desktop-news">
-                <h4>Шуурхай мэдээ</h4>
-                <div class="card">USD News - 21:30</div>
+            <div id="d-news">
+                <h4>Онцлох мэдээ</h4>
+                <div class="card">CPI Data - USD Movement</div>
             </div>
-            <div id="desktop-report" style="display:none;">
+            <div id="d-report" style="display:none;">
                 <h4>Тайлан</h4>
-                <div class="card"><div class="calendar-grid" id="mini-cal"></div></div>
+                <div class="card"><div class="calendar-grid" id="mini-cal-d"></div></div>
             </div>
         </div>
     </div>
 
     <div class="mobile-nav">
-        <div onclick="showPage('home')">🏠</div>
-        <div onclick="showPage('academy')" class="desktop-only">🎓</div>
-        <div onclick="showPage('signals')">📡</div>
-        <div onclick="showPage('profile')">👤</div>
+        <div onclick="showPage('home', this)" style="font-size:20px;">🏠</div>
+        <div onclick="showPage('academy', this)" style="font-size:20px;">🎓</div>
+        <div onclick="showPage('signals', this)" style="font-size:20px;">📡</div>
+        <div onclick="showPage('profile', this)" style="font-size:20px;">👤</div>
+    </div>
+
+    <div id="edit-modal" class="modal">
+        <h3>⚙️ Профайл тохиргоо</h3>
+        <label style="font-size:12px;">Нэр солих:</label>
+        <input type="text" id="in-name" style="width:100%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #444; background:none; color:white;">
+        <label style="font-size:12px;">Брокер:</label>
+        <input type="text" id="in-broker" style="width:100%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #444; background:none; color:white;">
+        <button class="btn" onclick="saveSettings()">Хадгалах</button>
+        <button class="btn" style="background:none; border:1px solid #444;" onclick="closeModal('edit-modal')">Болих</button>
+    </div>
+
+    <div id="report-modal" class="modal" style="max-width:600px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>📊 Дэлгэрэнгүй тайлан</h3>
+            <span onclick="closeModal('report-modal')" style="cursor:pointer;">✖</span>
+        </div>
+        <div class="calendar-grid" id="large-cal" style="margin-top:20px;"></div>
+    </div>
+
+    <div id="journal-modal" class="modal" style="max-width:300px; z-index:3000;">
+        <h3 id="j-date">Огноо</h3>
+        <p id="j-val" style="font-size:22px; font-weight:800;"></p>
+        <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:15px; font-size:13px;">
+            Тэмдэглэл: Төлөвлөгөөний дагуу Model 1 ашигласан.
+        </div>
+        <button class="btn" onclick="closeModal('journal-modal')">Хаах</button>
     </div>
 
     <script>
-        let currentPage = 'home';
-        let startX = 0;
-
-        // SWIPE LOGIC
-        document.getElementById('swipe-zone').addEventListener('touchstart', e => {
-            startX = e.touches[0].clientX;
-        });
-
-        document.getElementById('swipe-zone').addEventListener('touchend', e => {
-            let endX = e.changedTouches[0].clientX;
-            let diff = startX - endX;
-
-            if (Math.abs(diff) > 100) { // 100px-с их шударвал
-                if (currentPage === 'home') {
-                    if (diff > 0) openOverlay('overlay-news'); // Зүүн тийш -> Мэдээ
-                    else openOverlay('overlay-academy');       // Баруун тийш -> Сургалт
-                } else if (currentPage === 'profile') {
-                    if (diff > 0) openOverlay('overlay-report'); // Зүүн тийш -> Тайлан
-                    else openOverlay('overlay-edit');           // Баруун тийш -> Засварлах
-                }
-            }
-        });
-
-        function openOverlay(id) {
-            document.getElementById(id).classList.add('active');
-            if(id === 'overlay-report') renderLargeCal();
-        }
-
-        function closeOverlays() {
-            document.querySelectorAll('.swipe-overlay').forEach(el => el.classList.remove('active'));
-        }
-
-        function showPage(p) {
-            currentPage = p;
-            closeOverlays();
+        function showPage(p, el) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
             
-            // Desktop right panel
-            const reportD = document.getElementById('desktop-report');
-            const newsD = document.getElementById('desktop-news');
-            if(p === 'profile') {
-                if(reportD) reportD.style.display = 'block';
-                if(newsD) newsD.style.display = 'none';
-                renderMiniCal();
+            // Mobile-д Профайл дээр байгаа үед 3 цэг харуулах
+            document.getElementById('prof-settings-btn').style.display = (p === 'profile') ? 'block' : 'none';
+            document.getElementById('general-btns').style.display = (p === 'profile') ? 'none' : 'flex';
+
+            // Desktop Right Panel
+            if (p === 'profile') {
+                document.getElementById('d-report').style.display = 'block';
+                document.getElementById('d-news').style.display = 'none';
+                renderCals();
             } else {
-                if(reportD) reportD.style.display = 'none';
-                if(newsD) newsD.style.display = 'block';
+                document.getElementById('d-report').style.display = 'none';
+                document.getElementById('d-news').style.display = 'block';
             }
         }
 
+        function openModal(id) { document.getElementById(id).style.display = 'block'; if(id==='report-modal') renderLargeCal(); }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
         function saveSettings() {
             document.getElementById('prof-name-text').innerText = document.getElementById('in-name').value || "Арилжаачин";
-            document.getElementById('prof-broker-text').innerText = document.getElementById('in-broker').value || "IC Markets";
-            document.getElementById('prof-rank-text').innerText = document.getElementById('in-rank').value;
-            closeOverlays();
+            document.getElementById('prof-broker-text').innerText = "Брокер: " + (document.getElementById('in-broker').value || "IC Markets");
+            closeModal('edit-modal');
         }
 
         function changeAvatar(input) {
@@ -231,28 +219,43 @@
             }
         }
 
-        function renderMiniCal() {
-            const el = document.getElementById('mini-cal');
-            if(!el) return; el.innerHTML = '';
-            for(let i=1; i<=28; i++) {
-                const day = document.createElement('div');
-                day.className = 'day';
-                day.style.borderColor = Math.random() > 0.4 ? '#10b981' : '#FF4D4D';
-                el.appendChild(day);
-            }
+        function renderCals() {
+            const containers = ['mini-cal', 'mini-cal-d'];
+            containers.forEach(id => {
+                const el = document.getElementById(id);
+                if(!el) return; el.innerHTML = '';
+                for(let i=1; i<=28; i++) {
+                    const day = document.createElement('div');
+                    day.className = 'day';
+                    day.style.borderColor = Math.random() > 0.4 ? '#10b981' : '#FF4D4D';
+                    el.appendChild(day);
+                }
+            });
         }
 
         function renderLargeCal() {
             const el = document.getElementById('large-cal');
             el.innerHTML = '';
             for(let i=1; i<=30; i++) {
+                const isUp = Math.random() > 0.4;
+                const val = (Math.random()*60).toFixed(0);
                 const day = document.createElement('div');
                 day.className = 'day';
                 day.style.height = '50px';
-                day.innerHTML = `${i}<br><span style="color:#10b981">+20P</span>`;
+                day.innerHTML = `${i}<br><span style="color:${isUp?'#10b981':'#FF4D4D'}">${isUp?'+':'-'}${val}P</span>`;
+                day.onclick = () => {
+                    document.getElementById('j-date').innerText = `4-р сарын ${i}`;
+                    document.getElementById('j-val').innerText = (isUp?'+':'-') + val + " Pips";
+                    document.getElementById('j-val').style.color = isUp ? '#10b981' : '#FF4D4D';
+                    openModal('journal-modal');
+                };
                 el.appendChild(day);
             }
         }
+
+        function toggleTheme() { document.body.style.filter = document.body.style.filter === 'invert(1)' ? 'invert(0)' : 'invert(1)'; }
+        
+        renderCals(); // Initial load
     </script>
 </body>
 </html>
