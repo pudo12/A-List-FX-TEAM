@@ -933,298 +933,285 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
         <button class="nb" data-p="communities" onclick="navTo('communities',this)"><span class="ni">🏫</span><span data-i="communities">Булгэм</span></button>
         <button class="nb" data-p="chat" onclick="navTo('chat',this)"><span class="ni">💬</span><span data-i="chat">Чат</span><span class="nbdg" id="chatBdg">5</span></button>
       </div>
-      <div class="lsb-foot">
-        <div class="pf-mini glass" onclick="navTo('profile')">
-          <div class="pf-mini-av" id="sbAv"><span id="sbAvL">Т</span></div>
-          <div class="pf-mini-inf"><div class="pf-mini-name" id="sbName">Trader</div><div class="pf-mini-role">ELITE</div></div>
-        </div>
-        <div class="ctrl-row">
-          <div style="flex:2;display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:9px;border:1px solid var(--bd);background:var(--bg3);">
-            <span style="font-size:11px;" id="sbThIco">☀️</span>
-            <label class="ts"><input type="checkbox" id="sbThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
-          </div>
-          <button class="csm" onclick="cycleLang()">🌐 <span id="langLbl">МН</span></button>
-          <button class="csm" onclick="logout()">🚪</button>
-        </div>
-      </div>
-    </aside>
-    <!-- MAIN -->
-    <div class="main-wrap" id="mainWrap">
-      <div class="mob-topbar glass" id="mobTop">
-        <div class="mob-pill on" data-p="home" onclick="navTo('home',null,this)">🏠 Нийтлэл</div>
-        <div class="mob-pill" data-p="academy" onclick="navTo('academy',null,this)">🎓 Сургалт</div>
-        <div class="mob-pill" data-p="signals" onclick="navTo('signals',null,this)">📡 Сигнал</div>
-        <div class="mob-pill" data-p="chat" onclick="navTo('chat',null,this)">💬 Чат</div>
-        <div class="mob-pill" data-p="communities" onclick="navTo('communities',null,this)">🏫 Булгэм</div>
-      </div>
-      <!-- HOME PAGE -->
-      <div class="page on" id="page-home">
-        <div class="live-wrap glass">
-          <div class="live-top">
-            <div>
-              <span class="live-pair" id="livePairName">EUR/USD</span>
-              <span class="ldot-row"><span class="ldot"></span>LIVE</span>
-              <br>
-              <select class="pair-sel" id="pairSel" onchange="changePair(this.value)">
-                <option value="EURUSD">EUR/USD</option><option value="GBPJPY">GBP/JPY</option>
-                <option value="XAUUSD">XAU/USD</option><option value="USDJPY">USD/JPY</option>
-                <option value="BTCUSD">BTC/USD</option><option value="NAS100">NAS100</option>
-              </select>
-            </div>
-            <div style="text-align:right">
-              <div class="live-price" id="livePrice">1.0891</div>
-              <div class="live-chg" id="liveChg">+0.0023 (+0.21%)</div>
-            </div>
-          </div>
-          <canvas id="liveChart" height="72"></canvas>
-        </div>
-        <div class="story-row" id="storyRow">
-          <div class="story-c" onclick="openStoryCreator()">
-            <div class="st-wt" style="height:10px;background:var(--A)"></div>
-            <div class="st-bw st-add"><div class="st-frame" style="background:var(--card2);flex-direction:column;gap:3px;font-size:20px;color:var(--tx2)">＋<span style="font-size:8px;font-weight:700">Нэмэх</span></div></div>
-            <div class="st-wb" style="height:7px;background:var(--A)"></div>
-            <div class="st-nm">Нэмэх</div>
-          </div>
-          <div class="story-c" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">
-            <div class="st-wt" style="height:13px;background:#00e676"></div>
-            <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">📈</div></div>
-            <div class="st-wb" style="height:9px;background:#00e676"></div>
-            <div class="st-nm">Батбаяр</div>
-          </div>
-          <div class="story-c" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">
-            <div class="st-wt" style="height:9px;background:#ff4757"></div>
-            <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">💎</div></div>
-            <div class="st-wb" style="height:12px;background:#ff4757"></div>
-            <div class="st-nm">Оюунтуяа</div>
-          </div>
-          <div class="story-c" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">
-            <div class="st-wt" style="height:11px;background:#00e676"></div>
-            <div class="st-bw"><div class="st-frame" style="background:linear-gradient(135deg,#0a2010,#1a5030)">🎯</div></div>
-            <div class="st-wb" style="height:8px;background:#00e676"></div>
-            <div class="st-nm">Дэлгэр</div>
-          </div>
-          <div class="story-c" onclick="openUserProf('Ариунаа','#a78bfa','#6d28d9','А')">
-            <div class="st-wt" style="height:15px;background:#ffd32a"></div>
-            <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#2a1000,#5a3010)">🏆</div></div>
-            <div class="st-wb" style="height:10px;background:#ffd32a"></div>
-            <div class="st-nm">Ариунаа</div>
-          </div>
-        </div>
-        <div id="postFeed">
-          <div class="post-card">
-            <div class="post-head">
-              <div class="post-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Б</div>
-              <div style="flex:1"><div class="post-author" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Батбаяр</div><div class="post-time">2 цаг өмнө</div></div>
-              <div class="post-badge pbadge-e">ELITE</div>
-            </div>
-            <div class="post-body">📊 EUR/USD шинжилгээ: 1.0890 дэмжлэгийн шугамаас урвуу хөдөлгөөн. SMC BUY боломж. TP: 1.0960 🎯</div>
-            <div class="post-photo"><canvas id="postChart1" height="140"></canvas></div>
-            <div class="post-acts">
-              <div style="position:relative">
-                <button class="pact" id="lb0" onclick="showRP(0,this)">❤️ 24</button>
-                <div class="react-picker" id="rp0" style="display:none;flex-direction:row">
-                  <button class="react-btn" onclick="doReact(0,'like','❤️')">❤️</button>
-                  <button class="react-btn" onclick="doReact(0,'love','😍')">😍</button>
-                  <button class="react-btn" onclick="doReact(0,'money','💰')">💰</button>
-                  <button class="react-btn" onclick="doReact(0,'tp','✅')">✅</button>
-                  <button class="react-btn" onclick="doReact(0,'sl','❌')">❌</button>
-                </div>
-              </div>
-              <button class="pact" onclick="togCmt(this)">💬 8</button>
-              <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
-              <button class="pact" onclick="openDM('Батбаяр','#f0b429')" style="margin-left:auto">✉️</button>
-            </div>
-            <div class="post-comments" id="pc0">
-              <div class="cmt-item"><div class="cmt-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div><div class="cmt-body"><div><span class="cmt-name" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</span><span class="cmt-reply" onclick="setReply('ci0','Батбаяр')">Reply</span></div><div class="cmt-txt">Маш сайн шинжилгээ! Би ч ороод байна 💪</div><div class="cmt-time">1 цаг өмнө</div></div></div>
-              <div class="cmt-item"><div class="cmt-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div><div class="cmt-body"><div><span class="cmt-name">Дэлгэр</span><span class="cmt-reply" onclick="setReply('ci0','Батбаяр')">Reply</span></div><div class="cmt-txt"><span class="cmt-mention">@Батбаяр</span> SL хаана тавьсан бэ?</div><div class="cmt-time">45 мин өмнө</div></div></div>
-              <div class="cmt-irow"><input class="cmt-inp" id="ci0" placeholder="Сэтгэгдэл... (@нэр mention)"><button class="cmt-snd" onclick="addCmt('pc0','ci0')">➤</button></div>
-            </div>
-          </div>
-          <div class="post-card">
-            <div class="post-head">
-              <div class="post-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div>
-              <div style="flex:1"><div class="post-author" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</div><div class="post-time">5 цаг өмнө</div></div>
-              <div class="post-badge" style="background:rgba(240,180,41,.1);color:var(--A2);border:1px solid rgba(240,180,41,.2)">GOLD</div>
-            </div>
-            <div class="post-body">GBP/JPY дээр +$840 авлаа! 🎉 SL-аа эрт хөдөлгөсөн нь зөв байсан. Хүн бүрт амжилт 💪</div>
-            <div class="post-acts">
-              <div style="position:relative">
-                <button class="pact on-like" id="lb1" onclick="showRP(1,this)">❤️ 47</button>
-                <div class="react-picker" id="rp1" style="display:none;flex-direction:row">
-                  <button class="react-btn" onclick="doReact(1,'like','❤️')">❤️</button>
-                  <button class="react-btn" onclick="doReact(1,'love','😍')">😍</button>
-                  <button class="react-btn" onclick="doReact(1,'money','💰')">💰</button>
-                  <button class="react-btn" onclick="doReact(1,'tp','✅')">✅</button>
-                  <button class="react-btn" onclick="doReact(1,'sl','❌')">❌</button>
-                </div>
-              </div>
-              <button class="pact" onclick="togCmt(this)">💬 15</button>
-              <button class="pact on-bk">🔖</button>
-              <button class="pact" onclick="openDM('Оюунтуяа','#00d4aa')" style="margin-left:auto">✉️</button>
-            </div>
-            <div class="post-comments" id="pc1"><div class="cmt-irow"><input class="cmt-inp" id="ci1" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmt('pc1','ci1')">➤</button></div></div>
-          </div>
-          <div class="post-card">
-            <div class="post-head">
-              <div class="post-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">Д</div>
-              <div><div class="post-author" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">Дэлгэр</div><div class="post-time">1 өдөр өмнө</div></div>
-            </div>
-            <div class="post-body">⚠️ XAU/USD — NFP өмнө volatility өндөр. Lot-оо бага тав!</div>
-            <div class="post-link-prev">🔗 Investing.com — NFP Report</div>
-            <div class="post-acts">
-              <div style="position:relative">
-                <button class="pact" id="lb2" onclick="showRP(2,this)">❤️ 18</button>
-                <div class="react-picker" id="rp2" style="display:none;flex-direction:row">
-                  <button class="react-btn" onclick="doReact(2,'like','❤️')">❤️</button>
-                  <button class="react-btn" onclick="doReact(2,'love','😍')">😍</button>
-                  <button class="react-btn" onclick="doReact(2,'money','💰')">💰</button>
-                  <button class="react-btn" onclick="doReact(2,'tp','✅')">✅</button>
-                  <button class="react-btn" onclick="doReact(2,'sl','❌')">❌</button>
-                </div>
-              </div>
-              <button class="pact" onclick="togCmt(this)">💬 5</button>
-              <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
-              <button class="pact" onclick="openDM('Дэлгэр','#ef4444')" style="margin-left:auto">✉️</button>
-            </div>
-            <div class="post-comments" id="pc2"><div class="cmt-irow"><input class="cmt-inp" id="ci2" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmt('pc2','ci2')">➤</button></div></div>
-          </div>
-        </div>
-      </div>
-      <!-- JOURNAL PAGE -->
-      <div class="page" id="page-journal">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">📊 Арилжааны дэвтэр</div><div style="font-size:11px;color:var(--tx2)">4-р сар 2026</div></div>
-        <div class="stat-grid">
-          <div class="stat-box"><div class="stat-lbl">Нийт ашиг</div><div class="stat-num pos">+$4,820</div><div class="stat-sub">↑ 12.4%</div></div>
-          <div class="stat-box"><div class="stat-lbl">Нийт алдагдал</div><div class="stat-num neg">-$1,230</div><div class="stat-sub">↓ 3.2%</div></div>
-          <div class="stat-box"><div class="stat-lbl">Net PnL</div><div class="stat-num pos">+$3,590</div><div class="stat-sub">↑ 9.1%</div></div>
-        </div>
-        <div class="period-row">
-          <button class="pbtn on" onclick="setPeriod(this)">Өдөр</button>
-          <button class="pbtn" onclick="setPeriod(this)">7 хоног</button>
-          <button class="pbtn" onclick="setPeriod(this)">Сар</button>
-          <button class="pbtn" onclick="setPeriod(this)">Жил</button>
-        </div>
-        <div class="cal-wrap"><div class="cal-hrow"><div class="cal-dow">Да</div><div class="cal-dow">Мя</div><div class="cal-dow">Лх</div><div class="cal-dow">Пү</div><div class="cal-dow">Ба</div><div class="cal-dow">Бя</div><div class="cal-dow">Ня</div></div><div class="cal-grid" id="calGrid"></div></div>
-      </div>
-      <!-- PROFILE PAGE -->
-      <div class="page" id="page-profile">
-        <div class="prof-hero">
-          <div class="prof-cover">
-            <div class="prof-cvr-cdls" id="coverCdls"></div>
-            <button class="prof-cvr-edit" onclick="openM('profEditModal')">✏️ Засах</button>
-          </div>
-          <div class="prof-av-anchor">
-            <div class="pac"><div class="pac-wt"></div><div class="pac-body" id="profAvBody"><span id="profAvL">Т</span></div><div class="pac-wb"></div></div>
-          </div>
-          <div class="prof-info">
-            <div class="prof-name-row"><div class="prof-name" id="profName">Trader</div><div class="pbadge pbadge-e">ELITE</div><div class="pbadge pbadge-t" id="profTypeTag">Day Trader</div></div>
-            <div class="prof-handle" id="profHandle">@trader</div>
-            <div class="prof-bio" id="profBio">Арилжааны тэмдэглэл байхгүй...</div>
-            <div class="prof-stats">
-              <div class="pstat"><div class="pstat-num" id="profPostCnt">1</div><div class="pstat-lbl">Нийтлэл</div></div>
-              <div class="pstat"><div class="pstat-num">284</div><div class="pstat-lbl">Дагагч</div></div>
-              <div class="pstat"><div class="pstat-num">97</div><div class="pstat-lbl">Дагаж байна</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="prof-tabs">
-          <button class="prof-tab on" onclick="swProfTab(this,'ptab-posts')">Нийтлэл</button>
-          <button class="prof-tab" onclick="swProfTab(this,'ptab-journal')">Хуанли</button>
-          <button class="prof-tab" onclick="swProfTab(this,'ptab-photos')">Зураг</button>
-          <button class="prof-tab" onclick="swProfTab(this,'ptab-exp')">Туршлага</button>
-        </div>
-        <div id="ptab-posts">
-          <div class="composer glass" style="margin-bottom:11px">
-            <div class="comp-row">
-              <div class="comp-av" id="profCompAv"><span id="profCompAvL">Т</span></div>
-              <textarea class="comp-ta" id="profTxt" placeholder="Профайлдаа нийтлэл бич..."></textarea>
-            </div>
-            <div class="comp-acts">
-              <div class="ctool" onclick="togEl('profLinkA')">🔗 Линк</div>
-              <button class="csub" onclick="submitProfPost()">Нийтлэх</button>
-            </div>
-            <div id="profLinkA" style="display:none;margin-top:7px"><input class="fi" id="profLinkV" placeholder="https://..." style="font-size:12px"></div>
-          </div>
-          <div id="profFeed">
-            <div class="pin-badge">📌 Pinned</div>
-            <div class="post-card">
-              <div class="post-head">
-                <div class="post-av" id="profPostAv" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><span id="profPostAvL">Т</span></div>
-                <div><div class="post-author" id="profPostName">Trader</div><div class="post-time">3 өдөр өмнө</div></div>
-              </div>
-              <div class="post-body">Өнөөдрийн арилжааны дүн: +$320. EUR/USD болон XAU/USD-д ажилласан. 📈</div>
-              <div class="post-acts">
-                <button class="pact" onclick="togLike(this)">❤️ 9</button>
-                <button class="pact" onclick="togCmt(this)">💬 2</button>
-              </div>
-              <div class="post-comments"><div class="cmt-irow"><input class="cmt-inp" id="profci0" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmtEl(this,'profci0')">➤</button></div></div>
-            </div>
-          </div>
-        </div>
-        <div id="ptab-journal" style="display:none">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div style="font-size:13px;font-weight:700">Арилжааны хуанли</div>
-            <div id="privToggle" class="priv-toggle pub" onclick="togglePrivacy()">🌍 Нийтийн</div>
-          </div>
-          <div id="privNote" style="display:none;padding:9px;background:rgba(255,211,42,.05);border:1px solid rgba(255,211,42,.2);border-radius:9px;font-size:11px;color:var(--Y);margin-bottom:9px">🔒 Таны хуанли хувийн горимд байна.</div>
-          <div class="cal-wrap"><div class="cal-hrow"><div class="cal-dow">Да</div><div class="cal-dow">Мя</div><div class="cal-dow">Лх</div><div class="cal-dow">Пү</div><div class="cal-dow">Ба</div><div class="cal-dow">Бя</div><div class="cal-dow">Ня</div></div><div class="cal-grid" id="profCalGrid"></div></div>
-        </div>
-        <div id="ptab-photos" style="display:none">
-          <div class="photo-grid">
-            <div class="photo-cell" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">📈</div>
-            <div class="photo-cell" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">💎</div>
-            <div class="photo-cell" style="background:linear-gradient(135deg,#0a2010,#1a5030)">📊</div>
-            <div class="photo-cell" style="background:linear-gradient(135deg,#2a1000,#5a3010)">🏆</div>
-            <div class="photo-cell" style="background:var(--bg3);border:2px dashed var(--bd2)" onclick="alert('Зураг нэмэх')">＋</div>
-          </div>
-        </div>
-        <div id="ptab-exp" style="display:none">
-          <button class="csub" style="margin-bottom:10px;padding:7px 14px" onclick="openM('expModal')">+ Туршлага нэмэх</button>
-          <div id="expList">
-            <div class="exp-item"><div class="exp-title">Day Trader — Forex</div><div class="exp-sub">2022 - Одоо · EUR/USD, GBP/JPY, XAU/USD</div></div>
-            <div class="exp-item"><div class="exp-title">SMC / ICT Суралцагч</div><div class="exp-sub">2021 - 2022 · Inner Circle Trader</div></div>
-          </div>
-        </div>
-      </div>
-      <!-- ACADEMY -->
-      <div class="page" id="page-academy">
-        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:12px">🎓 Сургалт</div>
-        <div class="ac-grid">
-          <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#0d1b35,#1e3a5f)">📈<span class="ac-lv">BEGINNER</span></div><div class="prog-bar"><div class="prog-fill" style="width:72%"></div></div><div class="ac-info"><div class="ac-name">Форексийн үндэс</div><div class="ac-meta">72% · 18/25</div></div></div>
-          <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">🕯️<span class="ac-lv">ADVANCED</span></div><div class="prog-bar"><div class="prog-fill" style="width:40%;background:var(--A2)"></div></div><div class="ac-info"><div class="ac-name">SMC / ICT Стратеги</div><div class="ac-meta">40% · 8/20</div></div></div>
-          <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#0a2010,#1a5030)">🧠<span class="ac-lv" style="background:rgba(0,212,170,.4)">PSYCH</span></div><div class="prog-bar"><div class="prog-fill" style="width:15%"></div></div><div class="ac-info"><div class="ac-name">Арилжааны сэтгэл зүй</div><div class="ac-meta">15% · 3/22</div></div></div>
-          <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#2a1000,#5a3010)">⚡<span class="ac-lv" style="background:rgba(255,71,87,.5)">ELITE</span></div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div><div class="ac-info"><div class="ac-name">Скальпинг стратеги</div><div class="ac-meta">Эхлээгүй · 30</div></div></div>
-        </div>
-      </div>
-      <!-- SIGNALS -->
-      <div class="page" id="page-signals">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">📡 VIP Сигналууд</div>
-          <button class="csub" onclick="openM('addSigModal')" style="padding:7px 13px">+ Нэмэх</button>
-        </div>
-        <div id="sigFeed">
-          <div class="sig-card bull"><div class="sig-dir buy">BUY</div><div class="sig-inf"><div class="sig-pair">EUR/USD</div><div class="sig-det">Entry 1.0890 · TP 1.0960 · SL 1.0820</div><div class="sig-time">Өнөөдөр 09:15</div><div class="sig-admin-note">🔔 TP дөхөж байна. Хожоо хамгаалаарай! — Admin</div><div class="sig-reacts"><button class="sig-rbtn" onclick="this.classList.toggle('on')">✅ TP орно <span>12</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">❌ SL орно <span>3</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">👀 Хянаж байна <span>8</span></button></div><div class="sig-to-chat" onclick="shareToChat('EUR/USD BUY')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div></div>
-          <div class="sig-card bear"><div class="sig-dir sell">SELL</div><div class="sig-inf"><div class="sig-pair">GBP/JPY</div><div class="sig-det">Entry 186.40 · TP 184.50 · SL 188.20</div><div class="sig-time">Өнөөдөр 11:30</div><div class="sig-reacts"><button class="sig-rbtn on" onclick="this.classList.toggle('on')">✅ TP орно <span>7</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">👀 Хянаж байна <span>5</span></button></div><div class="sig-to-chat" onclick="shareToChat('GBP/JPY SELL')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div></div>
-          <div class="sig-card bull"><div class="sig-dir buy">BUY</div><div class="sig-inf"><div class="sig-pair">XAU/USD</div><div class="sig-det">Entry 2340 · TP 2380 · SL 2295</div><div class="sig-time">Өчигдөр 16:00</div></div><div class="sig-badge tp">✓ TP</div></div>
-          <div class="sig-card bear"><div class="sig-dir sell">SELL</div><div class="sig-inf"><div class="sig-pair">USD/CAD</div><div class="sig-det">Entry 1.3620 · TP 1.3540 · SL 1.3720</div><div class="sig-time">2 өдөр өмнө</div></div><div class="sig-badge sl">✗ SL</div></div>
-        </div>
-      </div>
-      <!-- CHAT -->
-      <div class="page-full" id="page-chat">
-        <div class="chat-msgs" id="chatMsgs">
-          <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Б</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Батбаяр</div><div class="msg-bub">Сайн байна уу! EUR/USD дээр маш сайн боломж байна 📊</div><div class="msg-t">10:24</div></div></div>
-          <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</div><div class="msg-bub">1.0890 entry дотор орсон. TP 1.0960 🎯</div><div class="msg-t">10:31</div></div></div>
-          <div class="msg-row own"><div class="msg-av" id="chatOwnAv" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><span id="chatOwnAvL">Т</span></div><div class="msg-cont"><div class="msg-bub">Би ч мөн орлоо! TP хүрнэ гэдэгт итгэлтэй 🙏</div><div class="msg-t">10:35</div></div></div>
-          <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div><div class="msg-cont"><div class="msg-name">Дэлгэр</div><div class="msg-bub">XAU/USD volatility өндөр байна ⚠️</div><div class="msg-t">10:42</div></div></div>
-        </div>
-        <div class="chat-bar">
-          <div class="mention-pop" id="mentionPop"></div>
-          <input class="chat-inp" id="chatInp" placeholder="Мессеж... (@mention)" oninput="chkMention(this)" onkeydown="if(event.key==='Enter')sendMsg()">
-          <button class="chat-snd" onclick="sendMsg()">➤</button>
-        </div>
-      </div>
 
 ```
+</aside>
+<!-- MAIN -->
+<div class="main-wrap" id="mainWrap">
+  <div class="mob-topbar glass" id="mobTop">
+    <div class="mob-pill on" data-p="home" onclick="navTo('home',null,this)">🏠 Нийтлэл</div>
+    <div class="mob-pill" data-p="academy" onclick="navTo('academy',null,this)">🎓 Сургалт</div>
+    <div class="mob-pill" data-p="signals" onclick="navTo('signals',null,this)">📡 Сигнал</div>
+    <div class="mob-pill" data-p="chat" onclick="navTo('chat',null,this)">💬 Чат</div>
+    <div class="mob-pill" data-p="communities" onclick="navTo('communities',null,this)">🏫 Булгэм</div>
+  </div>
+  <!-- HOME PAGE -->
+  <div class="page on" id="page-home">
+    <div class="live-wrap glass">
+      <div class="live-top">
+        <div>
+          <span class="live-pair" id="livePairName">EUR/USD</span>
+          <span class="ldot-row"><span class="ldot"></span>LIVE</span>
+          <br>
+          <select class="pair-sel" id="pairSel" onchange="changePair(this.value)">
+            <option value="EURUSD">EUR/USD</option><option value="GBPJPY">GBP/JPY</option>
+            <option value="XAUUSD">XAU/USD</option><option value="USDJPY">USD/JPY</option>
+            <option value="BTCUSD">BTC/USD</option><option value="NAS100">NAS100</option>
+          </select>
+        </div>
+        <div style="text-align:right">
+          <div class="live-price" id="livePrice">1.0891</div>
+          <div class="live-chg" id="liveChg">+0.0023 (+0.21%)</div>
+        </div>
+      </div>
+      <canvas id="liveChart" height="72"></canvas>
+    </div>
+    <div class="story-row" id="storyRow">
+      <div class="story-c" onclick="openStoryCreator()">
+        <div class="st-wt" style="height:10px;background:var(--A)"></div>
+        <div class="st-bw st-add"><div class="st-frame" style="background:var(--card2);flex-direction:column;gap:3px;font-size:20px;color:var(--tx2)">＋<span style="font-size:8px;font-weight:700">Нэмэх</span></div></div>
+        <div class="st-wb" style="height:7px;background:var(--A)"></div>
+        <div class="st-nm">Нэмэх</div>
+      </div>
+      <div class="story-c" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">
+        <div class="st-wt" style="height:13px;background:#00e676"></div>
+        <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">📈</div></div>
+        <div class="st-wb" style="height:9px;background:#00e676"></div>
+        <div class="st-nm">Батбаяр</div>
+      </div>
+      <div class="story-c" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">
+        <div class="st-wt" style="height:9px;background:#ff4757"></div>
+        <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">💎</div></div>
+        <div class="st-wb" style="height:12px;background:#ff4757"></div>
+        <div class="st-nm">Оюунтуяа</div>
+      </div>
+      <div class="story-c" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">
+        <div class="st-wt" style="height:11px;background:#00e676"></div>
+        <div class="st-bw"><div class="st-frame" style="background:linear-gradient(135deg,#0a2010,#1a5030)">🎯</div></div>
+        <div class="st-wb" style="height:8px;background:#00e676"></div>
+        <div class="st-nm">Дэлгэр</div>
+      </div>
+      <div class="story-c" onclick="openUserProf('Ариунаа','#a78bfa','#6d28d9','А')">
+        <div class="st-wt" style="height:15px;background:#ffd32a"></div>
+        <div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#2a1000,#5a3010)">🏆</div></div>
+        <div class="st-wb" style="height:10px;background:#ffd32a"></div>
+        <div class="st-nm">Ариунаа</div>
+      </div>
+    </div>
+    <div id="postFeed">
+      <div class="post-card">
+        <div class="post-head">
+          <div class="post-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Б</div>
+          <div style="flex:1"><div class="post-author" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Батбаяр</div><div class="post-time">2 цаг өмнө</div></div>
+          <div class="post-badge pbadge-e">ELITE</div>
+        </div>
+        <div class="post-body">📊 EUR/USD шинжилгээ: 1.0890 дэмжлэгийн шугамаас урвуу хөдөлгөөн. SMC BUY боломж. TP: 1.0960 🎯</div>
+        <div class="post-photo"><canvas id="postChart1" height="140"></canvas></div>
+        <div class="post-acts">
+          <div style="position:relative">
+            <button class="pact" id="lb0" onclick="showRP(0,this)">❤️ 24</button>
+            <div class="react-picker" id="rp0" style="display:none;flex-direction:row">
+              <button class="react-btn" onclick="doReact(0,'like','❤️')">❤️</button>
+              <button class="react-btn" onclick="doReact(0,'love','😍')">😍</button>
+              <button class="react-btn" onclick="doReact(0,'money','💰')">💰</button>
+              <button class="react-btn" onclick="doReact(0,'tp','✅')">✅</button>
+              <button class="react-btn" onclick="doReact(0,'sl','❌')">❌</button>
+            </div>
+          </div>
+          <button class="pact" onclick="togCmt(this)">💬 8</button>
+          <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
+          <button class="pact" onclick="openDM('Батбаяр','#f0b429')" style="margin-left:auto">✉️</button>
+        </div>
+        <div class="post-comments" id="pc0">
+          <div class="cmt-item"><div class="cmt-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div><div class="cmt-body"><div><span class="cmt-name" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</span><span class="cmt-reply" onclick="setReply('ci0','Батбаяр')">Reply</span></div><div class="cmt-txt">Маш сайн шинжилгээ! Би ч ороод байна 💪</div><div class="cmt-time">1 цаг өмнө</div></div></div>
+          <div class="cmt-item"><div class="cmt-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div><div class="cmt-body"><div><span class="cmt-name">Дэлгэр</span><span class="cmt-reply" onclick="setReply('ci0','Батбаяр')">Reply</span></div><div class="cmt-txt"><span class="cmt-mention">@Батбаяр</span> SL хаана тавьсан бэ?</div><div class="cmt-time">45 мин өмнө</div></div></div>
+          <div class="cmt-irow"><input class="cmt-inp" id="ci0" placeholder="Сэтгэгдэл... (@нэр mention)"><button class="cmt-snd" onclick="addCmt('pc0','ci0')">➤</button></div>
+        </div>
+      </div>
+      <div class="post-card">
+        <div class="post-head">
+          <div class="post-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div>
+          <div style="flex:1"><div class="post-author" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</div><div class="post-time">5 цаг өмнө</div></div>
+          <div class="post-badge" style="background:rgba(240,180,41,.1);color:var(--A2);border:1px solid rgba(240,180,41,.2)">GOLD</div>
+        </div>
+        <div class="post-body">GBP/JPY дээр +$840 авлаа! 🎉 SL-аа эрт хөдөлгөсөн нь зөв байсан. Хүн бүрт амжилт 💪</div>
+        <div class="post-acts">
+          <div style="position:relative">
+            <button class="pact on-like" id="lb1" onclick="showRP(1,this)">❤️ 47</button>
+            <div class="react-picker" id="rp1" style="display:none;flex-direction:row">
+              <button class="react-btn" onclick="doReact(1,'like','❤️')">❤️</button>
+              <button class="react-btn" onclick="doReact(1,'love','😍')">😍</button>
+              <button class="react-btn" onclick="doReact(1,'money','💰')">💰</button>
+              <button class="react-btn" onclick="doReact(1,'tp','✅')">✅</button>
+              <button class="react-btn" onclick="doReact(1,'sl','❌')">❌</button>
+            </div>
+          </div>
+          <button class="pact" onclick="togCmt(this)">💬 15</button>
+          <button class="pact on-bk">🔖</button>
+          <button class="pact" onclick="openDM('Оюунтуяа','#00d4aa')" style="margin-left:auto">✉️</button>
+        </div>
+        <div class="post-comments" id="pc1"><div class="cmt-irow"><input class="cmt-inp" id="ci1" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmt('pc1','ci1')">➤</button></div></div>
+      </div>
+      <div class="post-card">
+        <div class="post-head">
+          <div class="post-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">Д</div>
+          <div><div class="post-author" onclick="openUserProf('Дэлгэр','#ef4444','#b91c1c','Д')">Дэлгэр</div><div class="post-time">1 өдөр өмнө</div></div>
+        </div>
+        <div class="post-body">⚠️ XAU/USD — NFP өмнө volatility өндөр. Lot-оо бага тав!</div>
+        <div class="post-link-prev">🔗 Investing.com — NFP Report</div>
+        <div class="post-acts">
+          <div style="position:relative">
+            <button class="pact" id="lb2" onclick="showRP(2,this)">❤️ 18</button>
+            <div class="react-picker" id="rp2" style="display:none;flex-direction:row">
+              <button class="react-btn" onclick="doReact(2,'like','❤️')">❤️</button>
+              <button class="react-btn" onclick="doReact(2,'love','😍')">😍</button>
+              <button class="react-btn" onclick="doReact(2,'money','💰')">💰</button>
+              <button class="react-btn" onclick="doReact(2,'tp','✅')">✅</button>
+              <button class="react-btn" onclick="doReact(2,'sl','❌')">❌</button>
+            </div>
+          </div>
+          <button class="pact" onclick="togCmt(this)">💬 5</button>
+          <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
+          <button class="pact" onclick="openDM('Дэлгэр','#ef4444')" style="margin-left:auto">✉️</button>
+        </div>
+        <div class="post-comments" id="pc2"><div class="cmt-irow"><input class="cmt-inp" id="ci2" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmt('pc2','ci2')">➤</button></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- JOURNAL PAGE -->
+  <div class="page" id="page-journal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">📊 Арилжааны дэвтэр</div><div style="font-size:11px;color:var(--tx2)">4-р сар 2026</div></div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-lbl">Нийт ашиг</div><div class="stat-num pos">+$4,820</div><div class="stat-sub">↑ 12.4%</div></div>
+      <div class="stat-box"><div class="stat-lbl">Нийт алдагдал</div><div class="stat-num neg">-$1,230</div><div class="stat-sub">↓ 3.2%</div></div>
+      <div class="stat-box"><div class="stat-lbl">Net PnL</div><div class="stat-num pos">+$3,590</div><div class="stat-sub">↑ 9.1%</div></div>
+    </div>
+    <div class="period-row">
+      <button class="pbtn on" onclick="setPeriod(this)">Өдөр</button>
+      <button class="pbtn" onclick="setPeriod(this)">7 хоног</button>
+      <button class="pbtn" onclick="setPeriod(this)">Сар</button>
+      <button class="pbtn" onclick="setPeriod(this)">Жил</button>
+    </div>
+    <div class="cal-wrap"><div class="cal-hrow"><div class="cal-dow">Да</div><div class="cal-dow">Мя</div><div class="cal-dow">Лх</div><div class="cal-dow">Пү</div><div class="cal-dow">Ба</div><div class="cal-dow">Бя</div><div class="cal-dow">Ня</div></div><div class="cal-grid" id="calGrid"></div></div>
+  </div>
+  <!-- PROFILE PAGE -->
+  <div class="page" id="page-profile">
+    <div class="prof-hero">
+      <div class="prof-cover">
+        <div class="prof-cvr-cdls" id="coverCdls"></div>
+        <button class="prof-cvr-edit" onclick="openM('profEditModal')">✏️ Засах</button>
+      </div>
+      <div class="prof-av-anchor">
+        <div class="pac"><div class="pac-wt"></div><div class="pac-body" id="profAvBody"><span id="profAvL">Т</span></div><div class="pac-wb"></div></div>
+      </div>
+      <div class="prof-info">
+        <div class="prof-name-row"><div class="prof-name" id="profName">Trader</div><div class="pbadge pbadge-e">ELITE</div><div class="pbadge pbadge-t" id="profTypeTag">Day Trader</div></div>
+        <div class="prof-handle" id="profHandle">@trader</div>
+        <div class="prof-bio" id="profBio">Арилжааны тэмдэглэл байхгүй...</div>
+        <div class="prof-stats">
+          <div class="pstat"><div class="pstat-num" id="profPostCnt">1</div><div class="pstat-lbl">Нийтлэл</div></div>
+          <div class="pstat"><div class="pstat-num">284</div><div class="pstat-lbl">Дагагч</div></div>
+          <div class="pstat"><div class="pstat-num">97</div><div class="pstat-lbl">Дагаж байна</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="prof-tabs">
+      <button class="prof-tab on" onclick="swProfTab(this,'ptab-posts')">Нийтлэл</button>
+      <button class="prof-tab" onclick="swProfTab(this,'ptab-journal')">Хуанли</button>
+      <button class="prof-tab" onclick="swProfTab(this,'ptab-photos')">Зураг</button>
+      <button class="prof-tab" onclick="swProfTab(this,'ptab-exp')">Туршлага</button>
+    </div>
+    <div id="ptab-posts">
+      <div class="composer glass" style="margin-bottom:11px">
+        <div class="comp-row">
+          <div class="comp-av" id="profCompAv"><span id="profCompAvL">Т</span></div>
+          <textarea class="comp-ta" id="profTxt" placeholder="Профайлдаа нийтлэл бич..."></textarea>
+        </div>
+        <div class="comp-acts">
+          <div class="ctool" onclick="togEl('profLinkA')">🔗 Линк</div>
+          <button class="csub" onclick="submitProfPost()">Нийтлэх</button>
+        </div>
+        <div id="profLinkA" style="display:none;margin-top:7px"><input class="fi" id="profLinkV" placeholder="https://..." style="font-size:12px"></div>
+      </div>
+      <div id="profFeed">
+        <div class="pin-badge">📌 Pinned</div>
+        <div class="post-card">
+          <div class="post-head">
+            <div class="post-av" id="profPostAv" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><span id="profPostAvL">Т</span></div>
+            <div><div class="post-author" id="profPostName">Trader</div><div class="post-time">3 өдөр өмнө</div></div>
+          </div>
+          <div class="post-body">Өнөөдрийн арилжааны дүн: +$320. EUR/USD болон XAU/USD-д ажилласан. 📈</div>
+          <div class="post-acts">
+            <button class="pact" onclick="togLike(this)">❤️ 9</button>
+            <button class="pact" onclick="togCmt(this)">💬 2</button>
+          </div>
+          <div class="post-comments"><div class="cmt-irow"><input class="cmt-inp" id="profci0" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmtEl(this,'profci0')">➤</button></div></div>
+        </div>
+      </div>
+    </div>
+    <div id="ptab-journal" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700">Арилжааны хуанли</div>
+        <div id="privToggle" class="priv-toggle pub" onclick="togglePrivacy()">🌍 Нийтийн</div>
+      </div>
+      <div id="privNote" style="display:none;padding:9px;background:rgba(255,211,42,.05);border:1px solid rgba(255,211,42,.2);border-radius:9px;font-size:11px;color:var(--Y);margin-bottom:9px">🔒 Таны хуанли хувийн горимд байна.</div>
+      <div class="cal-wrap"><div class="cal-hrow"><div class="cal-dow">Да</div><div class="cal-dow">Мя</div><div class="cal-dow">Лх</div><div class="cal-dow">Пү</div><div class="cal-dow">Ба</div><div class="cal-dow">Бя</div><div class="cal-dow">Ня</div></div><div class="cal-grid" id="profCalGrid"></div></div>
+    </div>
+    <div id="ptab-photos" style="display:none">
+      <div class="photo-grid">
+        <div class="photo-cell" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">📈</div>
+        <div class="photo-cell" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">💎</div>
+        <div class="photo-cell" style="background:linear-gradient(135deg,#0a2010,#1a5030)">📊</div>
+        <div class="photo-cell" style="background:linear-gradient(135deg,#2a1000,#5a3010)">🏆</div>
+        <div class="photo-cell" style="background:var(--bg3);border:2px dashed var(--bd2)" onclick="alert('Зураг нэмэх')">＋</div>
+      </div>
+    </div>
+    <div id="ptab-exp" style="display:none">
+      <button class="csub" style="margin-bottom:10px;padding:7px 14px" onclick="openM('expModal')">+ Туршлага нэмэх</button>
+      <div id="expList">
+        <div class="exp-item"><div class="exp-title">Day Trader — Forex</div><div class="exp-sub">2022 - Одоо · EUR/USD, GBP/JPY, XAU/USD</div></div>
+        <div class="exp-item"><div class="exp-title">SMC / ICT Суралцагч</div><div class="exp-sub">2021 - 2022 · Inner Circle Trader</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- ACADEMY -->
+  <div class="page" id="page-academy">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:12px">🎓 Сургалт</div>
+    <div class="ac-grid">
+      <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#0d1b35,#1e3a5f)">📈<span class="ac-lv">BEGINNER</span></div><div class="prog-bar"><div class="prog-fill" style="width:72%"></div></div><div class="ac-info"><div class="ac-name">Форексийн үндэс</div><div class="ac-meta">72% · 18/25</div></div></div>
+      <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6e)">🕯️<span class="ac-lv">ADVANCED</span></div><div class="prog-bar"><div class="prog-fill" style="width:40%;background:var(--A2)"></div></div><div class="ac-info"><div class="ac-name">SMC / ICT Стратеги</div><div class="ac-meta">40% · 8/20</div></div></div>
+      <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#0a2010,#1a5030)">🧠<span class="ac-lv" style="background:rgba(0,212,170,.4)">PSYCH</span></div><div class="prog-bar"><div class="prog-fill" style="width:15%"></div></div><div class="ac-info"><div class="ac-name">Арилжааны сэтгэл зүй</div><div class="ac-meta">15% · 3/22</div></div></div>
+      <div class="ac-card"><div class="ac-thumb" style="background:linear-gradient(135deg,#2a1000,#5a3010)">⚡<span class="ac-lv" style="background:rgba(255,71,87,.5)">ELITE</span></div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div><div class="ac-info"><div class="ac-name">Скальпинг стратеги</div><div class="ac-meta">Эхлээгүй · 30</div></div></div>
+    </div>
+  </div>
+  <!-- SIGNALS -->
+  <div class="page" id="page-signals">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">📡 VIP Сигналууд</div>
+      <button class="csub" onclick="openM('addSigModal')" style="padding:7px 13px">+ Нэмэх</button>
+    </div>
+    <div id="sigFeed">
+      <div class="sig-card bull"><div class="sig-dir buy">BUY</div><div class="sig-inf"><div class="sig-pair">EUR/USD</div><div class="sig-det">Entry 1.0890 · TP 1.0960 · SL 1.0820</div><div class="sig-time">Өнөөдөр 09:15</div><div class="sig-admin-note">🔔 TP дөхөж байна. Хожоо хамгаалаарай! — Admin</div><div class="sig-reacts"><button class="sig-rbtn" onclick="this.classList.toggle('on')">✅ TP орно <span>12</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">❌ SL орно <span>3</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">👀 Хянаж байна <span>8</span></button></div><div class="sig-to-chat" onclick="shareToChat('EUR/USD BUY')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div></div>
+      <div class="sig-card bear"><div class="sig-dir sell">SELL</div><div class="sig-inf"><div class="sig-pair">GBP/JPY</div><div class="sig-det">Entry 186.40 · TP 184.50 · SL 188.20</div><div class="sig-time">Өнөөдөр 11:30</div><div class="sig-reacts"><button class="sig-rbtn on" onclick="this.classList.toggle('on')">✅ TP орно <span>7</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">👀 Хянаж байна <span>5</span></button></div><div class="sig-to-chat" onclick="shareToChat('GBP/JPY SELL')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div></div>
+      <div class="sig-card bull"><div class="sig-dir buy">BUY</div><div class="sig-inf"><div class="sig-pair">XAU/USD</div><div class="sig-det">Entry 2340 · TP 2380 · SL 2295</div><div class="sig-time">Өчигдөр 16:00</div></div><div class="sig-badge tp">✓ TP</div></div>
+      <div class="sig-card bear"><div class="sig-dir sell">SELL</div><div class="sig-inf"><div class="sig-pair">USD/CAD</div><div class="sig-det">Entry 1.3620 · TP 1.3540 · SL 1.3720</div><div class="sig-time">2 өдөр өмнө</div></div><div class="sig-badge sl">✗ SL</div></div>
+    </div>
+  </div>
+  <!-- CHAT -->
+  <div class="page-full" id="page-chat">
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Б</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Батбаяр</div><div class="msg-bub">Сайн байна уу! EUR/USD дээр маш сайн боломж байна 📊</div><div class="msg-t">10:24</div></div></div>
+      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</div><div class="msg-bub">1.0890 entry дотор орсон. TP 1.0960 🎯</div><div class="msg-t">10:31</div></div></div>
+      <div class="msg-row own"><div class="msg-av" id="chatOwnAv" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><span id="chatOwnAvL">Т</span></div><div class="msg-cont"><div class="msg-bub">Би ч мөн орлоо! TP хүрнэ гэдэгт итгэлтэй 🙏</div><div class="msg-t">10:35</div></div></div>
+      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div><div class="msg-cont"><div class="msg-name">Дэлгэр</div><div class="msg-bub">XAU/USD volatility өндөр байна ⚠️</div><div class="msg-t">10:42</div></div></div>
+    </div>
+    <div class="chat-bar">
+      <div class="mention-pop" id="mentionPop"></div>
+      <input class="chat-inp" id="chatInp" placeholder="Мессеж... (@mention)" oninput="chkMention(this)" onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-snd" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+
   <!-- COMMUNITIES PAGE -->
   <div class="page" id="page-communities">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
@@ -1366,12 +1353,25 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
     <div class="set-sec">
       <div class="set-sec-title">Харагдах байдал</div>
       <div class="set-row glass">
-        <div><div class="set-lbl">Dark Mode</div><div class="set-sub">Харанхуй горим</div></div>
-        <label class="ts"><input type="checkbox" id="setThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
+        <div>
+          <div class="set-lbl">Харанхуй горим</div>
+          <div class="set-sub">Dark / Light mode</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;" id="setThIco">☀️</span>
+          <label class="ts"><input type="checkbox" id="setThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
+        </div>
       </div>
       <div class="set-row glass">
-        <div><div class="set-lbl">Хэл / Language</div></div>
-        <select class="set-sel" id="setLngSel" onchange="setLang(this.value)"><option value="mn">Монгол</option><option value="en">English</option></select>
+        <div><div class="set-lbl">Хэл / Language</div><div class="set-sub">Дэлгэцийн хэл сонгох</div></div>
+        <select class="set-sel" id="setLngSel" onchange="setLang(this.value)">
+          <option value="mn">🇲🇳 Монгол</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="ko">🇰🇷 한국어</option>
+          <option value="ru">🇷🇺 Русский</option>
+        </select>
       </div>
     </div>
     <div class="set-sec">
@@ -1422,7 +1422,14 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
 </div>
 <!-- MODALS -->
 <div class="modal-ov" id="tradeModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('tradeModal')">✕</button><div class="modal-title" id="tradeMTitle">Арилжааны тэмдэглэл</div><div class="trd-pnl"><div class="trd-pnl-num" id="tradeMPnl">$0</div></div><div class="trd-note" id="tradeMNote">Тэмдэглэл байхгүй</div><div class="mfg" style="margin-top:11px"><label>PnL ($)</label><input class="mfi" type="number" id="tradeEPnl" placeholder="+240 эсвэл -80"></div><div class="mfg"><label>Тэмдэглэл</label><textarea class="mfta" id="tradeENote" placeholder="Яаж олсон / алдсан..."></textarea></div><div class="mfg"><label>Зургийн URL</label><input class="mfi" id="tradeEImg" placeholder="https://..." oninput="prevNImg(this.value)"></div><img id="nImgPrev" class="note-img-prev" src="" alt=""><div class="m-acts"><button class="mbtn-c" onclick="closeM('tradeModal')">Болих</button><button class="mbtn-s" onclick="saveTrdNote()">Хадгалах</button></div></div></div>
-<div class="modal-ov" id="profEditModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('profEditModal')">✕</button><div class="modal-title">✏️ Профайл засах</div><div class="mfg"><label>Нэр</label><input class="mfi" id="eN" placeholder="Таны нэр"></div><div class="mfg"><label>Handle</label><input class="mfi" id="eH" placeholder="@trader"></div><div class="mfg"><label>Танилцуулга</label><textarea class="mfta" id="eB" placeholder="Өөрийгөө танилцуул..."></textarea></div><div class="mfg"><label>Trader төрөл</label><select class="mfi" id="eTy"><option>Day Trader</option><option>Swing Trader</option><option>Scalper</option><option>Position Trader</option></select></div><div class="mfg"><label>Хэл / Language</label><select class="mfi" id="eLng" onchange="setLang(this.value)"><option value="mn">Монгол</option><option value="en">English</option></select></div><div class="m-acts"><button class="mbtn-c" onclick="closeM('profEditModal')">Болих</button><button class="mbtn-s" onclick="saveProfile()">Хадгалах</button></div></div></div>
+<div class="modal-ov" id="profEditModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('profEditModal')">✕</button><div class="modal-title">✏️ Профайл засах</div><div class="mfg"><label>Нэр</label><input class="mfi" id="eN" placeholder="Таны нэр"></div><div class="mfg"><label>Handle</label><input class="mfi" id="eH" placeholder="@trader"></div><div class="mfg"><label>Танилцуулга</label><textarea class="mfta" id="eB" placeholder="Өөрийгөө танилцуул..."></textarea></div><div class="mfg"><label>Trader төрөл</label><select class="mfi" id="eTy"><option>Day Trader</option><option>Swing Trader</option><option>Scalper</option><option>Position Trader</option></select></div><div class="mfg"><label>Хэл / Language</label><select class="mfi" id="eLng" onchange="setLang(this.value)">
+  <option value="mn">🇲🇳 Монгол</option>
+  <option value="en">🇺🇸 English</option>
+  <option value="zh">🇨🇳 中文</option>
+  <option value="ja">🇯🇵 日本語</option>
+  <option value="ko">🇰🇷 한국어</option>
+  <option value="ru">🇷🇺 Русский</option>
+</select></div><div class="m-acts"><button class="mbtn-c" onclick="closeM('profEditModal')">Болих</button><button class="mbtn-s" onclick="saveProfile()">Хадгалах</button></div></div></div>
 <div class="modal-ov" id="dmModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('dmModal')">✕</button><div class="modal-title" id="dmTitle">DM</div><div class="dm-msgs" id="dmMsgs"></div><div class="dm-irow"><input class="dm-inp" id="dmInp" placeholder="Мессеж..." onkeydown="if(event.key==='Enter')sendDM()"><button class="dm-snd" onclick="sendDM()">➤</button></div></div></div>
 <div class="modal-ov" id="uProfModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('uProfModal')">✕</button><div class="upm-av-wrap"><div class="upm-pac-wt"></div><div class="upm-pac-body" id="upmAv">Б</div><div class="upm-pac-wb"></div><div class="upm-name" id="upmName">Батбаяр</div><div style="font-size:11px;color:var(--tx2);margin-top:2px">Day Trader</div><div class="upm-stats"><div class="upm-stat"><div class="upm-stat-num">142</div><div class="upm-stat-lbl">Нийтлэл</div></div><div class="upm-stat"><div class="upm-stat-num">1.2K</div><div class="upm-stat-lbl">Дагагч</div></div><div class="upm-stat"><div class="upm-stat-num" id="upmWR">+68%</div><div class="upm-stat-lbl">Win Rate</div></div></div></div><div style="margin-bottom:11px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:12px;font-weight:700">Арилжааны хуанли</div><div id="upmPrivLbl" style="font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(0,230,118,.08);color:var(--G);border:1px solid rgba(0,230,118,.2)">🌍 Нийтийн</div></div><div id="upmCalWrap"><div class="cal-wrap"><div class="cal-hrow"><div class="cal-dow">Да</div><div class="cal-dow">Мя</div><div class="cal-dow">Лх</div><div class="cal-dow">Пү</div><div class="cal-dow">Ба</div><div class="cal-dow">Бя</div><div class="cal-dow">Ня</div></div><div class="cal-grid" id="upmCalGrid"></div></div></div></div><div class="m-acts"><button class="mbtn-c" onclick="closeM('uProfModal')">Хаах</button><button class="mbtn-s" onclick="dmFromUpm()">✉️ DM</button></div></div></div>
 <div class="modal-ov" id="addSigModal"><div class="modal-box glass"><button class="modal-close" onclick="closeM('addSigModal')">✕</button><div class="modal-title">📡 Шинэ сигнал</div><div class="mfg"><label>Хос</label><input class="mfi" id="sigPair" placeholder="EUR/USD"></div><div class="mfg"><label>Чиглэл</label><select class="mfi" id="sigDir"><option value="buy">BUY</option><option value="sell">SELL</option></select></div><div class="mfg"><label>Entry</label><input class="mfi" id="sigEntry" placeholder="1.0890"></div><div class="mfg"><label>Take Profit</label><input class="mfi" id="sigTP" placeholder="1.0960"></div><div class="mfg"><label>Stop Loss</label><input class="mfi" id="sigSL" placeholder="1.0820"></div><div class="mfg"><label>Admin тайлбар</label><textarea class="mfta" id="sigNote" placeholder="Арилжаачдад тайлбар..."></textarea></div><div class="m-acts"><button class="mbtn-c" onclick="closeM('addSigModal')">Болих</button><button class="mbtn-s" onclick="addSig()">Нийтлэх</button></div></div></div>
@@ -2033,20 +2040,31 @@ function applyTheme(t){
   theme=t;document.documentElement.setAttribute('data-theme',t);
   const isDark=t==='dark';
   ['sbThChk','authThChk','setThChk'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=isDark;});
-  ['sbThIco','authThIco'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=isDark?'🌙':'☀️';});
+  ['sbThIco','authThIco','setThIco'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=isDark?'🌙':'☀️';});
 }
 function cycleTheme(){applyTheme(theme==='dark'?'light':'dark');}
 
 /* LANGUAGE */
 let lang='mn';
-const TXT={mn:{home:'Нийтлэл',journal:'Ашиг',myprofile:'Профайл',academy:'Сургалт',signals:'Сигнал',chat:'Чат'},en:{home:'Feed',journal:'Journal',myprofile:'Profile',academy:'Academy',signals:'Signals',chat:'Chat'}};
-function cycleLang(){lang=lang==='mn'?'en':'mn';setLang(lang);}
+const TXT={
+  mn:{home:'Нийтлэл',journal:'Ашиг',myprofile:'Профайл',academy:'Сургалт',signals:'Сигнал',chat:'Чат',communities:'Булгэм',settings:'Тохиргоо'},
+  en:{home:'Feed',journal:'Journal',myprofile:'Profile',academy:'Academy',signals:'Signals',chat:'Chat',communities:'Community',settings:'Settings'},
+  zh:{home:'动态',journal:'收益',myprofile:'我的',academy:'课程',signals:'信号',chat:'聊天',communities:'社区',settings:'设置'},
+  ja:{home:'フィード',journal:'収益',myprofile:'プロフィール',academy:'学習',signals:'シグナル',chat:'チャット',communities:'コミュニティ',settings:'設定'},
+  ko:{home:'피드',journal:'수익',myprofile:'프로필',academy:'강의',signals:'시그널',chat:'채팅',communities:'커뮤니티',settings:'설정'},
+  ru:{home:'Лента',journal:'Прибыль',myprofile:'Профиль',academy:'Обучение',signals:'Сигналы',chat:'Чат',communities:'Сообщество',settings:'Настройки'},
+};
+const LANGS=['mn','en','zh','ja','ko','ru'];function cycleLang(){const i=LANGS.indexOf(lang);lang=LANGS[(i+1)%LANGS.length];setLang(lang);}
+const LANG_LABELS={mn:'МН',en:'EN',zh:'中',ja:'JP',ko:'한',ru:'RU'};
 function setLang(l){
-  lang=l;const lbl=l==='mn'?'МН':'EN';
+  lang=l;
+  document.documentElement.lang=l;
+  const lbl=LANG_LABELS[l]||'МН';
   ['langLbl','authLangLbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=lbl;});
   document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(TXT[l]?.[k])el.textContent=TXT[l][k];});
-  const sel=document.getElementById('eLng');if(sel)sel.value=l;
-  const setSel=document.getElementById('setLngSel');if(setSel)setSel.value=l;
+  ['eLng','setLngSel'].forEach(id=>{const s=document.getElementById(id);if(s)s.value=l;});
+  /* Update mob-nav labels */
+  document.querySelectorAll('.mob-nav-lbl[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(TXT[l]?.[k])el.textContent=TXT[l][k];});
 }
 
 /* AUTH */
