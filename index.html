@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="mn" data-theme="dark">
+<html lang="mn" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
@@ -8,7 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--A:#00d4aa;--A2:#f0b429;--R:#ff4757;--G:#00e676;--Y:#ffd32a;--P:#a78bfa;--B:#60a5fa;--bg:#07090f;--bg2:#0d1117;--bg3:#131923;--card:#111827;--card2:#1a2538;--bd:#1e2d3d;--bd2:#253447;--tx:#e8f4fd;--tx2:#8099b3;--tx3:#4d6680;--hh:56px;--sw:245px;--rw:255px;}
-[data-theme="light"]{--bg:#f0f4f9;--bg2:#fff;--bg3:#e6ecf5;--card:#fff;--card2:#f2f6fc;--bd:#cdd8ec;--bd2:#bbc8e0;--tx:#0d1520;--tx2:#4a6080;--tx3:#8099b3;}
+[data-theme="light"]{
+  --bg:#f0f4f8;--bg2:#ffffff;--bg3:#eef1f8;--card:#ffffff;--card2:#f6f8fd;
+  --bd:#e2e8f5;--bd2:#d0d8ed;--tx:#0f1829;--tx2:#5a6a8a;--tx3:#94a3c0;
+  --A:#2563eb;--A2:#f59e0b;--R:#ef4444;--G:#16a34a;--Y:#d97706;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;transition:background .3s,color .3s;}
@@ -107,9 +111,9 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .mob-nav-btn.on{color:var(--A);}
 .mob-nav-ico{font-size:20px;line-height:1;}
 .mob-nav-lbl{font-size:9px;font-weight:700;}
-.mob-topbar{display:none;padding:8px 12px 6px;overflow-x:auto;scrollbar-width:none;gap:5px;}
+.mob-topbar{display:none !important;visibility:hidden;height:0;overflow:hidden;padding:0;}
 .mob-topbar::-webkit-scrollbar{display:none;}
-.mob-pill{flex-shrink:0;padding:5px 12px;border-radius:30px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx2);font-size:11px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;}
+.mob-pill{display:none;flex-shrink:0;padding:5px 12px;border-radius:30px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx2);font-size:11px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;}
 .mob-pill.on{background:var(--A);color:#000;border-color:var(--A);}
 /* PAGES */
 .page{display:none;padding:14px 14px 80px;max-width:640px;margin:0 auto;}
@@ -414,7 +418,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .story-prev-box{height:150px;border-radius:12px;border:2px dashed var(--bd2);display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer;transition:.2s;margin-bottom:9px;}
 .story-prev-box:hover{border-color:var(--A);}
 @media(max-width:1100px){.rsb{display:none;}}
-@media(max-width:800px){.lsb{display:none;}.mob-nav{display:flex;}.mob-topbar{display:flex;}.hdr-search{display:none;}.rsb{display:none;}.stat-grid{grid-template-columns:1fr 1fr;}.ac-grid{grid-template-columns:1fr;}.notif-panel{width:calc(100vw - 20px);right:10px;}}
+@media(max-width:800px){.lsb{display:none;}.mob-nav{display:flex;}.page{padding-bottom:80px !important;}.page-full{padding-bottom:0 !important;}.hdr-search{display:none;}.rsb{display:none;}.stat-grid{grid-template-columns:1fr 1fr;}.ac-grid{grid-template-columns:1fr;}.notif-panel{width:calc(100vw - 20px);right:10px;}}
 
 /* USER MENU DROPDOWN */
 .user-menu-drop{position:fixed;top:calc(var(–hh) + 6px);right:12px;width:220px;border-radius:16px;z-index:600;display:none;box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(13,17,27,.97),rgba(7,9,15,.98));backdrop-filter:blur(30px) saturate(200%);-webkit-backdrop-filter:blur(30px) saturate(200%);border:1px solid rgba(255,255,255,.1);animation:npop .2s cubic-bezier(.34,1.4,.64,1);}
@@ -475,6 +479,363 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .mem-plan-feat{font-size:11px;color:var(–tx2);margin-top:5px;line-height:1.5;}
 /* join request form */
 .join-req-form{display:flex;flex-direction:column;gap:10px;}
+
+/* ══════════════════════════════════════
+SPACEPARK-INSPIRED REDESIGN
+Clean light mode + 3D dark mode
+══════════════════════════════════════ */
+
+/* 3D PERSPECTIVE ROOT */
+.app-body{perspective:1200px;}
+
+/* CARD 3D LIFT */
+.post-card,.sig-card,.ac-card,.comm-card,.stat-box,.exp-item,.mem-plan{
+transform-style:preserve-3d;
+transition:transform .25s cubic-bezier(.34,1.2,.64,1),box-shadow .25s ease,border-color .2s;
+}
+.post-card:hover{
+transform:translateY(-3px) rotateX(1deg);
+box-shadow:0 16px 40px rgba(0,0,0,.18),0 4px 12px rgba(0,0,0,.1);
+}
+[data-theme=“light”] .post-card:hover{
+box-shadow:0 12px 32px rgba(37,99,235,.12),0 4px 12px rgba(0,0,0,.06);
+border-color:#c7d7f5;
+}
+.sig-card:hover{
+transform:translateX(4px) rotateY(-1deg);
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+.ac-card:hover{
+transform:translateY(-5px) rotateX(2deg) scale(1.01);
+box-shadow:0 20px 44px rgba(0,0,0,.28);
+}
+[data-theme=“light”] .ac-card:hover{
+box-shadow:0 16px 36px rgba(37,99,235,.14);
+}
+.comm-card:hover{
+transform:translateY(-3px) rotateX(1deg);
+border-color:var(–A);
+box-shadow:0 12px 32px rgba(37,99,235,.1);
+}
+
+/* SIDEBAR 3D DEPTH */
+[data-theme=“light”] .lsb{
+background:#fff;
+box-shadow:4px 0 24px rgba(37,99,235,.07);
+border-right:1px solid #e8edf8;
+}
+[data-theme=“light”] .rsb{
+background:#fff;
+box-shadow:-4px 0 24px rgba(37,99,235,.07);
+border-left:1px solid #e8edf8;
+}
+
+/* HEADER DEPTH */
+[data-theme=“light”] .hdr{
+background:rgba(255,255,255,.92);
+box-shadow:0 2px 20px rgba(37,99,235,.08);
+border-bottom:1px solid #e8edf8;
+}
+[data-theme=“dark”] .hdr{
+box-shadow:0 2px 20px rgba(0,0,0,.4);
+}
+
+/* BUTTON 3D */
+.btn-auth,.csub,.mbtn-s,.comm-join-btn{
+position:relative;
+transform-style:preserve-3d;
+transition:transform .2s cubic-bezier(.34,1.4,.64,1),box-shadow .2s ease;
+}
+.btn-auth:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 8px 24px rgba(0,212,170,.45);}
+[data-theme=“light”] .btn-auth{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;box-shadow:0 4px 16px rgba(37,99,235,.35);}
+[data-theme=“light”] .btn-auth:hover{box-shadow:0 8px 28px rgba(37,99,235,.45);}
+[data-theme=“light”] .csub{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.3);}
+[data-theme=“light”] .csub:hover{box-shadow:0 7px 20px rgba(37,99,235,.4);}
+[data-theme=“light”] .mbtn-s{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;}
+
+/* NAV ITEMS */
+[data-theme=“light”] .nb:hover{background:#f0f4ff;color:#2563eb;}
+[data-theme=“light”] .nb.on{background:#eff4ff;color:#2563eb;}
+[data-theme=“light”] .nb.on::before{background:#2563eb;}
+[data-theme=“light”] .nbdg{background:#2563eb;}
+
+/* LIGHT MODE GLASS OVERHAUL */
+[data-theme=“light”] .glass{
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(20px) saturate(180%);
+-webkit-backdrop-filter:blur(20px) saturate(180%);
+border:1px solid rgba(255,255,255,.95);
+box-shadow:0 4px 24px rgba(37,99,235,.06),inset 0 1px 0 #fff;
+}
+[data-theme=“light”] .live-wrap{
+background:linear-gradient(135deg,#f0f6ff,#e8f0fe);
+border:1px solid #d6e4ff;
+}
+[data-theme=“light”] .composer{
+background:#fff;border:1px solid #e8edf8;
+box-shadow:0 4px 20px rgba(37,99,235,.06);
+}
+[data-theme=“light”] .post-card{
+background:#fff;border:1px solid #e8edf8;
+box-shadow:0 2px 12px rgba(37,99,235,.05);
+}
+
+/* PROFILE CARD LIGHT */
+[data-theme=“light”] .pac-body{
+border-color:#2563eb;
+box-shadow:0 0 26px rgba(37,99,235,.3);
+animation:pacGlowLight 3s ease-in-out infinite;
+}
+@keyframes pacGlowLight{0%,100%{box-shadow:0 0 26px rgba(37,99,235,.3);}50%{box-shadow:0 0 46px rgba(37,99,235,.5);}}
+
+/* STORY CANDLES LIGHT */
+[data-theme=“light”] .st-bw.ring{
+background:linear-gradient(#fff,#fff) padding-box,linear-gradient(180deg,#2563eb,#f59e0b) border-box;
+}
+[data-theme=“light”] .story-c .st-wt,.story-c .st-wb{
+/* keep green/red wick colors */
+}
+
+/* LIVE CHART LINE LIGHT */
+[data-theme=“light”] .live-price{color:#2563eb;}
+[data-theme=“light”] .live-chg{color:#16a34a;}
+[data-theme=“light”] .ldot{background:#2563eb;}
+[data-theme=“light”] .ldot-row{color:#2563eb;}
+
+/* PROFILE STATS LIGHT */
+[data-theme=“light”] .prof-stats{background:#e8edf8;}
+[data-theme=“light”] .pstat{background:#fff;}
+
+/* SIDEBAR PROFILE MINI */
+[data-theme=“light”] .pf-mini{background:#f6f8fd;border:1px solid #e8edf8;}
+[data-theme=“light”] .pf-mini-role{color:#2563eb;}
+[data-theme=“light”] .lsb-lbl{color:#94a3c0;}
+
+/* SIGNAL CARDS LIGHT */
+[data-theme=“light”] .sig-card{
+background:#fff;border:1px solid #e8edf8;
+box-shadow:0 2px 12px rgba(37,99,235,.05);
+}
+[data-theme=“light”] .sig-card.bull::before{background:#16a34a;}
+[data-theme=“light”] .sig-card.bear::before{background:#ef4444;}
+
+/* BADGES LIGHT */
+[data-theme=“light”] .post-badge,.pbadge-e{background:#eff4ff;color:#2563eb;border-color:#c7d7f5;}
+[data-theme=“light”] .sig-badge.live{background:#eff4ff;color:#2563eb;border-color:#c7d7f5;}
+[data-theme=“light”] .sig-badge.tp{background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;}
+[data-theme=“light”] .sig-badge.sl{background:#fef2f2;color:#ef4444;border-color:#fecaca;}
+
+/* COMMUNITY CARDS LIGHT */
+[data-theme=“light”] .comm-card{background:#fff;border:1px solid #e8edf8;box-shadow:0 2px 12px rgba(37,99,235,.05);}
+[data-theme=“light”] .comm-join-btn.free{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;}
+[data-theme=“light”] .comm-join-btn.paid{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;}
+[data-theme=“light”] .comm-join-btn.joined{background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;}
+
+/* CALENDAR LIGHT */
+[data-theme=“light”] .cal-cell:hover{background:#f0f4ff;}
+[data-theme=“light”] .cal-cell.tod .cal-d{color:#2563eb;}
+[data-theme=“light”] .cal-pip.pos{background:#f0fdf4;color:#16a34a;}
+[data-theme=“light”] .cal-pip.neg{background:#fef2f2;color:#ef4444;}
+
+/* NOTIF PANEL LIGHT DEPTH */
+[data-theme=“light”] .notif-panel{
+box-shadow:0 20px 60px rgba(37,99,235,.12),0 4px 16px rgba(0,0,0,.06);
+}
+
+/* CHAT MESSAGES LIGHT */
+[data-theme=“light”] .msg-row:not(.own) .msg-bub{background:#f6f8fd;border-color:#e2e8f5;}
+[data-theme=“light”] .msg-row.own .msg-bub{background:#eff4ff;border-color:#c7d7f5;}
+
+/* SETTINGS ROWS LIGHT */
+[data-theme=“light”] .set-row{background:#fff;border-color:#e8edf8;box-shadow:0 1px 6px rgba(37,99,235,.04);}
+
+/* 3D FLOATING CARD ENTRANCE ANIMATION */
+@keyframes card3dIn{
+from{opacity:0;transform:translateY(20px) rotateX(8deg);filter:blur(4px);}
+to{opacity:1;transform:translateY(0) rotateX(0deg);filter:blur(0);}
+}
+.post-card,.sig-card,.ac-card,.comm-card{animation:card3dIn .4s cubic-bezier(.34,1.2,.64,1) both;}
+.post-card:nth-child(2){animation-delay:.06s;}
+.post-card:nth-child(3){animation-delay:.12s;}
+.sig-card:nth-child(2){animation-delay:.05s;}
+.sig-card:nth-child(3){animation-delay:.1s;}
+.sig-card:nth-child(4){animation-delay:.15s;}
+.ac-card:nth-child(2){animation-delay:.08s;}
+.ac-card:nth-child(3){animation-delay:.16s;}
+.ac-card:nth-child(4){animation-delay:.24s;}
+
+/* NAV ITEM 3D HOVER */
+.nb{transform-style:preserve-3d;}
+.nb:hover{transform:translateX(3px);}
+.nb.on{transform:translateX(3px);}
+
+/* STORY 3D */
+.story-c:hover .st-bw{
+transform:scale(1.05) translateY(-4px);
+filter:drop-shadow(0 8px 16px rgba(0,0,0,.25));
+}
+[data-theme=“light”] .story-c:hover .st-bw{
+filter:drop-shadow(0 8px 16px rgba(37,99,235,.2));
+}
+
+/* LIVE CHART WRAPPER GLOW */
+[data-theme=“dark”] .live-wrap::after{
+content:’’;position:absolute;inset:0;border-radius:14px;
+background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(0,212,170,.08),transparent);
+pointer-events:none;
+}
+[data-theme=“light”] .live-wrap::after{
+content:’’;position:absolute;inset:0;border-radius:14px;
+background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(37,99,235,.06),transparent);
+pointer-events:none;
+}
+
+/* ACCORDION 3D NOTIFICATION DOT */
+.np-dot{animation:dotPulse 2s ease-in-out infinite;}
+@keyframes dotPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.4);opacity:.7;}}
+
+/* 3D PROFILE AVATAR ROTATE ON HOVER */
+.pac:hover .pac-body{transform:rotateY(8deg) rotateX(-4deg) scale(1.04);}
+.pac-body{transition:transform .3s cubic-bezier(.34,1.2,.64,1);}
+
+/* REACTION PICKER 3D */
+.react-btn:hover{transform:scale(1.35) translateY(-3px) rotateZ(-5deg);}
+.react-btn{transition:transform .15s cubic-bezier(.34,1.5,.64,1);}
+
+/* MODAL BACKDROP BLUR STRONGER */
+.modal-ov{backdrop-filter:blur(16px) saturate(180%);}
+[data-theme=“light”] .modal-box{
+background:#fff;
+border:1px solid #e8edf8;
+box-shadow:0 32px 80px rgba(37,99,235,.15),0 8px 24px rgba(0,0,0,.06);
+}
+
+/* TOGGLE SWITCH LIGHT */
+[data-theme=“light”] .ts input:checked+.ts-track{background:#eff4ff;border-color:#2563eb;}
+[data-theme=“light”] .ts input:checked+.ts-track::before{background:#2563eb;}
+
+/* SIDEBAR STORIES CANDLE LIGHT */
+[data-theme=“light”] .sb-story:hover{background:#f0f4ff;}
+[data-theme=“light”] .sb-sn{color:#0f1829;}
+[data-theme=“light”] .sb-st{color:#94a3c0;}
+
+/* RIGHT SIDEBAR LIGHT */
+[data-theme=“light”] .ticker-item{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .ticker-item:hover{border-color:#2563eb;background:#f0f4ff;}
+[data-theme=“light”] .ticker-chg.up{background:#f0fdf4;color:#16a34a;}
+[data-theme=“light”] .ticker-chg.dn{background:#fef2f2;color:#ef4444;}
+[data-theme=“light”] .sig-mini{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .sig-mini:hover{border-color:#2563eb;background:#f0f4ff;}
+[data-theme=“light”] .sig-mini-dir.buy{background:#f0fdf4;color:#16a34a;border-color:#bbf7d0;}
+[data-theme=“light”] .sig-mini-dir.sell{background:#fef2f2;color:#ef4444;border-color:#fecaca;}
+[data-theme=“light”] .news-item:hover .news-title{color:#2563eb;}
+
+/* LOGO GRADIENT LIGHT */
+[data-theme=“light”] .hdr-logo{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+[data-theme=“light”] .auth-logo h1{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+[data-theme=“light”] .auth-icon{background:linear-gradient(135deg,#2563eb,#7c3aed);box-shadow:0 0 60px rgba(37,99,235,.4),0 16px 40px rgba(0,0,0,.15);}
+
+/* BG CANVAS LIGHT - softer */
+[data-theme=“light”] #bgCanvas{opacity:.04;}
+
+/* MOBILE NAV LIGHT */
+[data-theme=“light”] .mob-nav{
+background:rgba(255,255,255,.92);
+border-top:1px solid #e8edf8;
+box-shadow:0 -4px 20px rgba(37,99,235,.07);
+}
+[data-theme=“light”] .mob-nav-btn.on{color:#2563eb;}
+[data-theme=“light”] .mob-topbar{background:rgba(255,255,255,.85);}
+[data-theme=“light”] .mob-pill.on{background:#2563eb;color:#fff;border-color:#2563eb;}
+[data-theme=“light”] .mob-pill:hover{border-color:#2563eb;color:#2563eb;}
+
+/* PROGRESS BAR LIGHT */
+[data-theme=“light”] .prog-fill{background:#2563eb;}
+[data-theme=“light”] .prog-bar{background:#e2e8f5;}
+
+/* COMMENTS LIGHT */
+[data-theme=“light”] .cmt-inp{background:#f6f8fd;border-color:#e2e8f5;}
+[data-theme=“light”] .cmt-snd{background:#2563eb;}
+[data-theme=“light”] .cmt-mention{color:#2563eb;}
+[data-theme=“light”] .msg-mention{color:#2563eb;}
+
+/* USER MENU LIGHT */
+[data-theme=“light”] .user-menu-drop{
+background:rgba(255,255,255,.97);
+border:1px solid #e8edf8;
+box-shadow:0 12px 40px rgba(37,99,235,.12);
+}
+[data-theme=“light”] .umi-item:hover{background:#f0f4ff;color:#2563eb;}
+[data-theme=“light”] .umi-item.danger:hover{background:#fef2f2;color:#ef4444;}
+[data-theme=“light”] .umi-head{border-bottom-color:#e8edf8;}
+[data-theme=“light”] .pf-mini-role,[data-theme=“light”] .pf-role{color:#2563eb;}
+
+/* THEME SLIDE LIGHT */
+[data-theme=“light”] .ctrl-row .csm{background:#f6f8fd;border-color:#e2e8f5;color:#5a6a8a;}
+[data-theme=“light”] .ctrl-row .csm:hover{border-color:#2563eb;color:#2563eb;}
+
+/* COMPOSER LIGHT */
+[data-theme=“light”] .comp-ta{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+[data-theme=“light”] .comp-ta:focus{border-color:#2563eb;}
+[data-theme=“light”] .ctool{background:#f6f8fd;border-color:#e2e8f5;color:#5a6a8a;}
+[data-theme=“light”] .ctool:hover{border-color:#2563eb;color:#2563eb;}
+
+/* SEARCH INPUT LIGHT */
+[data-theme=“light”] .hdr-search input{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+[data-theme=“light”] .hdr-search input:focus{border-color:#2563eb;}
+[data-theme=“light”] .hbtn{background:#f6f8fd;color:#5a6a8a;}
+[data-theme=“light”] .hbtn:hover{color:#2563eb;}
+[data-theme=“light”] .uchip{background:rgba(255,255,255,.8);border:1px solid #e2e8f5;}
+
+/* PROFILE TABS LIGHT */
+[data-theme=“light”] .prof-tab.on{color:#2563eb;}
+[data-theme=“light”] .prof-tab.on::after{background:#2563eb;}
+[data-theme=“light”] .priv-toggle.pub{border-color:rgba(22,163,74,.4);color:#16a34a;background:rgba(22,163,74,.05);}
+
+/* ACADEMY LIGHT */
+[data-theme=“light”] .ac-card{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .ac-lv{background:rgba(0,0,0,.35);}
+
+/* PERIOD BUTTON LIGHT */
+[data-theme=“light”] .pbtn.on{background:#2563eb;border-color:#2563eb;}
+[data-theme=“light”] .pbtn:not(.on):hover{border-color:#2563eb;color:#2563eb;}
+
+/* CHAT SEND LIGHT */
+[data-theme=“light”] .chat-snd{background:linear-gradient(135deg,#2563eb,#1d4ed8);}
+[data-theme=“light”] .chat-inp{background:#f6f8fd;border-color:#e2e8f5;}
+[data-theme=“light”] .chat-inp:focus{border-color:#2563eb;}
+
+/* STAT BOX LIGHT */
+[data-theme=“light”] .stat-box{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .stat-num.pos{color:#16a34a;}
+[data-theme=“light”] .stat-num.neg{color:#ef4444;}
+
+/* FI INPUT LIGHT */
+[data-theme=“light”] .fi{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+[data-theme=“light”] .fi:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1);}
+[data-theme=“light”] .mfi{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+[data-theme=“light”] .mfi:focus{border-color:#2563eb;}
+[data-theme=“light”] .mfta{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+[data-theme=“light”] .mfta:focus{border-color:#2563eb;}
+[data-theme=“light”] .set-sel{background:#f6f8fd;border-color:#e2e8f5;color:#0f1829;}
+
+/* PRIV TOGGLE LIGHT */
+[data-theme=“light”] .priv-toggle{background:#f6f8fd;border-color:#e2e8f5;color:#5a6a8a;}
+
+/* COMM TABS LIGHT */
+[data-theme=“light”] .comm-tab{background:#f6f8fd;border-color:#e2e8f5;color:#5a6a8a;}
+[data-theme=“light”] .comm-tab.on{background:#2563eb;color:#fff;border-color:#2563eb;}
+
+/* SMOOTH THEME TRANSITION */
+*{transition:background-color .3s ease,border-color .3s ease,color .25s ease,box-shadow .3s ease;}
+/* But keep transform transitions snappy */
+.post-card,.sig-card,.ac-card,.comm-card,.pac-body,.react-btn,.nb,.story-c .st-bw{transition:transform .25s cubic-bezier(.34,1.2,.64,1),box-shadow .25s ease,border-color .3s ease,background-color .3s ease,color .25s ease;}
 </style>
 
 </head>
@@ -486,8 +847,8 @@ button,input,select,textarea{font-family:inherit;outline:none;}
   <div class="auth-topbar">
     <button class="auth-lang-btn glass" onclick="cycleLang()">🌐 <span id="authLangLbl">МН</span></button>
     <div class="auth-topbar-r">
-      <span class="ts-ico" id="authThIco">🌙</span>
-      <label class="ts"><input type="checkbox" id="authThChk" checked onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
+      <span class="ts-ico" id="authThIco">☀️</span>
+      <label class="ts"><input type="checkbox" id="authThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
     </div>
   </div>
   <div class="auth-box">
@@ -569,8 +930,8 @@ button,input,select,textarea{font-family:inherit;outline:none;}
         <button class="nb on" data-p="home" onclick="navTo('home',this)"><span class="ni">🏠</span><span data-i="home">Нийтлэл</span></button>
         <button class="nb" data-p="academy" onclick="navTo('academy',this)"><span class="ni">🎓</span><span data-i="academy">Сургалт</span></button>
         <button class="nb" data-p="signals" onclick="navTo('signals',this)"><span class="ni">📡</span><span data-i="signals">Сигнал</span><span class="nbdg">3</span></button>
-        <button class="nb" data-p="chat" onclick="navTo('chat',this)"><span class="ni">💬</span><span data-i="chat">Чат</span><span class="nbdg" id="chatBdg">5</span></button>
         <button class="nb" data-p="communities" onclick="navTo('communities',this)"><span class="ni">🏫</span><span data-i="communities">Булгэм</span></button>
+        <button class="nb" data-p="chat" onclick="navTo('chat',this)"><span class="ni">💬</span><span data-i="chat">Чат</span><span class="nbdg" id="chatBdg">5</span></button>
       </div>
       <div class="lsb-foot">
         <div class="pf-mini glass" onclick="navTo('profile')">
@@ -579,8 +940,8 @@ button,input,select,textarea{font-family:inherit;outline:none;}
         </div>
         <div class="ctrl-row">
           <div style="flex:2;display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:9px;border:1px solid var(--bd);background:var(--bg3);">
-            <span style="font-size:11px;" id="sbThIco">🌙</span>
-            <label class="ts"><input type="checkbox" id="sbThChk" checked onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
+            <span style="font-size:11px;" id="sbThIco">☀️</span>
+            <label class="ts"><input type="checkbox" id="sbThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
           </div>
           <button class="csm" onclick="cycleLang()">🌐 <span id="langLbl">МН</span></button>
           <button class="csm" onclick="logout()">🚪</button>
@@ -1006,7 +1367,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
       <div class="set-sec-title">Харагдах байдал</div>
       <div class="set-row glass">
         <div><div class="set-lbl">Dark Mode</div><div class="set-sub">Харанхуй горим</div></div>
-        <label class="ts"><input type="checkbox" id="setThChk" checked onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
+        <label class="ts"><input type="checkbox" id="setThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
       </div>
       <div class="set-row glass">
         <div><div class="set-lbl">Хэл / Language</div></div>
@@ -1053,9 +1414,9 @@ button,input,select,textarea{font-family:inherit;outline:none;}
   </div>
   <nav class="mob-nav glass">
     <button class="mob-nav-btn on" data-p="home" onclick="navTo('home',null,null,this)"><span class="mob-nav-ico">🏠</span><span class="mob-nav-lbl">Нийтлэл</span></button>
+    <button class="mob-nav-btn" data-p="academy" onclick="navTo('academy',null,null,this)"><span class="mob-nav-ico">🎓</span><span class="mob-nav-lbl">Сургалт</span></button>
     <button class="mob-nav-btn" data-p="signals" onclick="navTo('signals',null,null,this)"><span class="mob-nav-ico">📡</span><span class="mob-nav-lbl">Сигнал</span></button>
     <button class="mob-nav-btn" data-p="communities" onclick="navTo('communities',null,null,this)"><span class="mob-nav-ico">🏫</span><span class="mob-nav-lbl">Булгэм</span></button>
-    <button class="mob-nav-btn" data-p="academy" onclick="navTo('academy',null,null,this)"><span class="mob-nav-ico">🎓</span><span class="mob-nav-lbl">Сургалт</span></button>
     <button class="mob-nav-btn" data-p="chat" onclick="navTo('chat',null,null,this)"><span class="mob-nav-ico">💬</span><span class="mob-nav-lbl">Чат</span></button>
   </nav>
 </div>
@@ -1667,7 +2028,7 @@ function togEl(id){const el=document.getElementById(id);el.style.display=el.styl
 function setPeriod(btn){btn.closest('.period-row').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
 
 /* THEME */
-let theme='dark';
+let theme='light';
 function applyTheme(t){
   theme=t;document.documentElement.setAttribute('data-theme',t);
   const isDark=t==='dark';
@@ -1710,7 +2071,7 @@ function enterApp(){
 function logout(){document.getElementById('app').classList.remove('on');document.getElementById('authWrap').style.display='flex';}
 
 /* INIT */
-document.getElementById('authThChk').checked=true;
+document.getElementById('authThChk').checked=false;
 
 /* USER MENU */
 function openUserMenu(e){
