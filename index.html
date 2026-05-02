@@ -22,10 +22,10 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 [data-theme="light"] .glass{background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(255,255,255,.6));border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 20px rgba(0,0,0,.1),inset 0 1px 0 #fff;}
 #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 /* AUTH */
-#authWrap{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;overflow:auto;}
+#authWrap{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;overflow:auto;pointer-events:auto;}
 .auth-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,.08),transparent 65%);pointer-events:none;animation:glowP 5s ease-in-out infinite;}
 @keyframes glowP{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.25);}}
-.auth-topbar{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:9001;}
+.auth-topbar{position:absolute;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:2;}
 .auth-topbar-r{display:flex;align-items:center;gap:8px;}
 .auth-lang-btn{padding:7px 14px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,.1);color:var(--tx2);background:transparent;transition:.2s;}
 .auth-lang-btn:hover{color:var(--A);}
@@ -832,10 +832,13 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
 [data-theme=“light”] .comm-tab{background:#f6f8fd;border-color:#e2e8f5;color:#5a6a8a;}
 [data-theme=“light”] .comm-tab.on{background:#2563eb;color:#fff;border-color:#2563eb;}
 
-/* SMOOTH THEME TRANSITION */
-*{transition:background-color .3s ease,border-color .3s ease,color .25s ease,box-shadow .3s ease;}
-/* But keep transform transitions snappy */
-.post-card,.sig-card,.ac-card,.comm-card,.pac-body,.react-btn,.nb,.story-c .st-bw{transition:transform .25s cubic-bezier(.34,1.2,.64,1),box-shadow .25s ease,border-color .3s ease,background-color .3s ease,color .25s ease;}
+/* SMOOTH THEME TRANSITION - targeted only */
+.post-card,.sig-card,.ac-card,.comm-card,.stat-box,.exp-item,.mem-plan,
+.nb,.ctool,.csm,.hbtn,.uchip,.ticker-item,.sig-mini,.news-item,
+.story-c .st-bw,.pac-body,.react-btn,.btn-auth,.csub,.mbtn-s,
+.trader-follow,.chat-list-item,.admin-stat,.admin-nav-btn{
+transition:background-color .3s ease,border-color .3s ease,color .25s ease,box-shadow .25s ease,transform .25s cubic-bezier(.34,1.2,.64,1);
+}
 
 /* ══════════════════════════════════════
 ADMIN DASHBOARD
@@ -2087,18 +2090,7 @@ function insertMention(name){
   inp.value=val.slice(0,lastAt)+'@'+name+' ';
   document.getElementById('mentionPop').classList.remove('open');inp.focus();
 }
-function sendMsg(){
-  const inp=document.getElementById('chatInp');const txt=inp.value.trim();if(!txt)return;
-  document.getElementById('mentionPop').classList.remove('open');
-  const msgs=document.getElementById('chatMsgs');
-  const now=new Date();const t=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const l=document.getElementById('chatOwnAvL').textContent;
-  const formatted=txt.replace(/@(\S+)/g,'<span class="msg-mention">@$1</span>');
-  const row=document.createElement('div');row.className='msg-row own';
-  row.innerHTML=`<div class="msg-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${l}</div><div class="msg-cont"><div class="msg-bub">${formatted}</div><div class="msg-t">${t}</div></div>`;
-  msgs.appendChild(row);msgs.scrollTop=msgs.scrollHeight;inp.value='';
-  document.getElementById('chatBdg').style.display='none';
-}
+/* sendMsg defined below */
 function shareToChat(txt){
   navTo('chat');
   setTimeout(()=>{document.getElementById('chatInp').value='📡 '+txt+' — Сигналын талаар ярилцацгаая!';},200);
@@ -2380,7 +2372,7 @@ const n=rn.value.trim(),l=n[0].toUpperCase();
 [‘sbAvL’,‘hdrAvL’,‘profAvL’,‘profCompAvL’,‘profPostAvL’,‘chatOwnAvL’,‘setAvL’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
 [‘profPostName’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
 }
-document.getElementById(‘authWrap’).style.display=‘none’;
+document.getElementById(‘authWrap’).style.display=‘none’;document.getElementById(‘authWrap’).style.pointerEvents=‘none’;
 document.getElementById(‘app’).classList.add(‘on’);
 setTimeout(()=>{
 initLive();drawPostChart();buildCal(‘calGrid’,userCal);buildCoverCdls();buildSbStories();
@@ -2613,7 +2605,6 @@ if(t&&!t.isEmoji)openUserProf(t.name,t.c1,t.c2,t.av);
 }
 
 // Override sendMsg to save to thread
-const _origSendMsg=sendMsg;
 function sendMsg(){
 const inp=document.getElementById(‘chatInp’);
 const txt=inp.value.trim();if(!txt)return;
@@ -2658,7 +2649,6 @@ if(adminBtn)adminBtn.style.display=isAdmin?‘flex’:‘none’;
 OVERRIDE enterApp to init new features
 ══════════════════════════════════════ */
 // Patch existing enterApp - add new inits
-const _prevEnterInit=null;
 
 /* INIT */
 document.getElementById(‘authThChk’).checked=false;
