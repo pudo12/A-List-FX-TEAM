@@ -5,7 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>A-LIST FX</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--A:#00d4aa;--A2:#f0b429;--R:#ff4757;--G:#00e676;--Y:#ffd32a;--P:#a78bfa;--B:#60a5fa;--bg:#07090f;--bg2:#0d1117;--bg3:#131923;--card:#111827;--card2:#1a2538;--bd:#1e2d3d;--bd2:#253447;--tx:#e8f4fd;--tx2:#8099b3;--tx3:#4d6680;--hh:56px;--sw:245px;--rw:255px;}
 [data-theme="light"]{
@@ -15,11 +18,15 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;transition:background .3s,color .3s;}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;transition:background .3s,color .3s;}
 ::-webkit-scrollbar{width:3px;height:3px;}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}::-webkit-scrollbar-track{background:transparent;}
 button,input,select,textarea{font-family:inherit;outline:none;}
-.glass{background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);}
-[data-theme="light"] .glass{background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(255,255,255,.6));border:1px solid rgba(255,255,255,.9);box-shadow:0 4px 20px rgba(0,0,0,.1),inset 0 1px 0 #fff;}
+.glass{background:rgba(17,24,39,0.95);border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 32px rgba(0,0,0,.5);}
+@supports (backdrop-filter:blur(20px)){
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);}}
+[data-theme="light"] .glass{background:rgba(255,255,255,0.97);border:1px solid rgba(200,210,235,.8);box-shadow:0 4px 20px rgba(0,0,0,.1);}
+@supports (backdrop-filter:blur(20px)){
+[data-theme="light"] .glass{background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(255,255,255,.6));backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);}}
 #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
 /* AUTH */
 #authWrap{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;overflow:auto;pointer-events:auto;}
@@ -127,7 +134,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .rsb-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
 .ticker-item{display:flex;align-items:center;justify-content:space-between;padding:6px 9px;border-radius:9px;margin-bottom:3px;cursor:pointer;transition:.12s;border:1px solid var(--bd);}
 .ticker-item:hover{border-color:var(--A);}
-.ticker-pair{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;}
+.ticker-pair{font-family:'DM Mono','Courier New',monospace;font-size:11px;font-weight:500;}
 .ticker-chg{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;}
 .ticker-chg.up{background:rgba(0,230,118,.1);color:var(--G);}
 .ticker-chg.dn{background:rgba(255,71,87,.08);color:var(--R);}
@@ -147,7 +154,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .ldot-row{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:var(--G);margin-left:7px;}
 .ldot{width:5px;height:5px;border-radius:50%;background:var(--G);animation:ldp 1.2s ease-in-out infinite;}
 @keyframes ldp{0%,100%{opacity:1;}50%{opacity:.2;}}
-.live-price{font-family:'DM Mono',monospace;font-size:21px;font-weight:400;color:var(--G);}
+.live-price{font-family:'DM Mono','Courier New',monospace;font-size:21px;font-weight:400;color:var(--G);}
 .live-chg{font-size:10px;color:var(--G);margin-top:1px;}
 .pair-sel{background:var(--bg3);border:1px solid var(--bd);color:var(--tx);padding:4px 8px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;margin-top:5px;}
 .pair-sel:focus{border-color:var(--A);}
@@ -253,7 +260,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .prof-bio{font-size:12px;color:var(--tx2);margin-top:6px;line-height:1.55;}
 .prof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border-top:1px solid var(--bd);margin-top:12px;}
 .pstat{padding:10px;text-align:center;background:var(--card);}
-.pstat-num{font-family:'DM Mono',monospace;font-size:14px;font-weight:400;}
+.pstat-num{font-family:'DM Mono','Courier New',monospace;font-size:14px;font-weight:400;}
 .pstat-lbl{font-size:9px;color:var(--tx2);margin-top:1px;font-weight:600;}
 .prof-tabs{display:flex;border-bottom:1px solid var(--bd);margin-bottom:12px;}
 .prof-tab{flex:1;padding:10px 4px;border:none;background:transparent;color:var(--tx2);font-size:12px;font-weight:700;cursor:pointer;position:relative;transition:.12s;}
@@ -273,7 +280,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
 .stat-box{border-radius:12px;padding:11px;border:1px solid var(--bd);background:var(--card);}
 .stat-lbl{font-size:9px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
-.stat-num{font-family:'DM Mono',monospace;font-size:16px;font-weight:400;}
+.stat-num{font-family:'DM Mono','Courier New',monospace;font-size:16px;font-weight:400;}
 .stat-num.pos{color:var(--G);}.stat-num.neg{color:var(--R);}
 .stat-sub{font-size:9px;color:var(--tx3);margin-top:2px;}
 .period-row{display:flex;gap:4px;margin-bottom:11px;}
@@ -313,7 +320,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .sig-dir.sell{background:rgba(255,71,87,.08);color:var(--R);border:1.5px solid rgba(255,71,87,.18);}
 .sig-inf{flex:1;}
 .sig-pair{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;}
-.sig-det{font-size:10px;color:var(--tx2);margin-top:2px;font-family:'DM Mono',monospace;}
+.sig-det{font-size:10px;color:var(--tx2);margin-top:2px;font-family:'DM Mono','Courier New',monospace;}
 .sig-time{font-size:9px;color:var(--tx3);margin-top:2px;}
 .sig-admin-note{margin-top:7px;padding:6px 9px;background:rgba(0,212,170,.05);border:1px solid rgba(0,212,170,.15);border-radius:7px;font-size:11px;color:var(--tx2);}
 .sig-reacts{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap;}
@@ -395,7 +402,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .mbtn-s{padding:8px 17px;border-radius:9px;border:none;background:linear-gradient(135deg,#00d4aa,#00b894);color:#000;font-weight:800;font-size:12px;cursor:pointer;transition:.15s;}
 .mbtn-s:hover{transform:translateY(-1px);}
 .trd-pnl{text-align:center;padding:5px 0 10px;}
-.trd-pnl-num{font-family:'DM Mono',monospace;font-size:34px;font-weight:400;}
+.trd-pnl-num{font-family:'DM Mono','Courier New',monospace;font-size:34px;font-weight:400;}
 .trd-note{background:var(--bg3);border:1px solid var(--bd);border-radius:9px;padding:10px;font-size:12px;line-height:1.55;color:var(--tx2);}
 .note-img-prev{width:100%;max-height:140px;object-fit:cover;border-radius:8px;margin-top:7px;display:none;}
 .dm-msgs{display:flex;flex-direction:column;gap:7px;max-height:230px;overflow-y:auto;margin-bottom:10px;}
@@ -413,7 +420,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .upm-pac-wb{width:3px;height:7px;border-radius:2px;background:var(--A);animation:wkP 2.8s ease-in-out infinite reverse;}
 .upm-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-top:8px;}
 .upm-stats{display:flex;justify-content:center;gap:18px;margin-top:10px;}
-.upm-stat-num{font-family:'DM Mono',monospace;font-size:13px;font-weight:400;text-align:center;}
+.upm-stat-num{font-family:'DM Mono','Courier New',monospace;font-size:13px;font-weight:400;text-align:center;}
 .upm-stat-lbl{font-size:9px;color:var(--tx2);text-align:center;}
 .story-prev-box{height:150px;border-radius:12px;border:2px dashed var(--bd2);display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer;transition:.2s;margin-bottom:9px;}
 .story-prev-box:hover{border-color:var(--A);}
@@ -464,7 +471,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .comm-detail-name{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;}
 .comm-stats-row{display:flex;gap:14px;margin-top:8px;}
 .comm-stat{text-align:center;}
-.comm-stat-n{font-family:‘DM Mono’,monospace;font-size:13px;font-weight:400;}
+.comm-stat-n{font-family:‘DM Mono’,‘Courier New’,monospace;font-size:13px;font-weight:400;}
 .comm-stat-l{font-size:9px;color:var(–tx2);}
 /* CREATE COMMUNITY FORM */
 .create-comm-steps{display:flex;gap:4px;margin-bottom:16px;}
@@ -475,7 +482,7 @@ button,input,select,textarea{font-family:inherit;outline:none;}
 .mem-plan:hover{border-color:var(–A);}
 .mem-plan.selected{border-color:var(–A);background:rgba(0,212,170,.05);}
 .mem-plan-name{font-family:‘Syne’,sans-serif;font-size:14px;font-weight:800;margin-bottom:4px;}
-.mem-plan-price{font-size:20px;font-weight:800;color:var(–A);font-family:‘DM Mono’,monospace;}
+.mem-plan-price{font-size:20px;font-weight:800;color:var(–A);font-family:‘DM Mono’,‘Courier New’,monospace;}
 .mem-plan-feat{font-size:11px;color:var(–tx2);margin-top:5px;line-height:1.5;}
 /* join request form */
 .join-req-form{display:flex;flex-direction:column;gap:10px;}
@@ -872,7 +879,7 @@ ADMIN DASHBOARD
 .admin-stat.yellow::after{background:var(–A2);}
 .admin-stat.red::after{background:var(–R);}
 .admin-stat-ico{font-size:22px;margin-bottom:10px;}
-.admin-stat-num{font-family:‘DM Mono’,monospace;font-size:26px;font-weight:500;}
+.admin-stat-num{font-family:‘DM Mono’,‘Courier New’,monospace;font-size:26px;font-weight:500;}
 .admin-stat-lbl{font-size:11px;color:var(–tx2);margin-top:3px;font-weight:600;}
 .admin-stat-delta{font-size:11px;margin-top:5px;}
 .admin-stat-delta.up{color:var(–G);}
@@ -1011,6 +1018,29 @@ ADMIN DASHBOARD
 .chat-list-time{font-size:10px;color:var(–tx3);flex-shrink:0;}
 .chat-unread{width:18px;height:18px;border-radius:50%;background:var(–A);color:#000;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 [data-theme=“light”] .chatListPane,.chat-list-item{background:var(–card);}
+
+/* CRITICAL: Ensure all interactive elements are always clickable */
+button, input, select, textarea, a, [onclick] {
+pointer-events: auto !important;
+position: relative;
+z-index: 1;
+}
+#authWrap button {
+pointer-events: auto !important;
+z-index: 10;
+cursor: pointer;
+}
+/* Remove animation fill-mode that might block */
+.page.on, .page-full.on {
+animation-fill-mode: none;
+}
+</style>
+
+<style>
+/* CRITICAL: Ensure immediate interactivity */
+button,input,a,[onclick]{cursor:pointer;}
+#authWrap{pointer-events:auto;}
+.auth-wrap *{pointer-events:auto;}
 </style>
 
 </head>
@@ -1020,7 +1050,7 @@ ADMIN DASHBOARD
 <div id="authWrap">
   <div class="auth-glow"></div>
   <div class="auth-topbar">
-    <button class="auth-lang-btn glass" onclick="cycleLang()">🌐 <span id="authLangLbl">МН</span></button>
+    <button class="auth-lang-btn" onclick="cycleLang()">🌐 <span id="authLangLbl">МН</span></button>
     <div class="auth-topbar-r">
       <span class="ts-ico" id="authThIco">☀️</span>
       <label class="ts"><input type="checkbox" id="authThChk" onchange="applyTheme(this.checked?'dark':'light')"><div class="ts-track"></div></label>
@@ -1032,16 +1062,16 @@ ADMIN DASHBOARD
       <h1>A-LIST FX</h1>
       <p id="authTag">Мэргэжлийн арилжааны нийгэмлэг</p>
     </div>
-    <div class="auth-tabs glass">
+    <div class="auth-tabs" style="background:var(--bg3);border-radius:13px;">
       <button class="atab on" id="tabL" onclick="swAuth('l')">Нэвтрэх</button>
       <button class="atab" id="tabR" onclick="swAuth('r')">Бүртгүүлэх</button>
     </div>
-    <div class="acard glass" id="loginCard">
+    <div class="acard" id="loginCard" style="background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;">
       <div class="fg"><label>И-мэйл</label><input class="fi" type="email" placeholder="trader@example.com"></div>
       <div class="fg"><label>Нууц үг</label><input class="fi" type="password" placeholder="••••••••"></div>
       <button class="btn-auth" onclick="enterApp()">Нэвтрэх →</button>
     </div>
-    <div class="acard glass" id="regCard" style="display:none">
+    <div class="acard" id="regCard" style="display:none;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;">
       <div class="fg">
   <label>Хэрэглэгчийн нэр</label>
   <input class="fi" type="text" id="regName" id="regNameInp" placeholder="Таны нэр" oninput="checkUsername(this);suggestUsername(this.value)">
@@ -1604,9 +1634,9 @@ ADMIN DASHBOARD
   </div>
   <div class="rsb-sec">
     <div class="rsb-title">📈 Ханш</div>
-    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)" id="t1">1.0891</span><span class="ticker-chg up">+0.21%</span></div>
-    <div class="ticker-item"><span class="ticker-pair">GBP/JPY</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">186.42</span><span class="ticker-chg dn">-0.18%</span></div>
-    <div class="ticker-item"><span class="ticker-pair">XAU/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">2341.5</span><span class="ticker-chg up">+0.54%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span style="font-family:'DM Mono','Courier New',monospace;font-size:11px;color:var(--tx2)" id="t1">1.0891</span><span class="ticker-chg up">+0.21%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">GBP/JPY</span><span style="font-family:'DM Mono','Courier New',monospace;font-size:11px;color:var(--tx2)">186.42</span><span class="ticker-chg dn">-0.18%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">XAU/USD</span><span style="font-family:'DM Mono','Courier New',monospace;font-size:11px;color:var(--tx2)">2341.5</span><span class="ticker-chg up">+0.54%</span></div>
   </div>
 </aside>
 ```
@@ -2890,7 +2920,7 @@ if(u)showToast(’👤 ‘+u.name+’ — ’+u.email);
 function renderAdminGroups(groups){
 const tbody=document.getElementById(‘groupsTbody’);
 if(!tbody)return;
-tbody.innerHTML=groups.map((g,i)=>`<tr> <td style="color:var(--tx3)">${i+1}</td> <td><div style="display:flex;align-items:center;gap:8px"><div style="font-size:20px">${g.emoji}</div><div><div style="font-weight:700;font-size:13px">${g.name}</div></div></div></td> <td><div style="font-size:12px;font-weight:600">${g.owner}</div><div style="font-size:10px;color:var(--tx3)">${g.ownerEmail}</div></td> <td style="font-size:12px">${g.created}</td> <td style="text-align:center;font-weight:700">${g.members.toLocaleString()}</td> <td><span class="admin-badge ${g.type==='paid'?'ab-yellow':g.type==='request'?'ab-blue':'ab-green'}">${g.type==='paid'?'💎 Төлбөртэй':g.type==='request'?'🔒 Хүсэлт':'🆓 Үнэгүй'}</span></td> <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--G)">${g.rev}</td> <td><span class="admin-badge ab-green">Идэвхтэй</span></td> <td><button class="admin-act ban" onclick="showToast('🗑️ Бүлгэм хаагдлаа')">🚫</button></td> </tr>`).join(’’);
+tbody.innerHTML=groups.map((g,i)=>`<tr> <td style="color:var(--tx3)">${i+1}</td> <td><div style="display:flex;align-items:center;gap:8px"><div style="font-size:20px">${g.emoji}</div><div><div style="font-weight:700;font-size:13px">${g.name}</div></div></div></td> <td><div style="font-size:12px;font-weight:600">${g.owner}</div><div style="font-size:10px;color:var(--tx3)">${g.ownerEmail}</div></td> <td style="font-size:12px">${g.created}</td> <td style="text-align:center;font-weight:700">${g.members.toLocaleString()}</td> <td><span class="admin-badge ${g.type==='paid'?'ab-yellow':g.type==='request'?'ab-blue':'ab-green'}">${g.type==='paid'?'💎 Төлбөртэй':g.type==='request'?'🔒 Хүсэлт':'🆓 Үнэгүй'}</span></td> <td style="font-family:'DM Mono','Courier New',monospace;font-size:12px;color:var(--G)">${g.rev}</td> <td><span class="admin-badge ab-green">Идэвхтэй</span></td> <td><button class="admin-act ban" onclick="showToast('🗑️ Бүлгэм хаагдлаа')">🚫</button></td> </tr>`).join(’’);
 }
 
 /* ── POSTS TABLE ── */
@@ -2905,7 +2935,7 @@ const posts=[
 // Add user posts from localStorage
 const saved=JSON.parse(localStorage.getItem(‘alistfx_posts’)||’[]’);
 const allPosts=[…saved.map(p=>({author:p.name,av:p.av,color:’#6366f1,#8b5cf6’,txt:p.txt,date:new Date(p.ts).toLocaleString(‘mn-MN’).slice(0,14),likes:0,cmts:0,views:Math.floor(Math.random()*200+10)})),…posts];
-tbody.innerHTML=allPosts.map(p=>`<tr> <td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,${p.color})">${p.av}</div>${p.author}</div></td> <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${p.txt}</td> <td style="font-size:11px;color:var(--tx2)">${p.date}</td> <td style="text-align:center">❤️ ${p.likes}</td> <td style="text-align:center">💬 ${p.cmts}</td> <td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px">${p.views}</td> <td><button class="admin-act ban" onclick="showToast('🗑️ Нийтлэл устгагдлаа')">🗑️</button></td> </tr>`).join(’’);
+tbody.innerHTML=allPosts.map(p=>`<tr> <td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,${p.color})">${p.av}</div>${p.author}</div></td> <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${p.txt}</td> <td style="font-size:11px;color:var(--tx2)">${p.date}</td> <td style="text-align:center">❤️ ${p.likes}</td> <td style="text-align:center">💬 ${p.cmts}</td> <td style="text-align:center;font-family:'DM Mono','Courier New',monospace;font-size:12px">${p.views}</td> <td><button class="admin-act ban" onclick="showToast('🗑️ Нийтлэл устгагдлаа')">🗑️</button></td> </tr>`).join(’’);
 }
 
 /* ── REG CHART ── */
@@ -3108,10 +3138,10 @@ if(el)el.textContent=regUsers.toLocaleString();
     <div class="admin-card" style="margin-bottom:14px">
       <div class="admin-card-hdr"><div class="admin-card-title">Ерөнхий статистик</div></div>
       <div class="admin-card-body" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center">
-        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--G)">73%</div><div style="font-size:11px;color:var(--tx2)">Win Rate</div></div>
-        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--A)">142</div><div style="font-size:11px;color:var(--tx2)">Нийт сигнал</div></div>
-        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--A2)">+2,840</div><div style="font-size:11px;color:var(--tx2)">Нийт pip</div></div>
-        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--P)">4.8★</div><div style="font-size:11px;color:var(--tx2)">Үнэлгээ</div></div>
+        <div><div style="font-family:'DM Mono','Courier New',monospace;font-size:22px;font-weight:400;color:var(--G)">73%</div><div style="font-size:11px;color:var(--tx2)">Win Rate</div></div>
+        <div><div style="font-family:'DM Mono','Courier New',monospace;font-size:22px;font-weight:400;color:var(--A)">142</div><div style="font-size:11px;color:var(--tx2)">Нийт сигнал</div></div>
+        <div><div style="font-family:'DM Mono','Courier New',monospace;font-size:22px;font-weight:400;color:var(--A2)">+2,840</div><div style="font-size:11px;color:var(--tx2)">Нийт pip</div></div>
+        <div><div style="font-family:'DM Mono','Courier New',monospace;font-size:22px;font-weight:400;color:var(--P)">4.8★</div><div style="font-size:11px;color:var(--tx2)">Үнэлгээ</div></div>
       </div>
     </div>
     <div class="admin-card">
@@ -3119,10 +3149,10 @@ if(el)el.textContent=regUsers.toLocaleString();
         <table class="admin-table">
           <thead><tr><th>Хос</th><th>Чиглэл</th><th>Entry</th><th>TP</th><th>SL</th><th>Огноо</th><th>Үр дүн</th><th>Реакц</th><th>Харагдац</th></tr></thead>
           <tbody>
-            <tr><td><strong>EUR/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">1.0890</td><td style="font-family:'DM Mono',monospace;color:var(--G)">1.0960</td><td style="font-family:'DM Mono',monospace;color:var(--R)">1.0820</td><td>04/30 09:15</td><td><span class="admin-badge ab-green">✓ TP +70p</span></td><td>❤️23 ✅12</td><td>847</td></tr>
-            <tr><td><strong>GBP/JPY</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">186.40</td><td style="font-family:'DM Mono',monospace;color:var(--G)">184.50</td><td style="font-family:'DM Mono',monospace;color:var(--R)">188.20</td><td>04/30 11:30</td><td><span class="admin-badge ab-yellow">● LIVE</span></td><td>❤️8 ✅7</td><td>423</td></tr>
-            <tr><td><strong>XAU/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">2340</td><td style="font-family:'DM Mono',monospace;color:var(--G)">2380</td><td style="font-family:'DM Mono',monospace;color:var(--R)">2295</td><td>04/29 16:00</td><td><span class="admin-badge ab-green">✓ TP +40p</span></td><td>❤️31 ✅18</td><td>1,204</td></tr>
-            <tr><td><strong>USD/CAD</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">1.3620</td><td style="font-family:'DM Mono',monospace;color:var(--G)">1.3540</td><td style="font-family:'DM Mono',monospace;color:var(--R)">1.3720</td><td>04/28</td><td><span class="admin-badge ab-red">✗ SL -100p</span></td><td>❤️5 ❌9</td><td>312</td></tr>
+            <tr><td><strong>EUR/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">1.0890</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--G)">1.0960</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--R)">1.0820</td><td>04/30 09:15</td><td><span class="admin-badge ab-green">✓ TP +70p</span></td><td>❤️23 ✅12</td><td>847</td></tr>
+            <tr><td><strong>GBP/JPY</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">186.40</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--G)">184.50</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--R)">188.20</td><td>04/30 11:30</td><td><span class="admin-badge ab-yellow">● LIVE</span></td><td>❤️8 ✅7</td><td>423</td></tr>
+            <tr><td><strong>XAU/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">2340</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--G)">2380</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--R)">2295</td><td>04/29 16:00</td><td><span class="admin-badge ab-green">✓ TP +40p</span></td><td>❤️31 ✅18</td><td>1,204</td></tr>
+            <tr><td><strong>USD/CAD</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">1.3620</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--G)">1.3540</td><td style="font-family:'DM Mono','Courier New',monospace;color:var(--R)">1.3720</td><td>04/28</td><td><span class="admin-badge ab-red">✗ SL -100p</span></td><td>❤️5 ❌9</td><td>312</td></tr>
           </tbody>
         </table>
       </div>
@@ -3161,9 +3191,9 @@ if(el)el.textContent=regUsers.toLocaleString();
         <table class="admin-table">
           <thead><tr><th>Хэрэглэгч</th><th>Gmail</th><th>Бүлгэм</th><th>Дүн</th><th>Огноо</th><th>Аргачлал</th><th>Статус</th></tr></thead>
           <tbody>
-            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="color:var(--tx2);font-size:12px">batbayar@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/30</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
-            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="color:var(--tx2);font-size:12px">oyuntuya@gmail.com</td><td>Scalping Masters</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮29,900</td><td style="font-size:12px">2026/04/29</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
-            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#a78bfa,#6d28d9)">А</div>Ариунаа</div></td><td style="color:var(--tx2);font-size:12px">ariunaa@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/28</td><td><span class="admin-badge ab-yellow">Банк</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="color:var(--tx2);font-size:12px">batbayar@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono','Courier New',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/30</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="color:var(--tx2);font-size:12px">oyuntuya@gmail.com</td><td>Scalping Masters</td><td style="color:var(--G);font-family:'DM Mono','Courier New',monospace;font-weight:500">₮29,900</td><td style="font-size:12px">2026/04/29</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#a78bfa,#6d28d9)">А</div>Ариунаа</div></td><td style="color:var(--tx2);font-size:12px">ariunaa@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono','Courier New',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/28</td><td><span class="admin-badge ab-yellow">Банк</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -3178,10 +3208,10 @@ if(el)el.textContent=regUsers.toLocaleString();
         <table class="admin-table">
           <thead><tr><th>Хэрэглэгч</th><th>Gmail</th><th>Үйлдэл</th><th>Платформ</th><th>IP хаяг</th><th>Цаг</th></tr></thead>
           <tbody>
-            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="font-size:11px;color:var(--tx2)">batbayar@gmail.com</td><td><span class="admin-badge ab-green">Нэвтрэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono',monospace;font-size:11px">103.26.x.x</td><td style="font-size:12px">14:32</td></tr>
-            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="font-size:11px;color:var(--tx2)">oyuntuya@gmail.com</td><td><span class="admin-badge ab-blue">Нийтлэл оруулав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono',monospace;font-size:11px">202.55.x.x</td><td style="font-size:12px">13:18</td></tr>
-            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">Э</div>Энхбаяр</div></td><td style="font-size:11px;color:var(--tx2)">enkhbayar@gmail.com</td><td><span class="admin-badge ab-yellow">Бүртгүүлэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono',monospace;font-size:11px">103.10.x.x</td><td style="font-size:12px">12:45</td></tr>
-            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div>Дэлгэр</div></td><td style="font-size:11px;color:var(--tx2)">delger@gmail.com</td><td><span class="admin-badge ab-red">Гарав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono',monospace;font-size:11px">119.40.x.x</td><td style="font-size:12px">11:02</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="font-size:11px;color:var(--tx2)">batbayar@gmail.com</td><td><span class="admin-badge ab-green">Нэвтрэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono','Courier New',monospace;font-size:11px">103.26.x.x</td><td style="font-size:12px">14:32</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="font-size:11px;color:var(--tx2)">oyuntuya@gmail.com</td><td><span class="admin-badge ab-blue">Нийтлэл оруулав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono','Courier New',monospace;font-size:11px">202.55.x.x</td><td style="font-size:12px">13:18</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">Э</div>Энхбаяр</div></td><td style="font-size:11px;color:var(--tx2)">enkhbayar@gmail.com</td><td><span class="admin-badge ab-yellow">Бүртгүүлэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono','Courier New',monospace;font-size:11px">103.10.x.x</td><td style="font-size:12px">12:45</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div>Дэлгэр</div></td><td style="font-size:11px;color:var(--tx2)">delger@gmail.com</td><td><span class="admin-badge ab-red">Гарав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono','Courier New',monospace;font-size:11px">119.40.x.x</td><td style="font-size:12px">11:02</td></tr>
           </tbody>
         </table>
       </div>
