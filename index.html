@@ -840,7 +840,7 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
 /* ══════════════════════════════════════
 ADMIN DASHBOARD
 ══════════════════════════════════════ */
-.admin-wrap{position:fixed;inset:0;z-index:9500;background:var(–bg);display:none;flex-direction:column;overflow:hidden;}
+.admin-wrap{position:fixed;inset:0;z-index:9500;background:var(–bg);display:none;flex-direction:column;overflow:hidden;isolation:isolate;}
 .admin-wrap.open{display:flex;}
 /* admin header */
 .admin-hdr{height:56px;flex-shrink:0;display:flex;align-items:center;padding:0 20px;gap:14px;border-bottom:1px solid var(–bd);}
@@ -849,12 +849,12 @@ ADMIN DASHBOARD
 .admin-close:hover{border-color:var(–R);color:var(–R);}
 /* admin layout */
 .admin-body{flex:1;display:flex;overflow:hidden;}
-.admin-sidebar{width:200px;flex-shrink:0;border-right:1px solid var(–bd);padding:14px 10px;overflow-y:auto;}
+.admin-sidebar{width:200px;flex-shrink:0;border-right:1px solid var(–bd);padding:14px 10px;overflow-y:auto;background:var(–card);}
 .admin-nav-btn{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border-radius:10px;border:none;background:transparent;color:var(–tx2);font-size:13px;font-weight:600;cursor:pointer;text-align:left;transition:.15s;margin-bottom:2px;}
 .admin-nav-btn:hover{background:var(–bg3);color:var(–tx);}
 .admin-nav-btn.on{background:rgba(240,180,41,.1);color:var(–A2);}
 .admin-nav-btn .ani{font-size:16px;width:20px;text-align:center;}
-.admin-content{flex:1;overflow-y:auto;padding:20px;}
+.admin-content{flex:1;overflow-y:auto;padding:20px;background:var(–bg);}
 /* admin pages */
 .admin-page{display:none;}
 .admin-page.on{display:block;}
@@ -940,12 +940,74 @@ ADMIN DASHBOARD
 .small-ts input:checked+.small-ts-track::before{transform:translateX(16px);background:var(–A);}
 /* light mode overrides */
 [data-theme=“light”] .admin-hdr{background:#fff;border-bottom-color:#e8edf8;}
+[data-theme=“dark”] .admin-hdr{background:var(–card);}
+.admin-wrap{background:var(–bg) !important;}
 [data-theme=“light”] .admin-sidebar{background:#fff;border-right-color:#e8edf8;}
 [data-theme=“light”] .admin-content{background:#f6f8fd;}
 [data-theme=“light”] .admin-card{background:#fff;border-color:#e8edf8;}
 [data-theme=“light”] .admin-stat{background:#fff;border-color:#e8edf8;}
 [data-theme=“light”] .admin-nav-btn.on{background:#fef9ec;color:#d97706;}
 [data-theme=“light”] .admin-table tr:hover td{background:#f6f8fd;}
+
+@media(max-width:700px){
+#chatListPane{width:100%;}
+#page-chat{flex-direction:column !important;}
+#chatConvPane{display:none;}
+#chatListPane.conv-open{display:none;}
+#chatConvPane.conv-open{display:flex !important;height:100%;}
+.chat-back-btn{display:flex !important;}
+}
+.chat-back-btn{display:none;padding:7px 12px;border:1px solid var(–bd);border-radius:9px;background:var(–bg3);color:var(–tx2);font-size:12px;font-weight:700;cursor:pointer;margin-right:6px;}
+
+/* TOP TRADERS */
+.trader-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(–bd);cursor:pointer;transition:.12s;}
+.trader-row:hover{background:transparent;opacity:.85;}
+.trader-row:last-child{border-bottom:none;}
+.trader-rank{width:18px;text-align:center;font-size:11px;font-weight:700;color:var(–tx3);flex-shrink:0;}
+.trader-av-sm{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;overflow:hidden;}
+.trader-av-sm img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
+.trader-info{flex:1;overflow:hidden;}
+.trader-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.trader-badge-sm{font-size:9px;color:var(–tx2);}
+.trader-follow{padding:4px 10px;border-radius:20px;border:1px solid var(–bd);background:transparent;color:var(–tx2);font-size:10px;font-weight:700;cursor:pointer;transition:.15s;flex-shrink:0;}
+.trader-follow:hover,.trader-follow.following{background:var(–A);color:#000;border-color:var(–A);}
+[data-theme=“light”] .trader-follow:hover,[data-theme=“light”] .trader-follow.following{background:#2563eb;border-color:#2563eb;}
+/* POST EDIT */
+.post-menu-pop{position:absolute;top:38px;right:10px;background:var(–card);border:1px solid var(–bd);border-radius:12px;overflow:hidden;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.3);display:none;min-width:150px;animation:rpop .15s ease;}
+.post-menu-pop.open{display:block;}
+.post-menu-item{padding:10px 15px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(–tx2);transition:.1s;}
+.post-menu-item:hover{background:var(–bg3);color:var(–tx);}
+.post-menu-item.red{color:var(–R);}
+.post-menu-item.red:hover{background:rgba(255,71,87,.07);}
+.post-edited-tag{font-size:10px;color:var(–tx3);font-style:italic;margin-left:6px;}
+/* EDIT INLINE */
+.post-edit-area{width:100%;border:1px solid var(–A);border-radius:10px;padding:10px;background:var(–bg3);color:var(–tx);font-size:13px;resize:none;min-height:60px;display:none;}
+.post-edit-actions{display:none;gap:6px;margin-top:7px;justify-content:flex-end;}
+/* LIKE LIST */
+.like-list-wrap{max-height:260px;overflow-y:auto;}
+.like-list-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(–bd);}
+.like-list-item:last-child{border-bottom:none;}
+.like-emoji-big{font-size:18px;width:24px;text-align:center;}
+/* REPOST */
+.repost-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(–tx3);padding:2px 0 6px;border-bottom:1px solid var(–bd);margin-bottom:6px;width:100%;}
+/* USERNAME PICKER */
+.username-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.username-chip{padding:5px 12px;border-radius:20px;border:1px solid var(–bd);background:var(–bg3);font-size:12px;cursor:pointer;transition:.15s;}
+.username-chip:hover{border-color:var(–A);color:var(–A);}
+/* CHAT LIST */
+.chat-list-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;transition:.12s;border-bottom:1px solid var(–bd);position:relative;}
+.chat-list-item:hover{background:var(–bg3);}
+.chat-list-item.active-chat{background:rgba(0,212,170,.06);}
+[data-theme=“light”] .chat-list-item.active-chat{background:#eff4ff;}
+.chat-list-av{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;overflow:hidden;position:relative;}
+.chat-list-av img{width:100%;height:100%;object-fit:cover;border-radius:11px;}
+.chat-list-online{position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;background:var(–G);border:2px solid var(–card);}
+.chat-list-info{flex:1;overflow:hidden;}
+.chat-list-name{font-size:13px;font-weight:700;}
+.chat-list-preview{font-size:11px;color:var(–tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.chat-list-time{font-size:10px;color:var(–tx3);flex-shrink:0;}
+.chat-unread{width:18px;height:18px;border-radius:50%;background:var(–A);color:#000;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+[data-theme=“light”] .chatListPane,.chat-list-item{background:var(–card);}
 </style>
 
 </head>
@@ -977,7 +1039,12 @@ ADMIN DASHBOARD
       <button class="btn-auth" onclick="enterApp()">Нэвтрэх →</button>
     </div>
     <div class="acard glass" id="regCard" style="display:none">
-      <div class="fg"><label>Нэр</label><input class="fi" type="text" id="regName" placeholder="Таны нэр"></div>
+      <div class="fg">
+  <label>Хэрэглэгчийн нэр</label>
+  <input class="fi" type="text" id="regName" id="regNameInp" placeholder="Таны нэр" oninput="checkUsername(this);suggestUsername(this.value)">
+  <div id="regNameWarn" style="font-size:11px;margin-top:4px;"></div>
+  <div id="nameSuggestions" class="username-suggestions"></div>
+</div>
       <div class="fg"><label>И-мэйл</label><input class="fi" type="email" placeholder="trader@example.com"></div>
       <div class="fg"><label>Нууц үг</label><input class="fi" type="password" placeholder="8+ тэмдэгт"></div>
       <div class="fg"><label>Давтах</label><input class="fi" type="password" placeholder="••••••••"></div>
@@ -1021,7 +1088,7 @@ ADMIN DASHBOARD
     <div class="umi-item" onclick="navToFromMenu('profile')"><span class="umi-ico">👤</span>Миний профайл</div>
     <div class="umi-item" onclick="navToFromMenu('journal')"><span class="umi-ico">📊</span>Ашиг / Алдагдал</div>
     <div class="umi-item" onclick="navToFromMenu('settings')"><span class="umi-ico">⚙️</span>Тохиргоо</div>
-    <div class="umi-item" style="border-top:1px solid var(--bd);margin-top:4px;color:var(--A2)" onclick="openAdmin();closeUserMenu()"><span class="umi-ico">⚡</span>Admin самбар</div>
+    <div class="umi-item" id="adminMenuItem" style="display:none;border-top:1px solid var(--bd);margin-top:4px;color:var(--A2)" onclick="openAdmin();closeUserMenu()"><span class="umi-ico">⚡</span>Admin самбар</div>
     <div class="umi-item danger" onclick="logout();closeUserMenu()"><span class="umi-ico">🚪</span>Гарах</div>
   </div>
   <div class="app-body">
@@ -1308,18 +1375,45 @@ ADMIN DASHBOARD
       <div class="sig-card bear"><div class="sig-dir sell">SELL</div><div class="sig-inf"><div class="sig-pair">USD/CAD</div><div class="sig-det">Entry 1.3620 · TP 1.3540 · SL 1.3720</div><div class="sig-time">2 өдөр өмнө</div></div><div class="sig-badge sl">✗ SL</div></div>
     </div>
   </div>
-  <!-- CHAT -->
-  <div class="page-full" id="page-chat">
-    <div class="chat-msgs" id="chatMsgs">
-      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Б</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Батбаяр','#f0b429','#e85a20','Б')">Батбаяр</div><div class="msg-bub">Сайн байна уу! EUR/USD дээр маш сайн боломж байна 📊</div><div class="msg-t">10:24</div></div></div>
-      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">О</div><div class="msg-cont"><div class="msg-name" onclick="openUserProf('Оюунтуяа','#00d4aa','#006b57','О')">Оюунтуяа</div><div class="msg-bub">1.0890 entry дотор орсон. TP 1.0960 🎯</div><div class="msg-t">10:31</div></div></div>
-      <div class="msg-row own"><div class="msg-av" id="chatOwnAv" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><span id="chatOwnAvL">Т</span></div><div class="msg-cont"><div class="msg-bub">Би ч мөн орлоо! TP хүрнэ гэдэгт итгэлтэй 🙏</div><div class="msg-t">10:35</div></div></div>
-      <div class="msg-row"><div class="msg-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div><div class="msg-cont"><div class="msg-name">Дэлгэр</div><div class="msg-bub">XAU/USD volatility өндөр байна ⚠️</div><div class="msg-t">10:42</div></div></div>
+  <!-- CHAT - List + Conversation -->
+  <div class="page-full" id="page-chat" style="flex-direction:row;padding:0;max-width:100%;">
+    <!-- Chat list sidebar -->
+    <div id="chatListPane" style="width:300px;flex-shrink:0;border-right:1px solid var(--bd);display:flex;flex-direction:column;background:var(--card);">
+      <div style="padding:14px 14px 10px;border-bottom:1px solid var(--bd);">
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:10px;">💬 Мессеж</div>
+        <input class="chat-inp" style="width:100%;font-size:12px;padding:8px 12px;background:var(--bg3);" placeholder="🔍 Хайх..." oninput="filterChats(this.value)">
+      </div>
+      <!-- Chat type tabs -->
+      <div style="display:flex;border-bottom:1px solid var(--bd);">
+        <button class="prof-tab on" id="chatTabDM" onclick="swChatTab('dm')" style="flex:1;font-size:11px;padding:9px 4px;">DM</button>
+        <button class="prof-tab" id="chatTabGrp" onclick="swChatTab('grp')" style="flex:1;font-size:11px;padding:9px 4px;">Бүлгэм</button>
+      </div>
+      <div id="chatList" style="flex:1;overflow-y:auto;"></div>
     </div>
-    <div class="chat-bar">
-      <div class="mention-pop" id="mentionPop"></div>
-      <input class="chat-inp" id="chatInp" placeholder="Мессеж... (@mention)" oninput="chkMention(this)" onkeydown="if(event.key==='Enter')sendMsg()">
-      <button class="chat-snd" onclick="sendMsg()">➤</button>
+    <!-- Active conversation -->
+    <div id="chatConvPane" style="flex:1;display:flex;flex-direction:column;">
+      <!-- empty state -->
+      <div id="chatEmptyState" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--tx2);">
+        <div style="font-size:48px;opacity:.3;">💬</div>
+        <div style="font-size:14px;font-weight:600;">Чат сонгоно уу</div>
+      </div>
+      <!-- conversation area (hidden until selected) -->
+      <div id="chatConvArea" style="display:none;flex-direction:column;height:100%;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;background:var(--card);">
+          <div id="convAv" style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#f0b429,#e85a20);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px;overflow:hidden;"></div>
+          <div>
+            <div id="convName" style="font-size:14px;font-weight:700;"></div>
+            <div id="convSub" style="font-size:10px;color:var(--tx2);"></div>
+          </div>
+          <button id="convProfBtn" style="margin-left:auto;padding:5px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx2);font-size:11px;font-weight:700;cursor:pointer;" onclick="viewConvProfile()">👤 Профайл</button>
+        </div>
+        <div class="chat-msgs" id="chatMsgs" style="flex:1;overflow-y:auto;padding:14px 16px;"></div>
+        <div class="chat-bar" style="padding:10px 16px 14px;background:var(--card);">
+          <div class="mention-pop" id="mentionPop"></div>
+          <input class="chat-inp" id="chatInp" placeholder="Мессеж... (@mention)" oninput="chkMention(this)" onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="chat-snd" onclick="sendMsg()">➤</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1502,22 +1596,14 @@ ADMIN DASHBOARD
 <!-- RIGHT SIDEBAR -->
 <aside class="rsb">
   <div class="rsb-sec">
+    <div class="rsb-title">🏆 Шилдэг арилжаачид</div>
+    <div id="topTradersList"></div>
+  </div>
+  <div class="rsb-sec">
     <div class="rsb-title">📈 Ханш</div>
-    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">1.0891</span><span class="ticker-chg up">+0.21%</span></div>
+    <div class="ticker-item"><span class="ticker-pair">EUR/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)" id="t1">1.0891</span><span class="ticker-chg up">+0.21%</span></div>
     <div class="ticker-item"><span class="ticker-pair">GBP/JPY</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">186.42</span><span class="ticker-chg dn">-0.18%</span></div>
     <div class="ticker-item"><span class="ticker-pair">XAU/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">2341.5</span><span class="ticker-chg up">+0.54%</span></div>
-    <div class="ticker-item"><span class="ticker-pair">BTC/USD</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--tx2)">63,420</span><span class="ticker-chg up">+1.2%</span></div>
-  </div>
-  <div class="rsb-sec">
-    <div class="rsb-title">📡 Сигнал</div>
-    <div class="sig-mini" onclick="navTo('signals')"><div class="sig-mini-dir buy">BUY</div><div><div class="sig-mini-pair" style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800">EUR/USD</div><div style="font-size:9px;color:var(--tx2)">TP 1.0960</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--G)">+70p</div></div>
-    <div class="sig-mini" onclick="navTo('signals')"><div class="sig-mini-dir sell">SELL</div><div><div class="sig-mini-pair" style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800">GBP/JPY</div><div style="font-size:9px;color:var(--tx2)">TP 184.50</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--G)">+190p</div></div>
-  </div>
-  <div class="rsb-sec">
-    <div class="rsb-title">📰 Мэдээ</div>
-    <div class="news-item"><div class="news-title">NFP тоо таамаглалаас дээгүүр — USD хүчирхэглэв</div><div class="news-meta">30 мин өмнө · Reuters</div></div>
-    <div class="news-item"><div class="news-title">ECB дараагийн хурлаа зарлалаа — EUR хүлээлттэй</div><div class="news-meta">2 цаг өмнө · Bloomberg</div></div>
-    <div class="news-item"><div class="news-title">Алт $2380 чиглэж байна</div><div class="news-meta">3 цаг өмнө · FXStreet</div></div>
   </div>
 </aside>
 ```
@@ -1897,6 +1983,7 @@ function navTo(id,sideBtn,mobPill,mobNav){
   document.getElementById('mainWrap').scrollTop=0;
   if(id==='journal')buildCal('calGrid',userCal);
   if(id==='profile'){buildCoverCdls();buildCal('profCalGrid',userCal);swProfTab(document.querySelector('.prof-tab.on')||document.querySelector('.prof-tab'),'ptab-posts');}
+  if(id==='chat'){renderChatList();}
   closeNotif();
 }
 
@@ -1932,6 +2019,7 @@ function saveProfile(){
   document.getElementById('profBio').textContent=b;
   document.getElementById('profTypeTag').textContent=ty;
   syncUmi();
+  checkAdminAccess(n);
   /* persist profile */
   try{localStorage.setItem('alistfx_profile',JSON.stringify({name:n,handle:h,bio:b,type:ty}));}catch(e){}
   closeM('profEditModal');
@@ -2019,8 +2107,8 @@ function shareToChat(txt){
 /* REACTIONS */
 function showRP(id,btn){
   document.querySelectorAll('.react-picker').forEach(p=>p.style.display='none');
-  const rp=document.getElementById('rp'+id);
-  rp.style.display=rp.style.display==='flex'?'none':'flex';
+  const rp=document.getElementById('rp'+id)||document.getElementById('rp_'+id);
+  if(rp)rp.style.display=rp.style.display==='flex'?'none':'flex';
 }
 function doReact(id,type,emoji){
   const btn=document.getElementById('lb'+id);
@@ -2076,320 +2164,611 @@ function renderPost(p,feedEl,prepend=true){
   const pcId='pc_'+p.id;const ciId='ci_'+p.id;
   const lnkHtml=p.lnk?`<div class="post-link-prev">🔗 ${p.lnk}</div>`:'';
   const timeStr=formatPostTime(p.ts);
-  const cardHTML=`<div class="post-head">
+  const isRepost=p.repostOf?`<div class="repost-badge">🔁 ${p.repostOf} -н нийтлэлийг дахин хуваалцав</div>`:'';
+  const editedTag=p.edited?'<span class="post-edited-tag">(засагдсан)</span>':'';
+  const menuId='pm_'+p.id;
+  const editAreaId='pea_'+p.id;
+  const editActId='peac_'+p.id;
+  const cardHTML=`
+  ${isRepost}
+  <div class="post-head">
     <div class="post-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${p.av}</div>
-    <div style="flex:1"><div class="post-author">${p.name}</div><div class="post-time post-ts" data-ts="${p.ts}">${timeStr}</div></div>
-    <button style="background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;padding:4px 6px;border-radius:6px" onclick="deletePost('${p.id}',this)" title="Устгах">⋯</button>
+    <div style="flex:1"><div class="post-author">${p.name}${editedTag}</div><div class="post-time" data-ts="${p.ts}">${timeStr}</div></div>
+    <div style="position:relative">
+      <button style="background:none;border:none;color:var(--tx3);cursor:pointer;font-size:18px;padding:4px 8px;border-radius:7px;line-height:1" onclick="togglePostMenu('${menuId}',event)">⋯</button>
+      <div class="post-menu-pop" id="${menuId}">
+        <div class="post-menu-item" onclick="startEditPost('${p.id}','${editAreaId}','${editActId}','${menuId}')">✏️ Засах</div>
+        <div class="post-menu-item" onclick="repostPost('${p.id}','${p.name}')">🔁 Дахин хуваалцах</div>
+        <div class="post-menu-item red" onclick="deletePost('${p.id}',this)">🗑️ Устгах</div>
+      </div>
+    </div>
   </div>
-  <div class="post-body">${p.txt}</div>${lnkHtml}
+  <div class="post-body" id="pb_${p.id}">${p.txt}</div>
+  <textarea class="post-edit-area" id="${editAreaId}">${p.txt}</textarea>
+
+  <div class="post-edit-actions" id="${editActId}" style="display:none;gap:6px;margin:0 13px 10px;justify-content:flex-end;">
+    <button style="padding:6px 13px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--tx2);font-size:12px;cursor:pointer" onclick="cancelEdit('${p.id}','${editAreaId}','${editActId}')">Болих</button>
+    <button class="csub" style="padding:6px 13px" onclick="saveEdit('${p.id}','${editAreaId}','${editActId}')">Хадгалах</button>
+  </div>
+  ${lnkHtml}
   <div class="post-acts">
-    <button class="pact" onclick="togLike(this)">❤️ 0</button>
+    <div style="position:relative">
+      <button class="pact" id="lb_${p.id}" onclick="showRP('x_${p.id}',this)">❤️ 0</button>
+      <div class="react-picker" id="rp_x_${p.id}" style="display:none;flex-direction:row">
+        <button class="react-btn" onclick="doReactPost('${p.id}','like','❤️',this)">❤️</button>
+        <button class="react-btn" onclick="doReactPost('${p.id}','love','😍',this)">😍</button>
+        <button class="react-btn" onclick="doReactPost('${p.id}','money','💰',this)">💰</button>
+        <button class="react-btn" onclick="doReactPost('${p.id}','tp','✅',this)">✅</button>
+        <button class="react-btn" onclick="doReactPost('${p.id}','sl','❌',this)">❌</button>
+      </div>
+    </div>
+    <button class="pact" id="likeListBtn_${p.id}" onclick="showLikeList('${p.id}')">👁 Хэн like дарсан</button>
     <button class="pact" onclick="togCmt(this)">💬 0</button>
     <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
+    <button class="pact" onclick="repostPost('${p.id}','${p.name}')" style="margin-left:auto">🔁</button>
   </div>
   <div class="post-comments" id="${pcId}">
     <div class="cmt-irow"><input class="cmt-inp" id="${ciId}" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmtEl(this,'${ciId}')">➤</button></div>
   </div>`;
-  const card=document.createElement('div');card.className='post-card';card.dataset.postId=p.id;card.innerHTML=cardHTML;
+  const card=document.createElement('div');card.className='post-card';card.style.position='relative';card.dataset.postId=p.id;card.innerHTML=cardHTML;
   if(prepend)feedEl.insertBefore(card,feedEl.firstChild);
   else feedEl.appendChild(card);
   return card;
 }
 
 function formatPostTime(ts){
-  const diff=Math.floor((Date.now()-ts)/1000);
-  if(diff<60)return 'Дөнгөж сая';
-  if(diff<3600)return Math.floor(diff/60)+' мин өмнө';
-  if(diff<86400)return Math.floor(diff/3600)+' цаг өмнө';
-  return Math.floor(diff/86400)+' өдөр өмнө';
+const diff=Math.floor((Date.now()-ts)/1000);
+if(diff<60)return ‘Дөнгөж сая’;
+if(diff<3600)return Math.floor(diff/60)+’ мин өмнө’;
+if(diff<86400)return Math.floor(diff/3600)+’ цаг өмнө’;
+return Math.floor(diff/86400)+’ өдөр өмнө’;
 }
 
 function deletePost(id,btn){
-  const card=btn.closest('.post-card');
-  if(!confirm('Нийтлэлийг устгах уу?'))return;
-  userPosts=userPosts.filter(p=>p.id!==id);
-  savePosts();
-  card.style.animation='card3dIn .3s reverse';
-  setTimeout(()=>card.remove(),250);
-  /* also remove from home feed */
-  document.querySelectorAll(`.post-card[data-post-id="${id}"]`).forEach(c=>c.remove());
-  profPostCnt=Math.max(0,profPostCnt-1);
-  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
-  showToast('🗑️ Нийтлэл устгагдлаа');
+const card=btn.closest(’.post-card’);
+if(!confirm(‘Нийтлэлийг устгах уу?’))return;
+userPosts=userPosts.filter(p=>p.id!==id);
+savePosts();
+card.style.animation=‘card3dIn .3s reverse’;
+setTimeout(()=>card.remove(),250);
+/* also remove from home feed */
+document.querySelectorAll(`.post-card[data-post-id="${id}"]`).forEach(c=>c.remove());
+profPostCnt=Math.max(0,profPostCnt-1);
+const el=document.getElementById(‘profPostCnt’);if(el)el.textContent=profPostCnt;
+showToast(‘🗑️ Нийтлэл устгагдлаа’);
 }
 
 function loadSavedPosts(){
-  userPosts=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
-  const profFeed=document.getElementById('profFeed');
-  const homeFeed=document.getElementById('postFeed');
-  if(!profFeed||!homeFeed)return;
-  /* clear existing user posts (keep sample posts) */
-  document.querySelectorAll('.post-card[data-post-id]').forEach(c=>c.remove());
-  userPosts.forEach(p=>{
-    renderPost(p,profFeed,false);
-    renderPost(p,homeFeed,true);
-  });
-  profPostCnt=userPosts.length+1;
-  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
+userPosts=JSON.parse(localStorage.getItem(‘alistfx_posts’)||’[]’);
+const profFeed=document.getElementById(‘profFeed’);
+const homeFeed=document.getElementById(‘postFeed’);
+if(!profFeed||!homeFeed)return;
+/* clear existing user posts (keep sample posts) */
+document.querySelectorAll(’.post-card[data-post-id]’).forEach(c=>c.remove());
+userPosts.forEach(p=>{
+renderPost(p,profFeed,false);
+renderPost(p,homeFeed,true);
+});
+profPostCnt=userPosts.length+1;
+const el=document.getElementById(‘profPostCnt’);if(el)el.textContent=profPostCnt;
 }
 
 function submitProfPost(){
-  const txt=document.getElementById('profTxt').value.trim();if(!txt)return;
-  const lnk=document.getElementById('profLinkV').value.trim();
-  const name=document.getElementById('hdrName').textContent;
-  const av=document.getElementById('hdrAvL').textContent;
-  const post={id:Date.now().toString(),txt,lnk,name,av,ts:Date.now()};
-  userPosts.unshift(post);
-  savePosts();
-  const profFeed=document.getElementById('profFeed');
-  const homeFeed=document.getElementById('postFeed');
-  renderPost(post,profFeed,true);
-  renderPost(post,homeFeed,true);
-  document.getElementById('profTxt').value='';
-  document.getElementById('profLinkV').value='';
-  document.getElementById('profLinkA').style.display='none';
-  profPostCnt++;
-  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
-  showToast('✅ Нийтлэл амжилттай хадгалагдлаа!');
+const txt=document.getElementById(‘profTxt’).value.trim();if(!txt)return;
+const lnk=document.getElementById(‘profLinkV’).value.trim();
+const name=document.getElementById(‘hdrName’).textContent;
+const av=document.getElementById(‘hdrAvL’).textContent;
+const post={id:Date.now().toString(),txt,lnk,name,av,ts:Date.now()};
+userPosts.unshift(post);
+savePosts();
+const profFeed=document.getElementById(‘profFeed’);
+const homeFeed=document.getElementById(‘postFeed’);
+renderPost(post,profFeed,true);
+renderPost(post,homeFeed,true);
+document.getElementById(‘profTxt’).value=’’;
+document.getElementById(‘profLinkV’).value=’’;
+document.getElementById(‘profLinkA’).style.display=‘none’;
+profPostCnt++;
+const el=document.getElementById(‘profPostCnt’);if(el)el.textContent=profPostCnt;
+showToast(‘✅ Нийтлэл амжилттай хадгалагдлаа!’);
 }
 
 /* SIGNALS */
 function addSig(){
-  const pair=document.getElementById('sigPair').value.trim();if(!pair)return;
-  const dir=document.getElementById('sigDir').value;
-  const entry=document.getElementById('sigEntry').value;
-  const tp=document.getElementById('sigTP').value;
-  const sl=document.getElementById('sigSL').value;
-  const note=document.getElementById('sigNote').value;
-  const feed=document.getElementById('sigFeed');
-  const card=document.createElement('div');card.className=`sig-card ${dir==='buy'?'bull':'bear'}`;
-  const noteHtml=note?`<div class="sig-admin-note">🔔 ${note} — Admin</div>`:'';
-  card.innerHTML=`<div class="sig-dir ${dir}">${dir.toUpperCase()}</div><div class="sig-inf"><div class="sig-pair">${pair}</div><div class="sig-det">Entry ${entry} · TP ${tp} · SL ${sl}</div><div class="sig-time">Дөнгөж сая</div>${noteHtml}<div class="sig-reacts"><button class="sig-rbtn" onclick="this.classList.toggle('on')">✅ TP орно <span>0</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">❌ SL орно <span>0</span></button></div><div class="sig-to-chat" onclick="shareToChat('${pair} ${dir.toUpperCase()}')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div>`;
-  feed.insertBefore(card,feed.firstChild);
-  ['sigPair','sigEntry','sigTP','sigSL','sigNote'].forEach(id=>document.getElementById(id).value='');
-  closeM('addSigModal');
+const pair=document.getElementById(‘sigPair’).value.trim();if(!pair)return;
+const dir=document.getElementById(‘sigDir’).value;
+const entry=document.getElementById(‘sigEntry’).value;
+const tp=document.getElementById(‘sigTP’).value;
+const sl=document.getElementById(‘sigSL’).value;
+const note=document.getElementById(‘sigNote’).value;
+const feed=document.getElementById(‘sigFeed’);
+const card=document.createElement(‘div’);card.className=`sig-card ${dir==='buy'?'bull':'bear'}`;
+const noteHtml=note?`<div class="sig-admin-note">🔔 ${note} — Admin</div>`:’’;
+card.innerHTML=`<div class="sig-dir ${dir}">${dir.toUpperCase()}</div><div class="sig-inf"><div class="sig-pair">${pair}</div><div class="sig-det">Entry ${entry} · TP ${tp} · SL ${sl}</div><div class="sig-time">Дөнгөж сая</div>${noteHtml}<div class="sig-reacts"><button class="sig-rbtn" onclick="this.classList.toggle('on')">✅ TP орно <span>0</span></button><button class="sig-rbtn" onclick="this.classList.toggle('on')">❌ SL орно <span>0</span></button></div><div class="sig-to-chat" onclick="shareToChat('${pair} ${dir.toUpperCase()}')">💬 Чатд хуваалцах →</div></div><div class="sig-badge live">● LIVE</div>`;
+feed.insertBefore(card,feed.firstChild);
+[‘sigPair’,‘sigEntry’,‘sigTP’,‘sigSL’,‘sigNote’].forEach(id=>document.getElementById(id).value=’’);
+closeM(‘addSigModal’);
 }
 
 /* STORIES */
-let storyEmoji='📈';
-function openStoryCreator(){openM('storyModal');}
-function setSE(e){storyEmoji=e;document.getElementById('storyPrev').textContent=e;}
+let storyEmoji=‘📈’;
+function openStoryCreator(){openM(‘storyModal’);}
+function setSE(e){storyEmoji=e;document.getElementById(‘storyPrev’).textContent=e;}
 function submitStory(){
-  const cap=document.getElementById('storyCaption').value||'Шинэ';
-  const row=document.getElementById('storyRow');
-  const sc=document.createElement('div');sc.className='story-c';
-  const up=Math.random()>.5;const col=up?'#00e676':'#ff4757';
-  sc.innerHTML=`<div class="st-wt" style="height:10px;background:${col}"></div><div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">${storyEmoji}</div></div><div class="st-wb" style="height:7px;background:${col}"></div><div class="st-nm">${cap.substring(0,8)}</div>`;
-  row.insertBefore(sc,row.children[1]);
-  document.getElementById('storyCaption').value='';closeM('storyModal');
+const cap=document.getElementById(‘storyCaption’).value||‘Шинэ’;
+const row=document.getElementById(‘storyRow’);
+const sc=document.createElement(‘div’);sc.className=‘story-c’;
+const up=Math.random()>.5;const col=up?’#00e676’:’#ff4757’;
+sc.innerHTML=`<div class="st-wt" style="height:10px;background:${col}"></div><div class="st-bw ring"><div class="st-frame" style="background:linear-gradient(135deg,#0d1b35,#1a3460)">${storyEmoji}</div></div><div class="st-wb" style="height:7px;background:${col}"></div><div class="st-nm">${cap.substring(0,8)}</div>`;
+row.insertBefore(sc,row.children[1]);
+document.getElementById(‘storyCaption’).value=’’;closeM(‘storyModal’);
 }
 
 /* EXPERIENCE */
 function saveExp(){
-  const t=document.getElementById('expT').value.trim();if(!t)return;
-  const d=document.getElementById('expD').value.trim();
-  const list=document.getElementById('expList');
-  const div=document.createElement('div');div.className='exp-item';
-  div.innerHTML=`<div class="exp-title">${t}</div>${d?`<div class="exp-sub">${d}</div>`:''}`;
-  list.insertBefore(div,list.firstChild);
-  document.getElementById('expT').value='';document.getElementById('expD').value='';closeM('expModal');
+const t=document.getElementById(‘expT’).value.trim();if(!t)return;
+const d=document.getElementById(‘expD’).value.trim();
+const list=document.getElementById(‘expList’);
+const div=document.createElement(‘div’);div.className=‘exp-item’;
+div.innerHTML=`<div class="exp-title">${t}</div>${d?`<div class="exp-sub">${d}</div>`:''}`;
+list.insertBefore(div,list.firstChild);
+document.getElementById(‘expT’).value=’’;document.getElementById(‘expD’).value=’’;closeM(‘expModal’);
 }
 
 /* NOTIF */
-function toggleNotif(e){e.stopPropagation();document.getElementById('notifPanel').classList.toggle('open');}
-function closeNotif(){document.getElementById('notifPanel').classList.remove('open');}
-function clearNotifs(){document.getElementById('notifCnt').textContent='0';document.querySelectorAll('.np-dot').forEach(d=>d.style.display='none');}
-document.addEventListener('click',e=>{
-  const p=document.getElementById('notifPanel');
-  if(p&&!p.contains(e.target)&&!document.getElementById('notifBtn').contains(e.target))p.classList.remove('open');
+function toggleNotif(e){e.stopPropagation();document.getElementById(‘notifPanel’).classList.toggle(‘open’);}
+function closeNotif(){document.getElementById(‘notifPanel’).classList.remove(‘open’);}
+function clearNotifs(){document.getElementById(‘notifCnt’).textContent=‘0’;document.querySelectorAll(’.np-dot’).forEach(d=>d.style.display=‘none’);}
+document.addEventListener(‘click’,e=>{
+const p=document.getElementById(‘notifPanel’);
+if(p&&!p.contains(e.target)&&!document.getElementById(‘notifBtn’).contains(e.target))p.classList.remove(‘open’);
 });
 
 /* MODALS */
-function openM(id){document.getElementById(id).classList.add('open');}
-function closeM(id){document.getElementById(id).classList.remove('open');}
-function togEl(id){const el=document.getElementById(id);el.style.display=el.style.display==='none'?'block':'none';}
+function openM(id){document.getElementById(id).classList.add(‘open’);}
+function closeM(id){document.getElementById(id).classList.remove(‘open’);}
+function togEl(id){const el=document.getElementById(id);el.style.display=el.style.display===‘none’?‘block’:‘none’;}
 
 /* MISC */
-function setPeriod(btn){btn.closest('.period-row').querySelectorAll('.pbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function setPeriod(btn){btn.closest(’.period-row’).querySelectorAll(’.pbtn’).forEach(b=>b.classList.remove(‘on’));btn.classList.add(‘on’);}
 
 /* THEME */
-let theme='light';
+let theme=‘light’;
 function applyTheme(t){
-  theme=t;document.documentElement.setAttribute('data-theme',t);
-  const isDark=t==='dark';
-  ['sbThChk','authThChk','setThChk'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=isDark;});
-  ['sbThIco','authThIco','setThIco'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=isDark?'🌙':'☀️';});
+theme=t;document.documentElement.setAttribute(‘data-theme’,t);
+const isDark=t===‘dark’;
+[‘sbThChk’,‘authThChk’,‘setThChk’].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=isDark;});
+[‘sbThIco’,‘authThIco’,‘setThIco’].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=isDark?‘🌙’:‘☀️’;});
 }
-function cycleTheme(){applyTheme(theme==='dark'?'light':'dark');}
+function cycleTheme(){applyTheme(theme===‘dark’?‘light’:‘dark’);}
 
 /* LANGUAGE */
-let lang='mn';
+let lang=‘mn’;
 const TXT={
-  mn:{home:'Нийтлэл',journal:'Ашиг',myprofile:'Профайл',academy:'Сургалт',signals:'Сигнал',chat:'Чат',communities:'Булгэм',settings:'Тохиргоо'},
-  en:{home:'Feed',journal:'Journal',myprofile:'Profile',academy:'Academy',signals:'Signals',chat:'Chat',communities:'Community',settings:'Settings'},
-  zh:{home:'动态',journal:'收益',myprofile:'我的',academy:'课程',signals:'信号',chat:'聊天',communities:'社区',settings:'设置'},
-  ja:{home:'フィード',journal:'収益',myprofile:'プロフィール',academy:'学習',signals:'シグナル',chat:'チャット',communities:'コミュニティ',settings:'設定'},
-  ko:{home:'피드',journal:'수익',myprofile:'프로필',academy:'강의',signals:'시그널',chat:'채팅',communities:'커뮤니티',settings:'설정'},
-  ru:{home:'Лента',journal:'Прибыль',myprofile:'Профиль',academy:'Обучение',signals:'Сигналы',chat:'Чат',communities:'Сообщество',settings:'Настройки'},
+mn:{home:‘Нийтлэл’,journal:‘Ашиг’,myprofile:‘Профайл’,academy:‘Сургалт’,signals:‘Сигнал’,chat:‘Чат’,communities:‘Булгэм’,settings:‘Тохиргоо’},
+en:{home:‘Feed’,journal:‘Journal’,myprofile:‘Profile’,academy:‘Academy’,signals:‘Signals’,chat:‘Chat’,communities:‘Community’,settings:‘Settings’},
+zh:{home:‘动态’,journal:‘收益’,myprofile:‘我的’,academy:‘课程’,signals:‘信号’,chat:‘聊天’,communities:‘社区’,settings:‘设置’},
+ja:{home:‘フィード’,journal:‘収益’,myprofile:‘プロフィール’,academy:‘学習’,signals:‘シグナル’,chat:‘チャット’,communities:‘コミュニティ’,settings:‘設定’},
+ko:{home:‘피드’,journal:‘수익’,myprofile:‘프로필’,academy:‘강의’,signals:‘시그널’,chat:‘채팅’,communities:‘커뮤니티’,settings:‘설정’},
+ru:{home:‘Лента’,journal:‘Прибыль’,myprofile:‘Профиль’,academy:‘Обучение’,signals:‘Сигналы’,chat:‘Чат’,communities:‘Сообщество’,settings:‘Настройки’},
 };
-const LANGS=['mn','en','zh','ja','ko','ru'];function cycleLang(){const i=LANGS.indexOf(lang);lang=LANGS[(i+1)%LANGS.length];setLang(lang);}
-const LANG_LABELS={mn:'МН',en:'EN',zh:'中',ja:'JP',ko:'한',ru:'RU'};
+const LANGS=[‘mn’,‘en’,‘zh’,‘ja’,‘ko’,‘ru’];function cycleLang(){const i=LANGS.indexOf(lang);lang=LANGS[(i+1)%LANGS.length];setLang(lang);}
+const LANG_LABELS={mn:‘МН’,en:‘EN’,zh:‘中’,ja:‘JP’,ko:‘한’,ru:‘RU’};
 function setLang(l){
-  lang=l;
-  document.documentElement.lang=l;
-  const lbl=LANG_LABELS[l]||'МН';
-  ['langLbl','authLangLbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=lbl;});
-  document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(TXT[l]?.[k])el.textContent=TXT[l][k];});
-  ['eLng','setLngSel'].forEach(id=>{const s=document.getElementById(id);if(s)s.value=l;});
-  /* Update mob-nav labels */
-  document.querySelectorAll('.mob-nav-lbl[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(TXT[l]?.[k])el.textContent=TXT[l][k];});
+lang=l;
+document.documentElement.lang=l;
+const lbl=LANG_LABELS[l]||‘МН’;
+[‘langLbl’,‘authLangLbl’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=lbl;});
+document.querySelectorAll(’[data-i]’).forEach(el=>{const k=el.getAttribute(‘data-i’);if(TXT[l]?.[k])el.textContent=TXT[l][k];});
+[‘eLng’,‘setLngSel’].forEach(id=>{const s=document.getElementById(id);if(s)s.value=l;});
+/* Update mob-nav labels */
+document.querySelectorAll(’.mob-nav-lbl[data-i]’).forEach(el=>{const k=el.getAttribute(‘data-i’);if(TXT[l]?.[k])el.textContent=TXT[l][k];});
 }
 
 /* AUTH */
 function swAuth(t){
-  document.getElementById('loginCard').style.display=t==='l'?'block':'none';
-  document.getElementById('regCard').style.display=t==='r'?'block':'none';
-  document.getElementById('tabL').classList.toggle('on',t==='l');
-  document.getElementById('tabR').classList.toggle('on',t==='r');
+document.getElementById(‘loginCard’).style.display=t===‘l’?‘block’:‘none’;
+document.getElementById(‘regCard’).style.display=t===‘r’?‘block’:‘none’;
+document.getElementById(‘tabL’).classList.toggle(‘on’,t===‘l’);
+document.getElementById(‘tabR’).classList.toggle(‘on’,t===‘r’);
 }
 function enterApp(){
-  const rn=document.getElementById('regName');
-  if(rn&&rn.value.trim()){
-    const n=rn.value.trim(),l=n[0].toUpperCase();
-    ['profName','sbName','hdrName','setNameDisp'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
-    ['sbAvL','hdrAvL','profAvL','profCompAvL','profPostAvL','chatOwnAvL','setAvL'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
-    ['profPostName'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
-  }
-  document.getElementById('authWrap').style.display='none';
-  document.getElementById('app').classList.add('on');
-  setTimeout(()=>{
-    initLive();drawPostChart();buildCal('calGrid',userCal);buildCoverCdls();buildSbStories();
-    /* load persisted profile */
-    try{
-      const prof=JSON.parse(localStorage.getItem('alistfx_profile')||'null');
-      if(prof){
-        const n=prof.name||'Trader',l=n[0].toUpperCase();
-        ['profName','sbName','hdrName','setNameDisp'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
-        ['sbAvL','hdrAvL','profAvL','profCompAvL','profPostAvL','chatOwnAvL','setAvL'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
-        ['profPostName'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
-        if(prof.handle){const eh=document.getElementById('profHandle');if(eh)eh.textContent=prof.handle;}
-        if(prof.bio){const eb=document.getElementById('profBio');if(eb)eb.textContent=prof.bio;}
-        if(prof.type){const et=document.getElementById('profTypeTag');if(et)et.textContent=prof.type;}
-      }
-    }catch(e){}
-    loadSavedPosts();
-    syncUmi();
-    updateAdminStats();
-  },100);
+const rn=document.getElementById(‘regName’);
+if(rn&&rn.value.trim()){
+const n=rn.value.trim(),l=n[0].toUpperCase();
+[‘profName’,‘sbName’,‘hdrName’,‘setNameDisp’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
+[‘sbAvL’,‘hdrAvL’,‘profAvL’,‘profCompAvL’,‘profPostAvL’,‘chatOwnAvL’,‘setAvL’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
+[‘profPostName’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
 }
-function logout(){document.getElementById('app').classList.remove('on');document.getElementById('authWrap').style.display='flex';}
+document.getElementById(‘authWrap’).style.display=‘none’;
+document.getElementById(‘app’).classList.add(‘on’);
+setTimeout(()=>{
+initLive();drawPostChart();buildCal(‘calGrid’,userCal);buildCoverCdls();buildSbStories();
+/* load persisted profile */
+try{
+const prof=JSON.parse(localStorage.getItem(‘alistfx_profile’)||‘null’);
+if(prof){
+const n=prof.name||‘Trader’,l=n[0].toUpperCase();
+[‘profName’,‘sbName’,‘hdrName’,‘setNameDisp’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
+[‘sbAvL’,‘hdrAvL’,‘profAvL’,‘profCompAvL’,‘profPostAvL’,‘chatOwnAvL’,‘setAvL’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
+[‘profPostName’].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
+if(prof.handle){const eh=document.getElementById(‘profHandle’);if(eh)eh.textContent=prof.handle;}
+if(prof.bio){const eb=document.getElementById(‘profBio’);if(eb)eb.textContent=prof.bio;}
+if(prof.type){const et=document.getElementById(‘profTypeTag’);if(et)et.textContent=prof.type;}
+}
+}catch(e){}
+loadSavedPosts();
+syncUmi();
+updateAdminStats();
+renderChatList();
+renderTopTraders();
+checkAdminAccess(document.getElementById(‘hdrName’).textContent);
+},100);
+}
+function logout(){document.getElementById(‘app’).classList.remove(‘on’);document.getElementById(‘authWrap’).style.display=‘flex’;}
+
+/* ══════════════════════════════════════
+POST EDIT / MENU / LIKE LIST / REPOST
+══════════════════════════════════════ */
+function togglePostMenu(id,e){
+e.stopPropagation();
+document.querySelectorAll(’.post-menu-pop’).forEach(p=>{if(p.id!==id)p.classList.remove(‘open’);});
+document.getElementById(id)?.classList.toggle(‘open’);
+}
+document.addEventListener(‘click’,()=>document.querySelectorAll(’.post-menu-pop’).forEach(p=>p.classList.remove(‘open’)));
+
+function startEditPost(postId,areaId,actId,menuId){
+document.getElementById(menuId)?.classList.remove(‘open’);
+const bodyEl=document.getElementById(‘pb_’+postId);
+const area=document.getElementById(areaId);
+const acts=document.getElementById(actId);
+if(!bodyEl||!area||!acts)return;
+bodyEl.style.display=‘none’;
+area.style.display=‘block’;
+area.style.margin=‘0 13px 0’;area.style.width=‘calc(100% - 26px)’;
+acts.style.display=‘flex’;
+}
+function cancelEdit(postId,areaId,actId){
+document.getElementById(‘pb_’+postId).style.display=‘block’;
+document.getElementById(areaId).style.display=‘none’;
+document.getElementById(actId).style.display=‘none’;
+}
+function saveEdit(postId,areaId,actId){
+const newTxt=document.getElementById(areaId).value.trim();
+if(!newTxt)return;
+const bodyEl=document.getElementById(‘pb_’+postId);
+bodyEl.textContent=newTxt;
+// mark as edited
+const authorEl=bodyEl.closest(’.post-card’)?.querySelector(’.post-author’);
+if(authorEl&&!authorEl.querySelector(’.post-edited-tag’)){
+const tag=document.createElement(‘span’);tag.className=‘post-edited-tag’;tag.textContent=’(засагдсан)’;
+authorEl.appendChild(tag);
+}
+// update in localStorage
+const idx=userPosts.findIndex(p=>p.id===postId);
+if(idx>=0){userPosts[idx].txt=newTxt;userPosts[idx].edited=true;savePosts();}
+// update all instances
+document.querySelectorAll(`.post-card[data-post-id="${postId}"] .post-body`).forEach(el=>el.textContent=newTxt);
+cancelEdit(postId,areaId,actId);
+showToast(‘✏️ Нийтлэл засагдлаа’);
+}
+
+/* LIKE LIST */
+const postLikes={};
+function doReactPost(postId,type,emoji,btn){
+if(!postLikes[postId])postLikes[postId]=[];
+const myName=document.getElementById(‘hdrName’).textContent;
+const existing=postLikes[postId].findIndex(l=>l.name===myName);
+if(existing>=0)postLikes[postId][existing]={name:myName,emoji};
+else postLikes[postId].push({name:myName,emoji});
+const lbEl=document.getElementById(‘lb_’+postId);
+if(lbEl){lbEl.textContent=emoji+’ ‘+postLikes[postId].length;}
+document.getElementById(‘rp_x_’+postId).style.display=‘none’;
+}
+function showLikeList(postId){
+const likes=postLikes[postId]||[];
+if(!likes.length){showToast(‘Одоохондоо хэн ч reaction дараагүй’);return;}
+const list=likes.map(l=>`<div class="like-list-item"><span class="like-emoji-big">${l.emoji}</span><div style="font-size:13px;font-weight:600">${l.name}</div></div>`).join(’’);
+// create temp modal
+const ov=document.createElement(‘div’);ov.className=‘modal-ov open’;
+ov.innerHTML=`<div class="modal-box glass"><button class="modal-close" onclick="this.closest('.modal-ov').remove()">✕</button><div class="modal-title">Reaction дарсан хүмүүс</div><div class="like-list-wrap">${list||'<div style="color:var(--tx2);text-align:center;padding:20px">Одоохондоо байхгүй</div>'}</div></div>`;
+document.body.appendChild(ov);
+}
+
+/* REPOST */
+function repostPost(postId,authorName){
+const p=userPosts.find(x=>x.id===postId);
+const txt=p?.txt||(document.getElementById(‘pb_’+postId)?.textContent||’’);
+const myName=document.getElementById(‘hdrName’).textContent;
+const myAv=document.getElementById(‘hdrAvL’).textContent;
+const repost={id:Date.now().toString(),txt,lnk:’’,name:myName,av:myAv,ts:Date.now(),repostOf:authorName};
+userPosts.unshift(repost);savePosts();
+const profFeed=document.getElementById(‘profFeed’);
+const homeFeed=document.getElementById(‘postFeed’);
+if(profFeed)renderPost(repost,profFeed,true);
+if(homeFeed)renderPost(repost,homeFeed,true);
+profPostCnt++;
+const el=document.getElementById(‘profPostCnt’);if(el)el.textContent=profPostCnt;
+showToast(‘🔁 Дахин хуваалцлаа!’);
+}
+
+/* ══════════════════════════════════════
+USERNAME PICKER ON REGISTER
+══════════════════════════════════════ */
+const TAKEN_NAMES=[‘Батбаяр’,‘Оюунтуяа’,‘Дэлгэр’,‘Ариунаа’,‘Энхбаяр’,‘trader’,‘admin’,‘fx_master’];
+function checkUsername(input){
+const val=input.value.trim();
+const warn=document.getElementById(‘regNameWarn’);
+if(!warn)return;
+if(val.length<3){warn.textContent=’’;return;}
+if(TAKEN_NAMES.some(n=>n.toLowerCase()===val.toLowerCase())){
+warn.textContent=‘⚠️ Энэ нэр аль хэдийн авагдсан байна’;warn.style.color=‘var(–R)’;
+}else{
+warn.textContent=‘✓ Нэр боломжтой’;warn.style.color=‘var(–G)’;
+}
+}
+function suggestUsername(val){
+const suggs=document.getElementById(‘nameSuggestions’);if(!suggs)return;
+if(!val||val.length<2){suggs.innerHTML=’’;return;}
+const opts=[val+’_fx’,val+’*trader’,’fx*’+val,val+‘2026’,val+’_pro’];
+suggs.innerHTML=opts.filter(o=>!TAKEN_NAMES.includes(o)).slice(0,4).map(o=>`<div class="username-chip" onclick="document.getElementById('regNameInp').value='${o}';checkUsername(document.getElementById('regNameInp'));document.getElementById('nameSuggestions').innerHTML='';">${o}</div>`).join(’’);
+}
+
+/* ══════════════════════════════════════
+TOP TRADERS LEADERBOARD
+══════════════════════════════════════ */
+const TOP_TRADERS=[
+{name:‘Батбаяр’,av:‘Б’,c1:’#f0b429’,c2:’#e85a20’,badge:‘ELITE’,winRate:‘78%’,followers:‘1.2K’,following:false},
+{name:‘Оюунтуяа’,av:‘О’,c1:’#00d4aa’,c2:’#006b57’,badge:‘GOLD’,winRate:‘72%’,followers:‘847’,following:false},
+{name:‘Ариунаа’,av:‘А’,c1:’#a78bfa’,c2:’#6d28d9’,badge:‘PRO’,winRate:‘69%’,followers:‘623’,following:false},
+{name:‘Kim Jisoo’,av:‘K’,c1:’#f0b429’,c2:’#d97706’,badge:‘ELITE’,winRate:‘81%’,followers:‘2.1K’,following:false},
+{name:‘Дэлгэр’,av:‘Д’,c1:’#ef4444’,c2:’#b91c1c’,badge:‘MEMBER’,winRate:‘65%’,followers:‘412’,following:false},
+];
+function renderTopTraders(){
+const el=document.getElementById(‘topTradersList’);if(!el)return;
+el.innerHTML=TOP_TRADERS.map((t,i)=>`<div class="trader-row" onclick="openUserProf('${t.name}','${t.c1}','${t.c2}','${t.av}')"> <div class="trader-rank">${['🥇','🥈','🥉','4','5'][i]}</div> <div class="trader-av-sm" style="background:linear-gradient(135deg,${t.c1},${t.c2})">${t.av}</div> <div class="trader-info"> <div class="trader-name">${t.name}</div> <div class="trader-badge-sm">${t.badge} · ${t.winRate} win · ${t.followers} дагагч</div> </div> <button class="trader-follow ${t.following?'following':''}" id="tf_${i}" onclick="event.stopPropagation();followTrader(${i})">${t.following?'✓ Дагаж байна':'+ Дагах'}</button> </div>`).join(’’);
+}
+function followTrader(i){
+TOP_TRADERS[i].following=!TOP_TRADERS[i].following;
+renderTopTraders();
+showToast(TOP_TRADERS[i].following?‘✅ ‘+TOP_TRADERS[i].name+’ дагаж эхэллээ’:‘Дагахаа зогсоолоо’);
+}
+
+/* ══════════════════════════════════════
+CHAT LIST SYSTEM
+══════════════════════════════════════ */
+const CHAT_THREADS={
+dm:[
+{id:‘dm_bat’,name:‘Батбаяр’,av:‘Б’,c1:’#f0b429’,c2:’#e85a20’,preview:‘Өнөөдөр EUR/USD дээр ороцгоо уу?’,time:‘10:45’,unread:2,online:true,
+msgs:[{s:false,t:‘Сайн байна уу! Өнөөдөр EUR/USD дээр ороцгоо уу? 🎯’,ts:‘10:45’},{s:false,t:‘1.0890 дэмжлэгийн шугам маш хүчтэй байна’,ts:‘10:46’}]},
+{id:‘dm_oyu’,name:‘Оюунтуяа’,av:‘О’,c1:’#00d4aa’,c2:’#006b57’,preview:’+$840 авлаа! Баярлалаа 🙏’,time:‘09:22’,unread:1,online:true,
+msgs:[{s:false,t:’+$840 авлаа! Баярлалаа таны сигналын ачаар 🙏’,ts:‘09:22’}]},
+{id:‘dm_del’,name:‘Дэлгэр’,av:‘Д’,c1:’#ef4444’,c2:’#b91c1c’,preview:‘NFP өмнө болгоомжтой байгаарай’,time:‘Өчигдөр’,unread:0,online:false,
+msgs:[{s:false,t:‘NFP өмнө болгоомжтой байгаарай! Volatility өндөр болно’,ts:‘Өчигдөр’}]},
+],
+grp:[
+{id:‘grp_smc’,name:‘SMC Elite Traders’,av:‘🏆’,isEmoji:true,preview:‘Батбаяр: TP хүрлээ! 🎉’,time:‘14:32’,unread:5,online:false,
+msgs:[{s:false,name:‘Батбаяр’,t:‘EUR/USD TP хүрлээ! +70 pip 🎉’,ts:‘14:32’},{s:false,name:‘Оюунтуяа’,t:‘Маш сайн! Би ч авлаа 💪’,ts:‘14:33’}]},
+{id:‘grp_beg’,name:‘Forex Beginners MN’,av:‘📈’,isEmoji:true,preview:‘Admin: Шинэ сигнал орлоо’,time:‘12:15’,unread:3,online:false,
+msgs:[{s:false,name:‘Admin’,t:‘Шинэ сигнал орлоо: GBP/JPY SELL 📡’,ts:‘12:15’}]},
+]
+};
+let activeChatTab=‘dm’;
+let activeChatId=null;
+
+function swChatTab(tab){
+activeChatTab=tab;
+document.getElementById(‘chatTabDM’).classList.toggle(‘on’,tab===‘dm’);
+document.getElementById(‘chatTabGrp’).classList.toggle(‘on’,tab===‘grp’);
+renderChatList();
+}
+
+function renderChatList(filter=’’){
+const el=document.getElementById(‘chatList’);if(!el)return;
+const threads=CHAT_THREADS[activeChatTab]||[];
+const filtered=filter?threads.filter(t=>t.name.toLowerCase().includes(filter.toLowerCase())):threads;
+el.innerHTML=filtered.map(t=>` <div class="chat-list-item ${activeChatId===t.id?'active-chat':''}" onclick="openChatThread('${t.id}')"> <div class="chat-list-av" style="background:${t.isEmoji?'var(--bg3)':('linear-gradient(135deg,'+t.c1+','+t.c2+')')}"> ${t.isEmoji?`<span style="font-size:20px">${t.av}</span>`:t.av} ${t.online?'<div class="chat-list-online"></div>':''} </div> <div class="chat-list-info"> <div class="chat-list-name">${t.name}</div> <div class="chat-list-preview">${t.preview}</div> </div> <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"> <div class="chat-list-time">${t.time}</div> ${t.unread?`<div class="chat-unread">${t.unread}</div>`:''} </div> </div> `).join(’’) || ‘<div style="padding:20px;text-align:center;color:var(--tx2);font-size:13px">Чат байхгүй</div>’;
+}
+
+function openChatThread(threadId){
+activeChatId=threadId;
+const all=[…CHAT_THREADS.dm,…CHAT_THREADS.grp];
+const thread=all.find(t=>t.id===threadId);if(!thread)return;
+thread.unread=0;
+renderChatList();
+// show conv area
+document.getElementById(‘chatEmptyState’).style.display=‘none’;
+const convArea=document.getElementById(‘chatConvArea’);
+convArea.style.display=‘flex’;
+// set header
+const avEl=document.getElementById(‘convAv’);
+if(thread.isEmoji){avEl.textContent=thread.av;avEl.style.background=‘var(–bg3)’;}
+else{avEl.textContent=thread.av;avEl.style.background=`linear-gradient(135deg,${thread.c1},${thread.c2})`;}
+document.getElementById(‘convName’).textContent=thread.name;
+document.getElementById(‘convSub’).textContent=thread.isEmoji?`${thread.msgs.length} мессеж`:(thread.online?‘🟢 Онлайн’:‘⚫ Офлайн’);
+// render messages
+const msgsEl=document.getElementById(‘chatMsgs’);
+const myName=document.getElementById(‘hdrName’).textContent;
+msgsEl.innerHTML=thread.msgs.map(m=>{
+const isOwn=m.s||(m.name&&m.name===myName);
+const myAv=document.getElementById(‘hdrAvL’).textContent;
+const nameRow=thread.isEmoji&&!isOwn?`<div class="msg-name">${m.name||''}</div>`:’’;
+return `<div class="msg-row ${isOwn?'own':''}"> <div class="msg-av" style="background:${isOwn?'linear-gradient(135deg,#6366f1,#8b5cf6)':('linear-gradient(135deg,'+(thread.c1||'#666')+','+(thread.c2||'#999')+')')}"> ${isOwn?myAv:(m.name?m.name[0]:thread.av)} </div> <div class="msg-cont">${nameRow}<div class="msg-bub">${m.t}</div><div class="msg-t">${m.ts}</div></div> </div>`;
+}).join(’’);
+msgsEl.scrollTop=msgsEl.scrollHeight;
+document.getElementById(‘chatInp’).dataset.threadId=threadId;
+// mobile
+if(window.innerWidth<=700){
+document.getElementById(‘chatListPane’).classList.add(‘conv-open’);
+document.getElementById(‘chatConvPane’).classList.add(‘conv-open’);
+}
+}
+
+function filterChats(q){renderChatList(q);}
+
+function viewConvProfile(){
+if(!activeChatId)return;
+const t=[…CHAT_THREADS.dm,…CHAT_THREADS.grp].find(x=>x.id===activeChatId);
+if(t&&!t.isEmoji)openUserProf(t.name,t.c1,t.c2,t.av);
+}
+
+// Override sendMsg to save to thread
+const _origSendMsg=sendMsg;
+function sendMsg(){
+const inp=document.getElementById(‘chatInp’);
+const txt=inp.value.trim();if(!txt)return;
+document.getElementById(‘mentionPop’)?.classList.remove(‘open’);
+const threadId=inp.dataset.threadId;
+const now=new Date();const t=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+const myName=document.getElementById(‘hdrName’).textContent;
+if(threadId){
+const all=[…CHAT_THREADS.dm,…CHAT_THREADS.grp];
+const thread=all.find(x=>x.id===threadId);
+if(thread){
+const msg={s:true,t:txt,ts:t,name:myName};
+thread.msgs.push(msg);
+thread.preview=‘Та: ‘+txt.slice(0,30);
+thread.time=t;
+}
+}
+const l=document.getElementById(‘chatOwnAvL’)?.textContent||‘Т’;
+const formatted=txt.replace(/@(\S+)/g,’<span class="msg-mention">@$1</span>’);
+const msgs=document.getElementById(‘chatMsgs’);
+const row=document.createElement(‘div’);row.className=‘msg-row own’;
+row.innerHTML=`<div class="msg-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${l}</div>
+
+  <div class="msg-cont"><div class="msg-bub">${formatted}</div><div class="msg-t">${t}</div></div>`;
+  msgs?.appendChild(row);msgs.scrollTop=msgs.scrollHeight;
+  inp.value='';
+  if(document.getElementById('chatBdg'))document.getElementById('chatBdg').style.display='none';
+}
+
+/* ══════════════════════════════════════
+ADMIN SECURITY - only show for admin
+══════════════════════════════════════ */
+const ADMIN_EMAIL=‘admin@alistfx.com’;
+const ADMIN_NAMES=[‘admin’,‘Admin’,‘ADMIN’,‘a-list admin’];
+function checkAdminAccess(name){
+const isAdmin=ADMIN_NAMES.some(n=>n.toLowerCase()===name.toLowerCase())||name.toLowerCase().includes(‘admin’);
+const adminBtn=document.getElementById(‘adminMenuItem’);
+if(adminBtn)adminBtn.style.display=isAdmin?‘flex’:‘none’;
+}
+
+/* ══════════════════════════════════════
+OVERRIDE enterApp to init new features
+══════════════════════════════════════ */
+// Patch existing enterApp - add new inits
+const _prevEnterInit=null;
 
 /* INIT */
-document.getElementById('authThChk').checked=false;
+document.getElementById(‘authThChk’).checked=false;
+// Pre-render chat list (for when user navigates)
+window.addEventListener(‘DOMContentLoaded’,()=>{renderTopTraders();});
 
 /* USER MENU */
 function openUserMenu(e){
-  e.stopPropagation();
-  const d=document.getElementById('userMenuDrop');d.classList.toggle('open');
-  document.getElementById('notifPanel').classList.remove('open');
+e.stopPropagation();
+const d=document.getElementById(‘userMenuDrop’);d.classList.toggle(‘open’);
+document.getElementById(‘notifPanel’).classList.remove(‘open’);
 }
-function closeUserMenu(){document.getElementById('userMenuDrop').classList.remove('open');}
+function closeUserMenu(){document.getElementById(‘userMenuDrop’).classList.remove(‘open’);}
 function navToFromMenu(id){closeUserMenu();navTo(id);}
-document.addEventListener('click',e=>{
-  const d=document.getElementById('userMenuDrop');
-  if(d&&!d.contains(e.target)&&!document.getElementById('userMenuChip').contains(e.target))d.classList.remove('open');
+document.addEventListener(‘click’,e=>{
+const d=document.getElementById(‘userMenuDrop’);
+if(d&&!d.contains(e.target)&&!document.getElementById(‘userMenuChip’).contains(e.target))d.classList.remove(‘open’);
 });
 // sync user menu avatar/name
 function syncUmi(){
-  const n=document.getElementById('hdrName').textContent;
-  const l=document.getElementById('hdrAvL').textContent;
-  const umiN=document.getElementById('umiName');if(umiN)umiN.textContent=n;
-  const umiL=document.getElementById('umiAvL');if(umiL)umiL.textContent=l;
+const n=document.getElementById(‘hdrName’).textContent;
+const l=document.getElementById(‘hdrAvL’).textContent;
+const umiN=document.getElementById(‘umiName’);if(umiN)umiN.textContent=n;
+const umiL=document.getElementById(‘umiAvL’);if(umiL)umiL.textContent=l;
 }
 
 /* COMMUNITIES */
 function swCommTab(btn,tabId){
-  document.querySelectorAll('.comm-tab').forEach(t=>t.classList.remove('on'));
-  btn.classList.add('on');
-  ['ctab-all','ctab-joined','ctab-free','ctab-paid','ctab-mine'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.style.display='none';
-  });
-  const t=document.getElementById(tabId);if(t)t.style.display='block';
+document.querySelectorAll(’.comm-tab’).forEach(t=>t.classList.remove(‘on’));
+btn.classList.add(‘on’);
+[‘ctab-all’,‘ctab-joined’,‘ctab-free’,‘ctab-paid’,‘ctab-mine’].forEach(id=>{
+const el=document.getElementById(id);if(el)el.style.display=‘none’;
+});
+const t=document.getElementById(tabId);if(t)t.style.display=‘block’;
 }
 
-let pendingCommName='',pendingCommType='free';
+let pendingCommName=’’,pendingCommType=‘free’;
 function joinComm(btn,type,name){
-  pendingCommName=name;pendingCommType=type;
-  if(type==='free'){
-    btn.className='comm-join-btn joined';btn.textContent='✓ Нэгдсэн';btn.onclick=null;
-    showToast('✅ '+name+' булгэмд нэгдлээ!');
-    addToJoined(name,'free');
-  } else if(type==='paid'){
-    document.getElementById('payCommName').textContent=name;
-    openM('payModal');
-  } else if(type==='request'){
-    openM('joinReqModal');
-  }
+pendingCommName=name;pendingCommType=type;
+if(type===‘free’){
+btn.className=‘comm-join-btn joined’;btn.textContent=‘✓ Нэгдсэн’;btn.onclick=null;
+showToast(‘✅ ‘+name+’ булгэмд нэгдлээ!’);
+addToJoined(name,‘free’);
+} else if(type===‘paid’){
+document.getElementById(‘payCommName’).textContent=name;
+openM(‘payModal’);
+} else if(type===‘request’){
+openM(‘joinReqModal’);
+}
 }
 function addToJoined(name,type){
-  const list=document.getElementById('joinedList');
-  const el=document.createElement('div');el.className='comm-card';
-  el.innerHTML=`<div class="comm-info"><div class="comm-name">${name}</div><div class="comm-desc" style="font-size:11px">Нэгдсэн булгэм</div><div class="comm-meta"><span>${type==='free'?'🆓 Үнэгүй':'💎 Гишүүн'}</span><button class="comm-join-btn joined" style="pointer-events:none">✓ Нэгдсэн</button></div></div>`;
-  list.appendChild(el);
+const list=document.getElementById(‘joinedList’);
+const el=document.createElement(‘div’);el.className=‘comm-card’;
+el.innerHTML=`<div class="comm-info"><div class="comm-name">${name}</div><div class="comm-desc" style="font-size:11px">Нэгдсэн булгэм</div><div class="comm-meta"><span>${type==='free'?'🆓 Үнэгүй':'💎 Гишүүн'}</span><button class="comm-join-btn joined" style="pointer-events:none">✓ Нэгдсэн</button></div></div>`;
+list.appendChild(el);
 }
 
 /* CREATE COMMUNITY */
-let ccStep=1,ccEmoji='📈',ccColor='linear-gradient(135deg,#0a1628,#1a3460)',ccType='free';
+let ccStep=1,ccEmoji=‘📈’,ccColor=‘linear-gradient(135deg,#0a1628,#1a3460)’,ccType=‘free’;
 function commStep(dir){
-  if(dir==='next'){
-    if(ccStep===1){
-      const name=document.getElementById('ccName').value.trim();
-      if(!name){showToast('⚠️ Нэрээ оруулна уу');return;}
-      document.getElementById('ccPreviewName').textContent=name;
-      document.getElementById('ccPreviewDesc').textContent=document.getElementById('ccDesc').value||'Тайлбар...';
-    }
-    if(ccStep===3){createCommunity();return;}
-    ccStep++;
-  } else {
-    if(ccStep===1)return;ccStep--;
-  }
-  document.getElementById('cstep1').style.display=ccStep===1?'block':'none';
-  document.getElementById('cstep2').style.display=ccStep===2?'block':'none';
-  document.getElementById('cstep3').style.display=ccStep===3?'block':'none';
-  ['cs1','cs2','cs3'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.classList.toggle('on',i<ccStep);});
-  const btn=document.getElementById('ccNextBtn');
-  if(btn)btn.textContent=ccStep===3?'✅ Үүсгэх':'Дараагийнх →';
-  if(ccStep===3){
-    const fp=document.getElementById('ccFinalPreview');
-    if(fp)fp.innerHTML=`<div style="background:var(--bg3);border-radius:11px;padding:12px;text-align:left"><div style="font-size:20px;margin-bottom:5px">${ccEmoji}</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:14px">${document.getElementById('ccName').value}</div><div style="font-size:11px;color:var(--tx2);margin-top:3px">${document.getElementById('ccDesc').value}</div></div>`;
-  }
+if(dir===‘next’){
+if(ccStep===1){
+const name=document.getElementById(‘ccName’).value.trim();
+if(!name){showToast(‘⚠️ Нэрээ оруулна уу’);return;}
+document.getElementById(‘ccPreviewName’).textContent=name;
+document.getElementById(‘ccPreviewDesc’).textContent=document.getElementById(‘ccDesc’).value||‘Тайлбар…’;
+}
+if(ccStep===3){createCommunity();return;}
+ccStep++;
+} else {
+if(ccStep===1)return;ccStep–;
+}
+document.getElementById(‘cstep1’).style.display=ccStep===1?‘block’:‘none’;
+document.getElementById(‘cstep2’).style.display=ccStep===2?‘block’:‘none’;
+document.getElementById(‘cstep3’).style.display=ccStep===3?‘block’:‘none’;
+[‘cs1’,‘cs2’,‘cs3’].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.classList.toggle(‘on’,i<ccStep);});
+const btn=document.getElementById(‘ccNextBtn’);
+if(btn)btn.textContent=ccStep===3?‘✅ Үүсгэх’:‘Дараагийнх →’;
+if(ccStep===3){
+const fp=document.getElementById(‘ccFinalPreview’);
+if(fp)fp.innerHTML=`<div style="background:var(--bg3);border-radius:11px;padding:12px;text-align:left"><div style="font-size:20px;margin-bottom:5px">${ccEmoji}</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:14px">${document.getElementById('ccName').value}</div><div style="font-size:11px;color:var(--tx2);margin-top:3px">${document.getElementById('ccDesc').value}</div></div>`;
+}
 }
 function selCommType(t){
-  ccType=t;
-  document.getElementById('ccTypeFree').classList.toggle('selected',t==='free');
-  document.getElementById('ccTypePaid').classList.toggle('selected',t==='paid');
-  document.getElementById('ccPriceArea').style.display=t==='paid'?'block':'none';
+ccType=t;
+document.getElementById(‘ccTypeFree’).classList.toggle(‘selected’,t===‘free’);
+document.getElementById(‘ccTypePaid’).classList.toggle(‘selected’,t===‘paid’);
+document.getElementById(‘ccPriceArea’).style.display=t===‘paid’?‘block’:‘none’;
 }
 function selCommEmoji(e){
-  ccEmoji=e;
-  const av=document.getElementById('ccPreviewAv');if(av)av.textContent=e;
+ccEmoji=e;
+const av=document.getElementById(‘ccPreviewAv’);if(av)av.textContent=e;
 }
 function selCommColor(c){
-  ccColor=c;
-  const cover=document.getElementById('ccPreviewCover');if(cover)cover.style.background=c;
+ccColor=c;
+const cover=document.getElementById(‘ccPreviewCover’);if(cover)cover.style.background=c;
 }
 function createCommunity(){
-  const name=document.getElementById('ccName').value.trim();
-  const desc=document.getElementById('ccDesc').value.trim();
-  const price=document.getElementById('ccPrice').value;
-  const joinMode=document.getElementById('ccJoinMode').value;
-  // Add to "Mine" tab
-  const myList=document.getElementById('myCommList');
-  const card=document.createElement('div');card.className='comm-card';
-  const isPaid=ccType==='paid';
-  card.innerHTML=`<div class="comm-cover" style="background:${ccColor}">
-    <span class="comm-badge-type ${isPaid?'comm-badge-paid':'comm-badge-free'}">${isPaid?'💎 ТӨЛБӨРТЭЙ':'ҮНЭГҮЙ'}</span>
-    <div class="comm-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${ccEmoji}</div>
+const name=document.getElementById(‘ccName’).value.trim();
+const desc=document.getElementById(‘ccDesc’).value.trim();
+const price=document.getElementById(‘ccPrice’).value;
+const joinMode=document.getElementById(‘ccJoinMode’).value;
+// Add to “Mine” tab
+const myList=document.getElementById(‘myCommList’);
+const card=document.createElement(‘div’);card.className=‘comm-card’;
+const isPaid=ccType===‘paid’;
+card.innerHTML=`<div class="comm-cover" style="background:${ccColor}">
+<span class="comm-badge-type ${isPaid?'comm-badge-paid':'comm-badge-free'}">${isPaid?‘💎 ТӨЛБӨРТЭЙ’:‘ҮНЭГҮЙ’}</span>
+<div class="comm-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${ccEmoji}</div>
+
   </div>
   <div class="comm-info">
     <div class="comm-name">${name}</div>
@@ -2413,211 +2792,170 @@ function createCommunity(){
 
 /* JOIN REQUEST */
 function submitJoinReq(){
-  closeM('joinReqModal');
-  showToast('📨 Хүсэлт илгээгдлээ. Admin-ийн хариуг хүлээнэ үү.');
-  // find the button and update it
-  const btns=document.querySelectorAll('.comm-join-btn');
-  btns.forEach(btn=>{if(btn.onclick&&btn.onclick.toString().includes('request')){}});
+closeM(‘joinReqModal’);
+showToast(‘📨 Хүсэлт илгээгдлээ. Admin-ийн хариуг хүлээнэ үү.’);
+// find the button and update it
+const btns=document.querySelectorAll(’.comm-join-btn’);
+btns.forEach(btn=>{if(btn.onclick&&btn.onclick.toString().includes(‘request’)){}});
 }
 
 /* PAYMENT */
-function selPayMethod(el){document.querySelectorAll('.mem-plan').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');}
+function selPayMethod(el){document.querySelectorAll(’.mem-plan’).forEach(p=>p.classList.remove(‘selected’));el.classList.add(‘selected’);}
 function confirmPayment(){
-  closeM('payModal');
-  showToast('💎 '+pendingCommName+' - гишүүнчлэл идэвхжлээ!');
-  addToJoined(pendingCommName,'paid');
+closeM(‘payModal’);
+showToast(‘💎 ‘+pendingCommName+’ - гишүүнчлэл идэвхжлээ!’);
+addToJoined(pendingCommName,‘paid’);
 }
 
 /* ADMIN REQ */
 function approveReq(btn){
-  const item=btn.closest('[style]');
-  if(item){item.style.background='rgba(0,230,118,.05)';item.style.borderColor='rgba(0,230,118,.3)';}
-  btn.textContent='✓ Зөвшөөрсөн';btn.style.background='rgba(0,230,118,.2)';btn.style.color='var(--G)';btn.onclick=null;
-  showToast('✅ Хүсэлт зөвшөөрөгдлөө');
+const item=btn.closest(’[style]’);
+if(item){item.style.background=‘rgba(0,230,118,.05)’;item.style.borderColor=‘rgba(0,230,118,.3)’;}
+btn.textContent=‘✓ Зөвшөөрсөн’;btn.style.background=‘rgba(0,230,118,.2)’;btn.style.color=‘var(–G)’;btn.onclick=null;
+showToast(‘✅ Хүсэлт зөвшөөрөгдлөө’);
 }
 function denyReq(btn){
-  const item=btn.closest('[style]');if(item)item.remove();
-  showToast('❌ Хүсэлт татгалзагдлаа');
+const item=btn.closest(’[style]’);if(item)item.remove();
+showToast(‘❌ Хүсэлт татгалзагдлаа’);
 }
 
 /* TOAST */
 function showToast(msg){
-  let t=document.getElementById('toastEl');
-  if(!t){t=document.createElement('div');t.id='toastEl';t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--bd);border-radius:30px;padding:10px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.5);backdrop-filter:blur(20px);white-space:nowrap;transition:opacity .3s;';document.body.appendChild(t);}
-  t.textContent=msg;t.style.opacity='1';
-  clearTimeout(t._timer);t._timer=setTimeout(()=>{t.style.opacity='0';},2800);
+let t=document.getElementById(‘toastEl’);
+if(!t){t=document.createElement(‘div’);t.id=‘toastEl’;t.style.cssText=‘position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(–card);border:1px solid var(–bd);border-radius:30px;padding:10px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.5);backdrop-filter:blur(20px);white-space:nowrap;transition:opacity .3s;’;document.body.appendChild(t);}
+t.textContent=msg;t.style.opacity=‘1’;
+clearTimeout(t._timer);t._timer=setTimeout(()=>{t.style.opacity=‘0’;},2800);
 }
 
 /* syncUmi called directly in enterApp and saveProfile */
 
 /* ══════════════════════════════════════
-   ADMIN DASHBOARD JS
+ADMIN DASHBOARD JS
 ══════════════════════════════════════ */
 
 /* ── SAMPLE DATA ── */
 const SAMPLE_USERS = [
-  {id:1,name:'Батбаяр',av:'Б',color:'#f0b429,#e85a20',email:'batbayar@gmail.com',reg:'2026/01/15 09:24',last:'14:32 өнөөдөр',groups:3,status:'active',lang:'mn'},
-  {id:2,name:'Оюунтуяа',av:'О',color:'#00d4aa,#006b57',email:'oyuntuya@gmail.com',reg:'2026/01/22 14:10',last:'13:18 өнөөдөр',groups:2,status:'active',lang:'mn'},
-  {id:3,name:'Дэлгэр',av:'Д',color:'#ef4444,#b91c1c',email:'delger@gmail.com',reg:'2026/02/03 11:45',last:'11:02 өнөөдөр',groups:1,status:'active',lang:'mn'},
-  {id:4,name:'Ариунаа',av:'А',color:'#a78bfa,#6d28d9',email:'ariunaa@gmail.com',reg:'2026/02/14 16:30',last:'2026/04/28',groups:2,status:'active',lang:'mn'},
-  {id:5,name:'Энхбаяр',av:'Э',color:'#60a5fa,#1e40af',email:'enkhbayar@gmail.com',reg:'2026/04/30 12:45',last:'12:45 өнөөдөр',groups:0,status:'new',lang:'mn'},
-  {id:6,name:'Kim Jisoo',av:'K',color:'#f0b429,#d97706',email:'jisoo.kim@gmail.com',reg:'2026/03/10 08:20',last:'2026/04/29',groups:1,status:'active',lang:'ko'},
-  {id:7,name:'张伟',av:'张',color:'#ef4444,#dc2626',email:'zhangwei@gmail.com',reg:'2026/03/18 10:05',last:'2026/04/27',groups:1,status:'active',lang:'zh'},
-  {id:8,name:'Иван Петров',av:'И',color:'#6366f1,#4f46e5',email:'ivan.petrov@gmail.com',reg:'2026/04/01 13:15',last:'2026/04/25',groups:0,status:'inactive',lang:'ru'},
+{id:1,name:‘Батбаяр’,av:‘Б’,color:’#f0b429,#e85a20’,email:‘batbayar@gmail.com’,reg:‘2026/01/15 09:24’,last:‘14:32 өнөөдөр’,groups:3,status:‘active’,lang:‘mn’},
+{id:2,name:‘Оюунтуяа’,av:‘О’,color:’#00d4aa,#006b57’,email:‘oyuntuya@gmail.com’,reg:‘2026/01/22 14:10’,last:‘13:18 өнөөдөр’,groups:2,status:‘active’,lang:‘mn’},
+{id:3,name:‘Дэлгэр’,av:‘Д’,color:’#ef4444,#b91c1c’,email:‘delger@gmail.com’,reg:‘2026/02/03 11:45’,last:‘11:02 өнөөдөр’,groups:1,status:‘active’,lang:‘mn’},
+{id:4,name:‘Ариунаа’,av:‘А’,color:’#a78bfa,#6d28d9’,email:‘ariunaa@gmail.com’,reg:‘2026/02/14 16:30’,last:‘2026/04/28’,groups:2,status:‘active’,lang:‘mn’},
+{id:5,name:‘Энхбаяр’,av:‘Э’,color:’#60a5fa,#1e40af’,email:‘enkhbayar@gmail.com’,reg:‘2026/04/30 12:45’,last:‘12:45 өнөөдөр’,groups:0,status:‘new’,lang:‘mn’},
+{id:6,name:‘Kim Jisoo’,av:‘K’,color:’#f0b429,#d97706’,email:‘jisoo.kim@gmail.com’,reg:‘2026/03/10 08:20’,last:‘2026/04/29’,groups:1,status:‘active’,lang:‘ko’},
+{id:7,name:‘张伟’,av:‘张’,color:’#ef4444,#dc2626’,email:‘zhangwei@gmail.com’,reg:‘2026/03/18 10:05’,last:‘2026/04/27’,groups:1,status:‘active’,lang:‘zh’},
+{id:8,name:‘Иван Петров’,av:‘И’,color:’#6366f1,#4f46e5’,email:‘ivan.petrov@gmail.com’,reg:‘2026/04/01 13:15’,last:‘2026/04/25’,groups:0,status:‘inactive’,lang:‘ru’},
 ];
 
 const SAMPLE_GROUPS = [
-  {id:1,name:'Forex Beginners MN',emoji:'📈',owner:'Батбаяр',ownerEmail:'batbayar@gmail.com',created:'2026/01/20',members:1240,type:'free',rev:'—',status:'active'},
-  {id:2,name:'SMC Elite Traders',emoji:'🏆',owner:'Оюунтуяа',ownerEmail:'oyuntuya@gmail.com',created:'2026/02/01',members:320,type:'paid',rev:'₮15.9M',status:'active'},
-  {id:3,name:'ICT Psychology Club',emoji:'🧠',owner:'Дэлгэр',ownerEmail:'delger@gmail.com',created:'2026/02/15',members:580,type:'request',rev:'—',status:'active'},
-  {id:4,name:'Scalping Masters',emoji:'⚡',owner:'Ариунаа',ownerEmail:'ariunaa@gmail.com',created:'2026/03/05',members:185,type:'paid',rev:'₮5.5M',status:'active'},
+{id:1,name:‘Forex Beginners MN’,emoji:‘📈’,owner:‘Батбаяр’,ownerEmail:‘batbayar@gmail.com’,created:‘2026/01/20’,members:1240,type:‘free’,rev:’—’,status:‘active’},
+{id:2,name:‘SMC Elite Traders’,emoji:‘🏆’,owner:‘Оюунтуяа’,ownerEmail:‘oyuntuya@gmail.com’,created:‘2026/02/01’,members:320,type:‘paid’,rev:‘₮15.9M’,status:‘active’},
+{id:3,name:‘ICT Psychology Club’,emoji:‘🧠’,owner:‘Дэлгэр’,ownerEmail:‘delger@gmail.com’,created:‘2026/02/15’,members:580,type:‘request’,rev:’—’,status:‘active’},
+{id:4,name:‘Scalping Masters’,emoji:‘⚡’,owner:‘Ариунаа’,ownerEmail:‘ariunaa@gmail.com’,created:‘2026/03/05’,members:185,type:‘paid’,rev:‘₮5.5M’,status:‘active’},
 ];
 
 /* ── OPEN / CLOSE ── */
 function openAdmin(){
-  document.getElementById('adminWrap').classList.add('open');
-  renderAdminUsers(SAMPLE_USERS);
-  renderAdminGroups(SAMPLE_GROUPS);
-  renderAdminPosts();
-  renderRegChart();
-  closeUserMenu();
+document.getElementById(‘adminWrap’).classList.add(‘open’);
+renderAdminUsers(SAMPLE_USERS);
+renderAdminGroups(SAMPLE_GROUPS);
+renderAdminPosts();
+renderRegChart();
+closeUserMenu();
 }
 function closeAdmin(){
-  document.getElementById('adminWrap').classList.remove('open');
+document.getElementById(‘adminWrap’).classList.remove(‘open’);
 }
 
 /* ── NAV ── */
 function swAdmin(btn,pageId){
-  document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.admin-page').forEach(p=>p.classList.remove('on'));
-  document.getElementById(pageId)?.classList.add('on');
+document.querySelectorAll(’.admin-nav-btn’).forEach(b=>b.classList.remove(‘on’));
+btn.classList.add(‘on’);
+document.querySelectorAll(’.admin-page’).forEach(p=>p.classList.remove(‘on’));
+document.getElementById(pageId)?.classList.add(‘on’);
 }
 
 /* ── USERS TABLE ── */
 function renderAdminUsers(users){
-  const tbody=document.getElementById('usersTbody');
-  if(!tbody)return;
-  tbody.innerHTML=users.map((u,i)=>`
-    <tr>
-      <td style="color:var(--tx3)">${i+1}</td>
-      <td><div style="display:flex;align-items:center;gap:8px">
-        <div class="admin-av" style="background:linear-gradient(135deg,${u.color})">${u.av}</div>
-        <div><div style="font-weight:700;font-size:13px">${u.name}</div>
-        <div style="font-size:10px;color:var(--tx3)">${u.lang==='mn'?'🇲🇳':u.lang==='ko'?'🇰🇷':u.lang==='zh'?'🇨🇳':u.lang==='ru'?'🇷🇺':'🌐'}</div></div>
-      </div></td>
-      <td style="font-size:12px;color:var(--tx2)">${u.email}</td>
-      <td style="font-size:12px">${u.reg}</td>
-      <td style="font-size:12px">${u.last}</td>
-      <td style="text-align:center">${u.groups}</td>
-      <td><span class="admin-badge ${u.status==='active'?'ab-green':u.status==='new'?'ab-blue':'ab-red'}">${u.status==='active'?'Идэвхтэй':u.status==='new'?'Шинэ':'Идэвхгүй'}</span></td>
-      <td style="white-space:nowrap">
-        <button class="admin-act view" onclick="showUserDetail(${u.id})">👁</button>
-        <button class="admin-act ban" onclick="banUser(${u.id},'${u.name}')">🚫</button>
-      </td>
-    </tr>
-  `).join('');
+const tbody=document.getElementById(‘usersTbody’);
+if(!tbody)return;
+tbody.innerHTML=users.map((u,i)=>`<tr> <td style="color:var(--tx3)">${i+1}</td> <td><div style="display:flex;align-items:center;gap:8px"> <div class="admin-av" style="background:linear-gradient(135deg,${u.color})">${u.av}</div> <div><div style="font-weight:700;font-size:13px">${u.name}</div> <div style="font-size:10px;color:var(--tx3)">${u.lang==='mn'?'🇲🇳':u.lang==='ko'?'🇰🇷':u.lang==='zh'?'🇨🇳':u.lang==='ru'?'🇷🇺':'🌐'}</div></div> </div></td> <td style="font-size:12px;color:var(--tx2)">${u.email}</td> <td style="font-size:12px">${u.reg}</td> <td style="font-size:12px">${u.last}</td> <td style="text-align:center">${u.groups}</td> <td><span class="admin-badge ${u.status==='active'?'ab-green':u.status==='new'?'ab-blue':'ab-red'}">${u.status==='active'?'Идэвхтэй':u.status==='new'?'Шинэ':'Идэвхгүй'}</span></td> <td style="white-space:nowrap"> <button class="admin-act view" onclick="showUserDetail(${u.id})">👁</button> <button class="admin-act ban" onclick="banUser(${u.id},'${u.name}')">🚫</button> </td> </tr>`).join(’’);
 }
 
-function filterUsers(q=''){
-  const filtered=SAMPLE_USERS.filter(u=>
-    u.name.toLowerCase().includes(q.toLowerCase())||
-    u.email.toLowerCase().includes(q.toLowerCase())
-  );
-  renderAdminUsers(filtered);
+function filterUsers(q=’’){
+const filtered=SAMPLE_USERS.filter(u=>
+u.name.toLowerCase().includes(q.toLowerCase())||
+u.email.toLowerCase().includes(q.toLowerCase())
+);
+renderAdminUsers(filtered);
 }
 
 function banUser(id,name){
-  if(confirm(name+' хэрэглэгчийг хаах уу?')){showToast('🚫 '+name+' хаагдлаа');}
+if(confirm(name+’ хэрэглэгчийг хаах уу?’)){showToast(‘🚫 ‘+name+’ хаагдлаа’);}
 }
 function showUserDetail(id){
-  const u=SAMPLE_USERS.find(x=>x.id===id);
-  if(u)showToast('👤 '+u.name+' — '+u.email);
+const u=SAMPLE_USERS.find(x=>x.id===id);
+if(u)showToast(’👤 ‘+u.name+’ — ’+u.email);
 }
 
 /* ── GROUPS TABLE ── */
 function renderAdminGroups(groups){
-  const tbody=document.getElementById('groupsTbody');
-  if(!tbody)return;
-  tbody.innerHTML=groups.map((g,i)=>`
-    <tr>
-      <td style="color:var(--tx3)">${i+1}</td>
-      <td><div style="display:flex;align-items:center;gap:8px"><div style="font-size:20px">${g.emoji}</div><div><div style="font-weight:700;font-size:13px">${g.name}</div></div></div></td>
-      <td><div style="font-size:12px;font-weight:600">${g.owner}</div><div style="font-size:10px;color:var(--tx3)">${g.ownerEmail}</div></td>
-      <td style="font-size:12px">${g.created}</td>
-      <td style="text-align:center;font-weight:700">${g.members.toLocaleString()}</td>
-      <td><span class="admin-badge ${g.type==='paid'?'ab-yellow':g.type==='request'?'ab-blue':'ab-green'}">${g.type==='paid'?'💎 Төлбөртэй':g.type==='request'?'🔒 Хүсэлт':'🆓 Үнэгүй'}</span></td>
-      <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--G)">${g.rev}</td>
-      <td><span class="admin-badge ab-green">Идэвхтэй</span></td>
-      <td><button class="admin-act ban" onclick="showToast('🗑️ Бүлгэм хаагдлаа')">🚫</button></td>
-    </tr>
-  `).join('');
+const tbody=document.getElementById(‘groupsTbody’);
+if(!tbody)return;
+tbody.innerHTML=groups.map((g,i)=>`<tr> <td style="color:var(--tx3)">${i+1}</td> <td><div style="display:flex;align-items:center;gap:8px"><div style="font-size:20px">${g.emoji}</div><div><div style="font-weight:700;font-size:13px">${g.name}</div></div></div></td> <td><div style="font-size:12px;font-weight:600">${g.owner}</div><div style="font-size:10px;color:var(--tx3)">${g.ownerEmail}</div></td> <td style="font-size:12px">${g.created}</td> <td style="text-align:center;font-weight:700">${g.members.toLocaleString()}</td> <td><span class="admin-badge ${g.type==='paid'?'ab-yellow':g.type==='request'?'ab-blue':'ab-green'}">${g.type==='paid'?'💎 Төлбөртэй':g.type==='request'?'🔒 Хүсэлт':'🆓 Үнэгүй'}</span></td> <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--G)">${g.rev}</td> <td><span class="admin-badge ab-green">Идэвхтэй</span></td> <td><button class="admin-act ban" onclick="showToast('🗑️ Бүлгэм хаагдлаа')">🚫</button></td> </tr>`).join(’’);
 }
 
 /* ── POSTS TABLE ── */
 function renderAdminPosts(){
-  const tbody=document.getElementById('postsTbody');
-  if(!tbody)return;
-  const posts=[
-    {author:'Батбаяр',av:'Б',color:'#f0b429,#e85a20',txt:'EUR/USD шинжилгээ: 1.0890 дэмжлэгийн шугамаас...',date:'04/30 14:32',likes:24,cmts:8,views:847},
-    {author:'Оюунтуяа',av:'О',color:'#00d4aa,#006b57',txt:'GBP/JPY дээр +$840 авлаа! SL-аа эрт хөдөлгөсөн...',date:'04/30 09:15',likes:47,cmts:15,views:1204},
-    {author:'Дэлгэр',av:'Д',color:'#ef4444,#b91c1c',txt:'XAU/USD — NFP өмнө volatility өндөр байна...',date:'04/29 16:00',likes:18,cmts:5,views:423},
-  ];
-  // Add user posts from localStorage
-  const saved=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
-  const allPosts=[...saved.map(p=>({author:p.name,av:p.av,color:'#6366f1,#8b5cf6',txt:p.txt,date:new Date(p.ts).toLocaleString('mn-MN').slice(0,14),likes:0,cmts:0,views:Math.floor(Math.random()*200+10)})),...posts];
-  tbody.innerHTML=allPosts.map(p=>`
-    <tr>
-      <td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,${p.color})">${p.av}</div>${p.author}</div></td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${p.txt}</td>
-      <td style="font-size:11px;color:var(--tx2)">${p.date}</td>
-      <td style="text-align:center">❤️ ${p.likes}</td>
-      <td style="text-align:center">💬 ${p.cmts}</td>
-      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px">${p.views}</td>
-      <td><button class="admin-act ban" onclick="showToast('🗑️ Нийтлэл устгагдлаа')">🗑️</button></td>
-    </tr>
-  `).join('');
+const tbody=document.getElementById(‘postsTbody’);
+if(!tbody)return;
+const posts=[
+{author:‘Батбаяр’,av:‘Б’,color:’#f0b429,#e85a20’,txt:‘EUR/USD шинжилгээ: 1.0890 дэмжлэгийн шугамаас…’,date:‘04/30 14:32’,likes:24,cmts:8,views:847},
+{author:‘Оюунтуяа’,av:‘О’,color:’#00d4aa,#006b57’,txt:‘GBP/JPY дээр +$840 авлаа! SL-аа эрт хөдөлгөсөн…’,date:‘04/30 09:15’,likes:47,cmts:15,views:1204},
+{author:‘Дэлгэр’,av:‘Д’,color:’#ef4444,#b91c1c’,txt:‘XAU/USD — NFP өмнө volatility өндөр байна…’,date:‘04/29 16:00’,likes:18,cmts:5,views:423},
+];
+// Add user posts from localStorage
+const saved=JSON.parse(localStorage.getItem(‘alistfx_posts’)||’[]’);
+const allPosts=[…saved.map(p=>({author:p.name,av:p.av,color:’#6366f1,#8b5cf6’,txt:p.txt,date:new Date(p.ts).toLocaleString(‘mn-MN’).slice(0,14),likes:0,cmts:0,views:Math.floor(Math.random()*200+10)})),…posts];
+tbody.innerHTML=allPosts.map(p=>`<tr> <td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,${p.color})">${p.av}</div>${p.author}</div></td> <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${p.txt}</td> <td style="font-size:11px;color:var(--tx2)">${p.date}</td> <td style="text-align:center">❤️ ${p.likes}</td> <td style="text-align:center">💬 ${p.cmts}</td> <td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px">${p.views}</td> <td><button class="admin-act ban" onclick="showToast('🗑️ Нийтлэл устгагдлаа')">🗑️</button></td> </tr>`).join(’’);
 }
 
 /* ── REG CHART ── */
 function renderRegChart(){
-  const c=document.getElementById('regChart');
-  if(!c)return;
-  c.width=c.parentElement.offsetWidth-28;c.height=120;
-  const ctx=c.getContext('2d');
-  const W=c.width,H=c.height;
-  const data=[14,22,18,31,25,28,23];
-  const days=['Да','Мя','Лх','Пү','Ба','Бя','Ня'];
-  const mx=Math.max(...data)+5;
-  const bw=(W-40)/(data.length);
-  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
-  ctx.clearRect(0,0,W,H);
-  data.forEach((v,i)=>{
-    const x=20+i*bw+bw*.15;
-    const bh=(v/mx)*(H-30);
-    const y=H-20-bh;
-    const grad=ctx.createLinearGradient(0,y,0,H-20);
-    grad.addColorStop(0,isDark?'rgba(240,180,41,.9)':'rgba(37,99,235,.9)');
-    grad.addColorStop(1,isDark?'rgba(240,180,41,.3)':'rgba(37,99,235,.3)');
-    ctx.fillStyle=grad;
-    ctx.beginPath();ctx.roundRect(x,y,bw*.7,bh,3);ctx.fill();
-    ctx.fillStyle=isDark?'rgba(255,255,255,.4)':'rgba(0,0,0,.4)';
-    ctx.font='10px Plus Jakarta Sans';ctx.textAlign='center';
-    ctx.fillText(days[i],x+bw*.35,H-4);
-    ctx.fillStyle=isDark?'rgba(255,255,255,.7)':'rgba(0,0,0,.6)';
-    ctx.font='bold 11px Plus Jakarta Sans';
-    ctx.fillText(v,x+bw*.35,y-4);
-  });
+const c=document.getElementById(‘regChart’);
+if(!c)return;
+c.width=c.parentElement.offsetWidth-28;c.height=120;
+const ctx=c.getContext(‘2d’);
+const W=c.width,H=c.height;
+const data=[14,22,18,31,25,28,23];
+const days=[‘Да’,‘Мя’,‘Лх’,‘Пү’,‘Ба’,‘Бя’,‘Ня’];
+const mx=Math.max(…data)+5;
+const bw=(W-40)/(data.length);
+const isDark=document.documentElement.getAttribute(‘data-theme’)===‘dark’;
+ctx.clearRect(0,0,W,H);
+data.forEach((v,i)=>{
+const x=20+i*bw+bw*.15;
+const bh=(v/mx)*(H-30);
+const y=H-20-bh;
+const grad=ctx.createLinearGradient(0,y,0,H-20);
+grad.addColorStop(0,isDark?‘rgba(240,180,41,.9)’:‘rgba(37,99,235,.9)’);
+grad.addColorStop(1,isDark?‘rgba(240,180,41,.3)’:‘rgba(37,99,235,.3)’);
+ctx.fillStyle=grad;
+ctx.beginPath();ctx.roundRect(x,y,bw*.7,bh,3);ctx.fill();
+ctx.fillStyle=isDark?‘rgba(255,255,255,.4)’:‘rgba(0,0,0,.4)’;
+ctx.font=‘10px Plus Jakarta Sans’;ctx.textAlign=‘center’;
+ctx.fillText(days[i],x+bw*.35,H-4);
+ctx.fillStyle=isDark?‘rgba(255,255,255,.7)’:‘rgba(0,0,0,.6)’;
+ctx.font=‘bold 11px Plus Jakarta Sans’;
+ctx.fillText(v,x+bw*.35,y-4);
+});
 }
 
 /* ── UPDATE STATS FROM LOCALSTORAGE ── */
 function updateAdminStats(){
-  const posts=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
-  const regUsers=1284+posts.length;
-  const el=document.getElementById('stat-users');
-  if(el)el.textContent=regUsers.toLocaleString();
+const posts=JSON.parse(localStorage.getItem(‘alistfx_posts’)||’[]’);
+const regUsers=1284+posts.length;
+const el=document.getElementById(‘stat-users’);
+if(el)el.textContent=regUsers.toLocaleString();
 }
-
 
 </script>
 
