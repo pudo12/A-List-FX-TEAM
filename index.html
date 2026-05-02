@@ -836,6 +836,116 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
 *{transition:background-color .3s ease,border-color .3s ease,color .25s ease,box-shadow .3s ease;}
 /* But keep transform transitions snappy */
 .post-card,.sig-card,.ac-card,.comm-card,.pac-body,.react-btn,.nb,.story-c .st-bw{transition:transform .25s cubic-bezier(.34,1.2,.64,1),box-shadow .25s ease,border-color .3s ease,background-color .3s ease,color .25s ease;}
+
+/* ══════════════════════════════════════
+ADMIN DASHBOARD
+══════════════════════════════════════ */
+.admin-wrap{position:fixed;inset:0;z-index:9500;background:var(–bg);display:none;flex-direction:column;overflow:hidden;}
+.admin-wrap.open{display:flex;}
+/* admin header */
+.admin-hdr{height:56px;flex-shrink:0;display:flex;align-items:center;padding:0 20px;gap:14px;border-bottom:1px solid var(–bd);}
+.admin-hdr-title{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;background:linear-gradient(135deg,#f0b429,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.admin-close{margin-left:auto;padding:7px 14px;border-radius:9px;border:1px solid var(–bd);background:var(–bg3);color:var(–tx2);font-size:12px;font-weight:700;cursor:pointer;transition:.15s;}
+.admin-close:hover{border-color:var(–R);color:var(–R);}
+/* admin layout */
+.admin-body{flex:1;display:flex;overflow:hidden;}
+.admin-sidebar{width:200px;flex-shrink:0;border-right:1px solid var(–bd);padding:14px 10px;overflow-y:auto;}
+.admin-nav-btn{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border-radius:10px;border:none;background:transparent;color:var(–tx2);font-size:13px;font-weight:600;cursor:pointer;text-align:left;transition:.15s;margin-bottom:2px;}
+.admin-nav-btn:hover{background:var(–bg3);color:var(–tx);}
+.admin-nav-btn.on{background:rgba(240,180,41,.1);color:var(–A2);}
+.admin-nav-btn .ani{font-size:16px;width:20px;text-align:center;}
+.admin-content{flex:1;overflow-y:auto;padding:20px;}
+/* admin pages */
+.admin-page{display:none;}
+.admin-page.on{display:block;}
+/* stat cards */
+.admin-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+@media(max-width:900px){.admin-stat-grid{grid-template-columns:repeat(2,1fr);}}
+.admin-stat{border-radius:14px;padding:16px;border:1px solid var(–bd);background:var(–card);position:relative;overflow:hidden;transition:.2s;}
+.admin-stat:hover{transform:translateY(-2px);}
+.admin-stat::after{content:’’;position:absolute;bottom:-15px;right:-10px;width:70px;height:70px;border-radius:50%;opacity:.07;}
+.admin-stat.blue::after{background:#2563eb;}
+.admin-stat.green::after{background:var(–G);}
+.admin-stat.yellow::after{background:var(–A2);}
+.admin-stat.red::after{background:var(–R);}
+.admin-stat-ico{font-size:22px;margin-bottom:10px;}
+.admin-stat-num{font-family:‘DM Mono’,monospace;font-size:26px;font-weight:500;}
+.admin-stat-lbl{font-size:11px;color:var(–tx2);margin-top:3px;font-weight:600;}
+.admin-stat-delta{font-size:11px;margin-top:5px;}
+.admin-stat-delta.up{color:var(–G);}
+.admin-stat-delta.dn{color:var(–R);}
+/* chart area */
+.admin-chart-row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:20px;}
+@media(max-width:800px){.admin-chart-row{grid-template-columns:1fr;}}
+.admin-card{background:var(–card);border:1px solid var(–bd);border-radius:16px;overflow:hidden;}
+.admin-card-hdr{padding:14px 16px;border-bottom:1px solid var(–bd);display:flex;align-items:center;justify-content:space-between;}
+.admin-card-title{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;}
+.admin-card-body{padding:14px;}
+/* table */
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table th{text-align:left;padding:8px 12px;font-size:10px;font-weight:700;color:var(–tx2);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(–bd);white-space:nowrap;}
+.admin-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(–bd);vertical-align:middle;}
+.admin-table tr:last-child td{border-bottom:none;}
+.admin-table tr:hover td{background:var(–bg3);}
+/* badges */
+.admin-badge{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;}
+.ab-green{background:rgba(0,230,118,.1);color:var(–G);border:1px solid rgba(0,230,118,.2);}
+.ab-yellow{background:rgba(240,180,41,.1);color:var(–A2);border:1px solid rgba(240,180,41,.2);}
+.ab-red{background:rgba(255,71,87,.08);color:var(–R);border:1px solid rgba(255,71,87,.15);}
+.ab-blue{background:rgba(37,99,235,.1);color:#2563eb;border:1px solid rgba(37,99,235,.2);}
+/* search & filter row */
+.admin-filter-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.admin-search{padding:8px 12px;border-radius:9px;border:1px solid var(–bd);background:var(–bg3);color:var(–tx);font-size:13px;flex:1;min-width:150px;}
+.admin-search:focus{outline:none;border-color:var(–A2);}
+.admin-filter-sel{padding:7px 11px;border-radius:9px;border:1px solid var(–bd);background:var(–bg3);color:var(–tx);font-size:12px;cursor:pointer;}
+/* user row avatar */
+.admin-av{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
+/* mini chart */
+.mini-bar-row{display:flex;align-items:flex-end;gap:4px;height:60px;padding:4px 0;}
+.mini-bar{flex:1;border-radius:3px 3px 0 0;min-width:8px;transition:.3s;}
+/* action buttons */
+.admin-act{padding:4px 10px;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:.15s;}
+.admin-act.ban{background:rgba(255,71,87,.1);color:var(–R);}
+.admin-act.ban:hover{background:rgba(255,71,87,.2);}
+.admin-act.ok{background:rgba(0,230,118,.1);color:var(–G);}
+.admin-act.ok:hover{background:rgba(0,230,118,.2);}
+.admin-act.view{background:var(–bg3);color:var(–tx2);}
+.admin-act.view:hover{background:var(–bg4);color:var(–tx);}
+/* live indicator */
+.admin-live{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(–G);font-weight:700;}
+.admin-live-dot{width:7px;height:7px;border-radius:50%;background:var(–G);animation:dotPulse 1.5s ease-in-out infinite;}
+/* timeline */
+.admin-timeline{display:flex;flex-direction:column;gap:0;}
+.admin-tl-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(–bd);}
+.admin-tl-item:last-child{border-bottom:none;}
+.admin-tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.admin-tl-body{flex:1;}
+.admin-tl-title{font-size:13px;font-weight:600;}
+.admin-tl-time{font-size:10px;color:var(–tx3);margin-top:2px;}
+/* progress */
+.admin-prog-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.admin-prog-lbl{font-size:12px;color:var(–tx2);width:80px;flex-shrink:0;}
+.admin-prog-bar{flex:1;height:6px;background:var(–bg3);border-radius:3px;overflow:hidden;}
+.admin-prog-fill{height:100%;border-radius:3px;transition:.5s;}
+.admin-prog-val{font-size:11px;color:var(–tx2);width:35px;text-align:right;flex-shrink:0;}
+/* signal admin row */
+.sig-admin-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(–bd);}
+.sig-admin-row:last-child{border-bottom:none;}
+/* toggle in admin table */
+.small-ts{position:relative;width:36px;height:20px;flex-shrink:0;}
+.small-ts input{opacity:0;width:0;height:0;position:absolute;}
+.small-ts-track{position:absolute;inset:0;border-radius:20px;background:var(–bg3);border:1px solid var(–bd);cursor:pointer;transition:.25s;}
+.small-ts-track::before{content:’’;position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(–tx3);transition:.25s cubic-bezier(.34,1.56,.64,1);}
+.small-ts input:checked+.small-ts-track{background:rgba(0,212,170,.15);border-color:var(–A);}
+.small-ts input:checked+.small-ts-track::before{transform:translateX(16px);background:var(–A);}
+/* light mode overrides */
+[data-theme=“light”] .admin-hdr{background:#fff;border-bottom-color:#e8edf8;}
+[data-theme=“light”] .admin-sidebar{background:#fff;border-right-color:#e8edf8;}
+[data-theme=“light”] .admin-content{background:#f6f8fd;}
+[data-theme=“light”] .admin-card{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .admin-stat{background:#fff;border-color:#e8edf8;}
+[data-theme=“light”] .admin-nav-btn.on{background:#fef9ec;color:#d97706;}
+[data-theme=“light”] .admin-table tr:hover td{background:#f6f8fd;}
 </style>
 
 </head>
@@ -911,6 +1021,7 @@ box-shadow:0 12px 40px rgba(37,99,235,.12);
     <div class="umi-item" onclick="navToFromMenu('profile')"><span class="umi-ico">👤</span>Миний профайл</div>
     <div class="umi-item" onclick="navToFromMenu('journal')"><span class="umi-ico">📊</span>Ашиг / Алдагдал</div>
     <div class="umi-item" onclick="navToFromMenu('settings')"><span class="umi-ico">⚙️</span>Тохиргоо</div>
+    <div class="umi-item" style="border-top:1px solid var(--bd);margin-top:4px;color:var(--A2)" onclick="openAdmin();closeUserMenu()"><span class="umi-ico">⚡</span>Admin самбар</div>
     <div class="umi-item danger" onclick="logout();closeUserMenu()"><span class="umi-ico">🚪</span>Гарах</div>
   </div>
   <div class="app-body">
@@ -1821,7 +1932,10 @@ function saveProfile(){
   document.getElementById('profBio').textContent=b;
   document.getElementById('profTypeTag').textContent=ty;
   syncUmi();
+  /* persist profile */
+  try{localStorage.setItem('alistfx_profile',JSON.stringify({name:n,handle:h,bio:b,type:ty}));}catch(e){}
   closeM('profEditModal');
+  showToast('✅ Профайл хадгалагдлаа!');
 }
 
 /* USER PROFILE MODAL */
@@ -1954,25 +2068,89 @@ function setReply(inpId,mention){
 
 /* POSTS */
 let profPostCnt=1;
+/* ── POST STORAGE ── */
+let userPosts = JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
+function savePosts(){try{localStorage.setItem('alistfx_posts',JSON.stringify(userPosts.slice(0,50)));}catch(e){}}
+
+function renderPost(p,feedEl,prepend=true){
+  const pcId='pc_'+p.id;const ciId='ci_'+p.id;
+  const lnkHtml=p.lnk?`<div class="post-link-prev">🔗 ${p.lnk}</div>`:'';
+  const timeStr=formatPostTime(p.ts);
+  const cardHTML=`<div class="post-head">
+    <div class="post-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${p.av}</div>
+    <div style="flex:1"><div class="post-author">${p.name}</div><div class="post-time post-ts" data-ts="${p.ts}">${timeStr}</div></div>
+    <button style="background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;padding:4px 6px;border-radius:6px" onclick="deletePost('${p.id}',this)" title="Устгах">⋯</button>
+  </div>
+  <div class="post-body">${p.txt}</div>${lnkHtml}
+  <div class="post-acts">
+    <button class="pact" onclick="togLike(this)">❤️ 0</button>
+    <button class="pact" onclick="togCmt(this)">💬 0</button>
+    <button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button>
+  </div>
+  <div class="post-comments" id="${pcId}">
+    <div class="cmt-irow"><input class="cmt-inp" id="${ciId}" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmtEl(this,'${ciId}')">➤</button></div>
+  </div>`;
+  const card=document.createElement('div');card.className='post-card';card.dataset.postId=p.id;card.innerHTML=cardHTML;
+  if(prepend)feedEl.insertBefore(card,feedEl.firstChild);
+  else feedEl.appendChild(card);
+  return card;
+}
+
+function formatPostTime(ts){
+  const diff=Math.floor((Date.now()-ts)/1000);
+  if(diff<60)return 'Дөнгөж сая';
+  if(diff<3600)return Math.floor(diff/60)+' мин өмнө';
+  if(diff<86400)return Math.floor(diff/3600)+' цаг өмнө';
+  return Math.floor(diff/86400)+' өдөр өмнө';
+}
+
+function deletePost(id,btn){
+  const card=btn.closest('.post-card');
+  if(!confirm('Нийтлэлийг устгах уу?'))return;
+  userPosts=userPosts.filter(p=>p.id!==id);
+  savePosts();
+  card.style.animation='card3dIn .3s reverse';
+  setTimeout(()=>card.remove(),250);
+  /* also remove from home feed */
+  document.querySelectorAll(`.post-card[data-post-id="${id}"]`).forEach(c=>c.remove());
+  profPostCnt=Math.max(0,profPostCnt-1);
+  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
+  showToast('🗑️ Нийтлэл устгагдлаа');
+}
+
+function loadSavedPosts(){
+  userPosts=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
+  const profFeed=document.getElementById('profFeed');
+  const homeFeed=document.getElementById('postFeed');
+  if(!profFeed||!homeFeed)return;
+  /* clear existing user posts (keep sample posts) */
+  document.querySelectorAll('.post-card[data-post-id]').forEach(c=>c.remove());
+  userPosts.forEach(p=>{
+    renderPost(p,profFeed,false);
+    renderPost(p,homeFeed,true);
+  });
+  profPostCnt=userPosts.length+1;
+  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
+}
+
 function submitProfPost(){
   const txt=document.getElementById('profTxt').value.trim();if(!txt)return;
   const lnk=document.getElementById('profLinkV').value.trim();
-  const feed=document.getElementById('profFeed');
-  const homeFeed=document.getElementById('postFeed');
   const name=document.getElementById('hdrName').textContent;
-  const l=document.getElementById('hdrAvL').textContent;
-  const pcId='pc_'+Date.now();const ciId='ci_'+Date.now();
-  let extra=lnk?`<div class="post-link-prev">🔗 ${lnk}</div>`:'';
-  const cardHTML=`<div class="post-head"><div class="post-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">${l}</div><div style="flex:1"><div class="post-author">${name}</div><div class="post-time">Дөнгөж сая</div></div></div><div class="post-body">${txt}</div>${extra}<div class="post-acts"><button class="pact" onclick="togLike(this)">❤️ 0</button><button class="pact" onclick="togCmt(this)">💬 0</button><button class="pact" onclick="this.classList.toggle('on-bk')">🔖</button></div><div class="post-comments" id="${pcId}"><div class="cmt-irow"><input class="cmt-inp" id="${ciId}" placeholder="Сэтгэгдэл..."><button class="cmt-snd" onclick="addCmtEl(this,'${ciId}')">➤</button></div></div>`;
-  const card=document.createElement('div');card.className='post-card';card.innerHTML=cardHTML;
-  feed.insertBefore(card,feed.firstChild);
-  /* push to home feed */
-  const hcard=document.createElement('div');hcard.className='post-card';hcard.innerHTML=cardHTML;
-  homeFeed.insertBefore(hcard,homeFeed.firstChild);
+  const av=document.getElementById('hdrAvL').textContent;
+  const post={id:Date.now().toString(),txt,lnk,name,av,ts:Date.now()};
+  userPosts.unshift(post);
+  savePosts();
+  const profFeed=document.getElementById('profFeed');
+  const homeFeed=document.getElementById('postFeed');
+  renderPost(post,profFeed,true);
+  renderPost(post,homeFeed,true);
   document.getElementById('profTxt').value='';
   document.getElementById('profLinkV').value='';
   document.getElementById('profLinkA').style.display='none';
-  profPostCnt++;document.getElementById('profPostCnt').textContent=profPostCnt;
+  profPostCnt++;
+  const el=document.getElementById('profPostCnt');if(el)el.textContent=profPostCnt;
+  showToast('✅ Нийтлэл амжилттай хадгалагдлаа!');
 }
 
 /* SIGNALS */
@@ -2084,7 +2262,25 @@ function enterApp(){
   }
   document.getElementById('authWrap').style.display='none';
   document.getElementById('app').classList.add('on');
-  setTimeout(()=>{initLive();drawPostChart();buildCal('calGrid',userCal);buildCoverCdls();buildSbStories();syncUmi();},100);
+  setTimeout(()=>{
+    initLive();drawPostChart();buildCal('calGrid',userCal);buildCoverCdls();buildSbStories();
+    /* load persisted profile */
+    try{
+      const prof=JSON.parse(localStorage.getItem('alistfx_profile')||'null');
+      if(prof){
+        const n=prof.name||'Trader',l=n[0].toUpperCase();
+        ['profName','sbName','hdrName','setNameDisp'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
+        ['sbAvL','hdrAvL','profAvL','profCompAvL','profPostAvL','chatOwnAvL','setAvL'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=l;});
+        ['profPostName'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
+        if(prof.handle){const eh=document.getElementById('profHandle');if(eh)eh.textContent=prof.handle;}
+        if(prof.bio){const eb=document.getElementById('profBio');if(eb)eb.textContent=prof.bio;}
+        if(prof.type){const et=document.getElementById('profTypeTag');if(et)et.textContent=prof.type;}
+      }
+    }catch(e){}
+    loadSavedPosts();
+    syncUmi();
+    updateAdminStats();
+  },100);
 }
 function logout(){document.getElementById('app').classList.remove('on');document.getElementById('authWrap').style.display='flex';}
 
@@ -2254,7 +2450,420 @@ function showToast(msg){
 
 /* syncUmi called directly in enterApp and saveProfile */
 
+/* ══════════════════════════════════════
+   ADMIN DASHBOARD JS
+══════════════════════════════════════ */
+
+/* ── SAMPLE DATA ── */
+const SAMPLE_USERS = [
+  {id:1,name:'Батбаяр',av:'Б',color:'#f0b429,#e85a20',email:'batbayar@gmail.com',reg:'2026/01/15 09:24',last:'14:32 өнөөдөр',groups:3,status:'active',lang:'mn'},
+  {id:2,name:'Оюунтуяа',av:'О',color:'#00d4aa,#006b57',email:'oyuntuya@gmail.com',reg:'2026/01/22 14:10',last:'13:18 өнөөдөр',groups:2,status:'active',lang:'mn'},
+  {id:3,name:'Дэлгэр',av:'Д',color:'#ef4444,#b91c1c',email:'delger@gmail.com',reg:'2026/02/03 11:45',last:'11:02 өнөөдөр',groups:1,status:'active',lang:'mn'},
+  {id:4,name:'Ариунаа',av:'А',color:'#a78bfa,#6d28d9',email:'ariunaa@gmail.com',reg:'2026/02/14 16:30',last:'2026/04/28',groups:2,status:'active',lang:'mn'},
+  {id:5,name:'Энхбаяр',av:'Э',color:'#60a5fa,#1e40af',email:'enkhbayar@gmail.com',reg:'2026/04/30 12:45',last:'12:45 өнөөдөр',groups:0,status:'new',lang:'mn'},
+  {id:6,name:'Kim Jisoo',av:'K',color:'#f0b429,#d97706',email:'jisoo.kim@gmail.com',reg:'2026/03/10 08:20',last:'2026/04/29',groups:1,status:'active',lang:'ko'},
+  {id:7,name:'张伟',av:'张',color:'#ef4444,#dc2626',email:'zhangwei@gmail.com',reg:'2026/03/18 10:05',last:'2026/04/27',groups:1,status:'active',lang:'zh'},
+  {id:8,name:'Иван Петров',av:'И',color:'#6366f1,#4f46e5',email:'ivan.petrov@gmail.com',reg:'2026/04/01 13:15',last:'2026/04/25',groups:0,status:'inactive',lang:'ru'},
+];
+
+const SAMPLE_GROUPS = [
+  {id:1,name:'Forex Beginners MN',emoji:'📈',owner:'Батбаяр',ownerEmail:'batbayar@gmail.com',created:'2026/01/20',members:1240,type:'free',rev:'—',status:'active'},
+  {id:2,name:'SMC Elite Traders',emoji:'🏆',owner:'Оюунтуяа',ownerEmail:'oyuntuya@gmail.com',created:'2026/02/01',members:320,type:'paid',rev:'₮15.9M',status:'active'},
+  {id:3,name:'ICT Psychology Club',emoji:'🧠',owner:'Дэлгэр',ownerEmail:'delger@gmail.com',created:'2026/02/15',members:580,type:'request',rev:'—',status:'active'},
+  {id:4,name:'Scalping Masters',emoji:'⚡',owner:'Ариунаа',ownerEmail:'ariunaa@gmail.com',created:'2026/03/05',members:185,type:'paid',rev:'₮5.5M',status:'active'},
+];
+
+/* ── OPEN / CLOSE ── */
+function openAdmin(){
+  document.getElementById('adminWrap').classList.add('open');
+  renderAdminUsers(SAMPLE_USERS);
+  renderAdminGroups(SAMPLE_GROUPS);
+  renderAdminPosts();
+  renderRegChart();
+  closeUserMenu();
+}
+function closeAdmin(){
+  document.getElementById('adminWrap').classList.remove('open');
+}
+
+/* ── NAV ── */
+function swAdmin(btn,pageId){
+  document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.admin-page').forEach(p=>p.classList.remove('on'));
+  document.getElementById(pageId)?.classList.add('on');
+}
+
+/* ── USERS TABLE ── */
+function renderAdminUsers(users){
+  const tbody=document.getElementById('usersTbody');
+  if(!tbody)return;
+  tbody.innerHTML=users.map((u,i)=>`
+    <tr>
+      <td style="color:var(--tx3)">${i+1}</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div class="admin-av" style="background:linear-gradient(135deg,${u.color})">${u.av}</div>
+        <div><div style="font-weight:700;font-size:13px">${u.name}</div>
+        <div style="font-size:10px;color:var(--tx3)">${u.lang==='mn'?'🇲🇳':u.lang==='ko'?'🇰🇷':u.lang==='zh'?'🇨🇳':u.lang==='ru'?'🇷🇺':'🌐'}</div></div>
+      </div></td>
+      <td style="font-size:12px;color:var(--tx2)">${u.email}</td>
+      <td style="font-size:12px">${u.reg}</td>
+      <td style="font-size:12px">${u.last}</td>
+      <td style="text-align:center">${u.groups}</td>
+      <td><span class="admin-badge ${u.status==='active'?'ab-green':u.status==='new'?'ab-blue':'ab-red'}">${u.status==='active'?'Идэвхтэй':u.status==='new'?'Шинэ':'Идэвхгүй'}</span></td>
+      <td style="white-space:nowrap">
+        <button class="admin-act view" onclick="showUserDetail(${u.id})">👁</button>
+        <button class="admin-act ban" onclick="banUser(${u.id},'${u.name}')">🚫</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterUsers(q=''){
+  const filtered=SAMPLE_USERS.filter(u=>
+    u.name.toLowerCase().includes(q.toLowerCase())||
+    u.email.toLowerCase().includes(q.toLowerCase())
+  );
+  renderAdminUsers(filtered);
+}
+
+function banUser(id,name){
+  if(confirm(name+' хэрэглэгчийг хаах уу?')){showToast('🚫 '+name+' хаагдлаа');}
+}
+function showUserDetail(id){
+  const u=SAMPLE_USERS.find(x=>x.id===id);
+  if(u)showToast('👤 '+u.name+' — '+u.email);
+}
+
+/* ── GROUPS TABLE ── */
+function renderAdminGroups(groups){
+  const tbody=document.getElementById('groupsTbody');
+  if(!tbody)return;
+  tbody.innerHTML=groups.map((g,i)=>`
+    <tr>
+      <td style="color:var(--tx3)">${i+1}</td>
+      <td><div style="display:flex;align-items:center;gap:8px"><div style="font-size:20px">${g.emoji}</div><div><div style="font-weight:700;font-size:13px">${g.name}</div></div></div></td>
+      <td><div style="font-size:12px;font-weight:600">${g.owner}</div><div style="font-size:10px;color:var(--tx3)">${g.ownerEmail}</div></td>
+      <td style="font-size:12px">${g.created}</td>
+      <td style="text-align:center;font-weight:700">${g.members.toLocaleString()}</td>
+      <td><span class="admin-badge ${g.type==='paid'?'ab-yellow':g.type==='request'?'ab-blue':'ab-green'}">${g.type==='paid'?'💎 Төлбөртэй':g.type==='request'?'🔒 Хүсэлт':'🆓 Үнэгүй'}</span></td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--G)">${g.rev}</td>
+      <td><span class="admin-badge ab-green">Идэвхтэй</span></td>
+      <td><button class="admin-act ban" onclick="showToast('🗑️ Бүлгэм хаагдлаа')">🚫</button></td>
+    </tr>
+  `).join('');
+}
+
+/* ── POSTS TABLE ── */
+function renderAdminPosts(){
+  const tbody=document.getElementById('postsTbody');
+  if(!tbody)return;
+  const posts=[
+    {author:'Батбаяр',av:'Б',color:'#f0b429,#e85a20',txt:'EUR/USD шинжилгээ: 1.0890 дэмжлэгийн шугамаас...',date:'04/30 14:32',likes:24,cmts:8,views:847},
+    {author:'Оюунтуяа',av:'О',color:'#00d4aa,#006b57',txt:'GBP/JPY дээр +$840 авлаа! SL-аа эрт хөдөлгөсөн...',date:'04/30 09:15',likes:47,cmts:15,views:1204},
+    {author:'Дэлгэр',av:'Д',color:'#ef4444,#b91c1c',txt:'XAU/USD — NFP өмнө volatility өндөр байна...',date:'04/29 16:00',likes:18,cmts:5,views:423},
+  ];
+  // Add user posts from localStorage
+  const saved=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
+  const allPosts=[...saved.map(p=>({author:p.name,av:p.av,color:'#6366f1,#8b5cf6',txt:p.txt,date:new Date(p.ts).toLocaleString('mn-MN').slice(0,14),likes:0,cmts:0,views:Math.floor(Math.random()*200+10)})),...posts];
+  tbody.innerHTML=allPosts.map(p=>`
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,${p.color})">${p.av}</div>${p.author}</div></td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px">${p.txt}</td>
+      <td style="font-size:11px;color:var(--tx2)">${p.date}</td>
+      <td style="text-align:center">❤️ ${p.likes}</td>
+      <td style="text-align:center">💬 ${p.cmts}</td>
+      <td style="text-align:center;font-family:'DM Mono',monospace;font-size:12px">${p.views}</td>
+      <td><button class="admin-act ban" onclick="showToast('🗑️ Нийтлэл устгагдлаа')">🗑️</button></td>
+    </tr>
+  `).join('');
+}
+
+/* ── REG CHART ── */
+function renderRegChart(){
+  const c=document.getElementById('regChart');
+  if(!c)return;
+  c.width=c.parentElement.offsetWidth-28;c.height=120;
+  const ctx=c.getContext('2d');
+  const W=c.width,H=c.height;
+  const data=[14,22,18,31,25,28,23];
+  const days=['Да','Мя','Лх','Пү','Ба','Бя','Ня'];
+  const mx=Math.max(...data)+5;
+  const bw=(W-40)/(data.length);
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  ctx.clearRect(0,0,W,H);
+  data.forEach((v,i)=>{
+    const x=20+i*bw+bw*.15;
+    const bh=(v/mx)*(H-30);
+    const y=H-20-bh;
+    const grad=ctx.createLinearGradient(0,y,0,H-20);
+    grad.addColorStop(0,isDark?'rgba(240,180,41,.9)':'rgba(37,99,235,.9)');
+    grad.addColorStop(1,isDark?'rgba(240,180,41,.3)':'rgba(37,99,235,.3)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();ctx.roundRect(x,y,bw*.7,bh,3);ctx.fill();
+    ctx.fillStyle=isDark?'rgba(255,255,255,.4)':'rgba(0,0,0,.4)';
+    ctx.font='10px Plus Jakarta Sans';ctx.textAlign='center';
+    ctx.fillText(days[i],x+bw*.35,H-4);
+    ctx.fillStyle=isDark?'rgba(255,255,255,.7)':'rgba(0,0,0,.6)';
+    ctx.font='bold 11px Plus Jakarta Sans';
+    ctx.fillText(v,x+bw*.35,y-4);
+  });
+}
+
+/* ── UPDATE STATS FROM LOCALSTORAGE ── */
+function updateAdminStats(){
+  const posts=JSON.parse(localStorage.getItem('alistfx_posts')||'[]');
+  const regUsers=1284+posts.length;
+  const el=document.getElementById('stat-users');
+  if(el)el.textContent=regUsers.toLocaleString();
+}
+
+
 </script>
 
+<!-- ══════════════════════════════════
+     ADMIN DASHBOARD
+══════════════════════════════════════ -->
+
+<div class="admin-wrap" id="adminWrap">
+  <div class="admin-hdr glass">
+    <div style="font-size:20px">⚡</div>
+    <div class="admin-hdr-title">A-LIST FX — Admin Dashboard</div>
+    <div class="admin-live"><div class="admin-live-dot"></div>Live</div>
+    <button class="admin-close" onclick="closeAdmin()">✕ Хаах</button>
+  </div>
+  <div class="admin-body">
+    <!-- Admin sidebar nav -->
+    <aside class="admin-sidebar glass">
+      <button class="admin-nav-btn on" onclick="swAdmin(this,'adm-overview')"><span class="ani">📊</span>Ерөнхий</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-users')"><span class="ani">👥</span>Хэрэглэгчид</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-groups')"><span class="ani">🏫</span>Бүлгэмүүд</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-signals')"><span class="ani">📡</span>Сигналууд</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-posts')"><span class="ani">📝</span>Нийтлэлүүд</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-revenue')"><span class="ani">💰</span>Орлого</button>
+      <button class="admin-nav-btn" onclick="swAdmin(this,'adm-activity')"><span class="ani">🕐</span>Үйл ажиллагаа</button>
+    </aside>
+
+```
+<div class="admin-content">
+
+  <!-- ── OVERVIEW ── -->
+  <div class="admin-page on" id="adm-overview">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px;">
+      Ерөнхий тойм <span style="font-size:12px;color:var(--tx2);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;">• Өнөөдөр, 2026 оны 4-р сар</span>
+    </div>
+    <div class="admin-stat-grid">
+      <div class="admin-stat blue">
+        <div class="admin-stat-ico">👥</div>
+        <div class="admin-stat-num" id="stat-users">1,284</div>
+        <div class="admin-stat-lbl">Нийт хэрэглэгч</div>
+        <div class="admin-stat-delta up">↑ +23 энэ 7 хоног</div>
+      </div>
+      <div class="admin-stat green">
+        <div class="admin-stat-ico">✅</div>
+        <div class="admin-stat-num" id="stat-active">347</div>
+        <div class="admin-stat-lbl">Өнөөдөр идэвхтэй</div>
+        <div class="admin-stat-delta up">↑ +12% өчигдрөөс</div>
+      </div>
+      <div class="admin-stat yellow">
+        <div class="admin-stat-ico">🏫</div>
+        <div class="admin-stat-num" id="stat-groups">18</div>
+        <div class="admin-stat-lbl">Нийт бүлгэм</div>
+        <div class="admin-stat-delta up">↑ +3 энэ сар</div>
+      </div>
+      <div class="admin-stat red">
+        <div class="admin-stat-ico">💰</div>
+        <div class="admin-stat-num" id="stat-rev">₮4.2M</div>
+        <div class="admin-stat-lbl">Энэ сарын орлого</div>
+        <div class="admin-stat-delta up">↑ +18% өнгөрсөн сараас</div>
+      </div>
+    </div>
+
+    <div class="admin-chart-row">
+      <div class="admin-card">
+        <div class="admin-card-hdr">
+          <div class="admin-card-title">📈 Хэрэглэгч бүртгэл (сүүлийн 7 хоног)</div>
+          <div style="font-size:11px;color:var(--tx2)">Нийт: +143</div>
+        </div>
+        <div class="admin-card-body">
+          <canvas id="regChart" height="120"></canvas>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-hdr"><div class="admin-card-title">🌍 Хэл</div></div>
+        <div class="admin-card-body">
+          <div class="admin-prog-row"><div class="admin-prog-lbl">Монгол</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:68%;background:#2563eb"></div></div><div class="admin-prog-val">68%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">English</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:15%;background:#00d4aa"></div></div><div class="admin-prog-val">15%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">한국어</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:8%;background:#f0b429"></div></div><div class="admin-prog-val">8%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">中文</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:5%;background:#a78bfa"></div></div><div class="admin-prog-val">5%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">Русский</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:4%;background:#ef4444"></div></div><div class="admin-prog-val">4%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-chart-row">
+      <div class="admin-card">
+        <div class="admin-card-hdr"><div class="admin-card-title">🕐 Сүүлийн үйл ажиллагаа</div></div>
+        <div class="admin-card-body">
+          <div class="admin-timeline">
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:var(--G)"></div><div class="admin-tl-body"><div class="admin-tl-title">Батбаяр шинэ нийтлэл оруулав</div><div class="admin-tl-time">2 мин өмнө</div></div></div>
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:#2563eb"></div><div class="admin-tl-body"><div class="admin-tl-title">Энхбаяр бүртгүүлэв • Gmail: enkhbayar@gmail.com</div><div class="admin-tl-time">14 мин өмнө</div></div></div>
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:var(--A2)"></div><div class="admin-tl-body"><div class="admin-tl-title">Scalping Masters бүлгэмд 3 хүн нэгдэв</div><div class="admin-tl-time">32 мин өмнө</div></div></div>
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:var(--A)"></div><div class="admin-tl-body"><div class="admin-tl-title">EUR/USD BUY сигнал TP хүрлээ</div><div class="admin-tl-time">1 цаг өмнө</div></div></div>
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:var(--P)"></div><div class="admin-tl-body"><div class="admin-tl-title">Оюунтуяа ICT Psychology Club үүсгэв</div><div class="admin-tl-time">2 цаг өмнө</div></div></div>
+            <div class="admin-tl-item"><div class="admin-tl-dot" style="background:var(--R)"></div><div class="admin-tl-body"><div class="admin-tl-title">Мөнхбаяр гарав (сессий дуусав)</div><div class="admin-tl-time">3 цаг өмнө</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-hdr"><div class="admin-card-title">📱 Платформ</div></div>
+        <div class="admin-card-body">
+          <div class="admin-prog-row"><div class="admin-prog-lbl">Mobile</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:62%;background:#2563eb"></div></div><div class="admin-prog-val">62%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">Desktop</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:31%;background:#00d4aa"></div></div><div class="admin-prog-val">31%</div></div>
+          <div class="admin-prog-row"><div class="admin-prog-lbl">Tablet</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:7%;background:#f0b429"></div></div><div class="admin-prog-val">7%</div></div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)">
+            <div style="font-size:11px;color:var(--tx2);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Сигналын гүйцэтгэл</div>
+            <div class="admin-prog-row"><div class="admin-prog-lbl">Win Rate</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:73%;background:var(--G)"></div></div><div class="admin-prog-val" style="color:var(--G)">73%</div></div>
+            <div class="admin-prog-row"><div class="admin-prog-lbl">Loss Rate</div><div class="admin-prog-bar"><div class="admin-prog-fill" style="width:27%;background:var(--R)"></div></div><div class="admin-prog-val" style="color:var(--R)">27%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── USERS ── -->
+  <div class="admin-page" id="adm-users">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">👥 Хэрэглэгчид</div>
+      <div style="font-size:12px;color:var(--tx2)">Нийт: <strong>1,284</strong></div>
+    </div>
+    <div class="admin-filter-row">
+      <input class="admin-search" placeholder="🔍 Нэр, Gmail-аар хайх..." oninput="filterUsers(this.value)">
+      <select class="admin-filter-sel" onchange="filterUsers()">
+        <option>Бүгд</option><option>Идэвхтэй</option><option>Шинэ (7 хоног)</option><option>Хаагдсан</option>
+      </select>
+      <select class="admin-filter-sel">
+        <option>Бүх хэл</option><option>Монгол</option><option>English</option><option>한국어</option>
+      </select>
+    </div>
+    <div class="admin-card">
+      <div style="overflow-x:auto">
+        <table class="admin-table" id="usersTable">
+          <thead><tr>
+            <th>#</th><th>Хэрэглэгч</th><th>Gmail</th><th>Бүртгүүлсэн</th><th>Сүүлд нэвтэрсэн</th><th>Бүлгэм</th><th>Статус</th><th>Үйлдэл</th>
+          </tr></thead>
+          <tbody id="usersTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GROUPS ── -->
+  <div class="admin-page" id="adm-groups">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px">🏫 Бүлгэмүүд</div>
+    <div class="admin-card">
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th>#</th><th>Бүлгэм</th><th>Үүсгэсэн</th><th>Үүсгэсэн огноо</th><th>Гишүүд</th><th>Төрөл</th><th>Орлого</th><th>Статус</th><th>Үйлдэл</th></tr></thead>
+          <tbody id="groupsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIGNALS ── -->
+  <div class="admin-page" id="adm-signals">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800">📡 Сигналын удирдлага</div>
+      <button class="csub" onclick="closeAdmin();navTo('signals')" style="padding:7px 13px">+ Сигнал нэмэх</button>
+    </div>
+    <div class="admin-card" style="margin-bottom:14px">
+      <div class="admin-card-hdr"><div class="admin-card-title">Ерөнхий статистик</div></div>
+      <div class="admin-card-body" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center">
+        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--G)">73%</div><div style="font-size:11px;color:var(--tx2)">Win Rate</div></div>
+        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--A)">142</div><div style="font-size:11px;color:var(--tx2)">Нийт сигнал</div></div>
+        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--A2)">+2,840</div><div style="font-size:11px;color:var(--tx2)">Нийт pip</div></div>
+        <div><div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:400;color:var(--P)">4.8★</div><div style="font-size:11px;color:var(--tx2)">Үнэлгээ</div></div>
+      </div>
+    </div>
+    <div class="admin-card">
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th>Хос</th><th>Чиглэл</th><th>Entry</th><th>TP</th><th>SL</th><th>Огноо</th><th>Үр дүн</th><th>Реакц</th><th>Харагдац</th></tr></thead>
+          <tbody>
+            <tr><td><strong>EUR/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">1.0890</td><td style="font-family:'DM Mono',monospace;color:var(--G)">1.0960</td><td style="font-family:'DM Mono',monospace;color:var(--R)">1.0820</td><td>04/30 09:15</td><td><span class="admin-badge ab-green">✓ TP +70p</span></td><td>❤️23 ✅12</td><td>847</td></tr>
+            <tr><td><strong>GBP/JPY</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">186.40</td><td style="font-family:'DM Mono',monospace;color:var(--G)">184.50</td><td style="font-family:'DM Mono',monospace;color:var(--R)">188.20</td><td>04/30 11:30</td><td><span class="admin-badge ab-yellow">● LIVE</span></td><td>❤️8 ✅7</td><td>423</td></tr>
+            <tr><td><strong>XAU/USD</strong></td><td><span class="admin-badge ab-green">BUY</span></td><td style="font-family:'DM Mono',monospace">2340</td><td style="font-family:'DM Mono',monospace;color:var(--G)">2380</td><td style="font-family:'DM Mono',monospace;color:var(--R)">2295</td><td>04/29 16:00</td><td><span class="admin-badge ab-green">✓ TP +40p</span></td><td>❤️31 ✅18</td><td>1,204</td></tr>
+            <tr><td><strong>USD/CAD</strong></td><td><span class="admin-badge ab-red">SELL</span></td><td style="font-family:'DM Mono',monospace">1.3620</td><td style="font-family:'DM Mono',monospace;color:var(--G)">1.3540</td><td style="font-family:'DM Mono',monospace;color:var(--R)">1.3720</td><td>04/28</td><td><span class="admin-badge ab-red">✗ SL -100p</span></td><td>❤️5 ❌9</td><td>312</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── POSTS ── -->
+  <div class="admin-page" id="adm-posts">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px">📝 Нийтлэлүүд</div>
+    <div class="admin-filter-row">
+      <input class="admin-search" placeholder="🔍 Нийтлэлийн текстээр хайх...">
+      <select class="admin-filter-sel"><option>Бүгд</option><option>Зөвхөн миний</option><option>Бусад</option></select>
+    </div>
+    <div class="admin-card">
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th>Зохиогч</th><th>Нийтлэл</th><th>Огноо</th><th>Like</th><th>Сэтгэгдэл</th><th>Харагдац</th><th>Үйлдэл</th></tr></thead>
+          <tbody id="postsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REVENUE ── -->
+  <div class="admin-page" id="adm-revenue">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px">💰 Орлогын тайлан</div>
+    <div class="admin-stat-grid">
+      <div class="admin-stat green"><div class="admin-stat-ico">💳</div><div class="admin-stat-num">₮4.2M</div><div class="admin-stat-lbl">Энэ сар</div><div class="admin-stat-delta up">↑ +18%</div></div>
+      <div class="admin-stat blue"><div class="admin-stat-ico">📅</div><div class="admin-stat-num">₮38.6M</div><div class="admin-stat-lbl">Энэ жил</div><div class="admin-stat-delta up">↑ +34%</div></div>
+      <div class="admin-stat yellow"><div class="admin-stat-ico">👥</div><div class="admin-stat-num">284</div><div class="admin-stat-lbl">Төлбөртэй гишүүн</div><div class="admin-stat-delta up">↑ +42 энэ сар</div></div>
+      <div class="admin-stat red"><div class="admin-stat-ico">📉</div><div class="admin-stat-num">12</div><div class="admin-stat-lbl">Цуцалсан</div><div class="admin-stat-delta dn">↓ -3 өнгөрсөн сараас</div></div>
+    </div>
+    <div class="admin-card">
+      <div class="admin-card-hdr"><div class="admin-card-title">Сүүлийн төлбөрүүд</div></div>
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th>Хэрэглэгч</th><th>Gmail</th><th>Бүлгэм</th><th>Дүн</th><th>Огноо</th><th>Аргачлал</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="color:var(--tx2);font-size:12px">batbayar@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/30</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="color:var(--tx2);font-size:12px">oyuntuya@gmail.com</td><td>Scalping Masters</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮29,900</td><td style="font-size:12px">2026/04/29</td><td><span class="admin-badge ab-blue">QPay</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="admin-av" style="background:linear-gradient(135deg,#a78bfa,#6d28d9)">А</div>Ариунаа</div></td><td style="color:var(--tx2);font-size:12px">ariunaa@gmail.com</td><td>SMC Elite Traders</td><td style="color:var(--G);font-family:'DM Mono',monospace;font-weight:500">₮49,900</td><td style="font-size:12px">2026/04/28</td><td><span class="admin-badge ab-yellow">Банк</span></td><td><span class="admin-badge ab-green">✓ Амжилттай</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ACTIVITY ── -->
+  <div class="admin-page" id="adm-activity">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px">🕐 Нэвтрэлтийн түүх</div>
+    <div class="admin-card">
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th>Хэрэглэгч</th><th>Gmail</th><th>Үйлдэл</th><th>Платформ</th><th>IP хаяг</th><th>Цаг</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#f0b429,#e85a20)">Б</div>Батбаяр</div></td><td style="font-size:11px;color:var(--tx2)">batbayar@gmail.com</td><td><span class="admin-badge ab-green">Нэвтрэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono',monospace;font-size:11px">103.26.x.x</td><td style="font-size:12px">14:32</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#00d4aa,#006b57)">О</div>Оюунтуяа</div></td><td style="font-size:11px;color:var(--tx2)">oyuntuya@gmail.com</td><td><span class="admin-badge ab-blue">Нийтлэл оруулав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono',monospace;font-size:11px">202.55.x.x</td><td style="font-size:12px">13:18</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">Э</div>Энхбаяр</div></td><td style="font-size:11px;color:var(--tx2)">enkhbayar@gmail.com</td><td><span class="admin-badge ab-yellow">Бүртгүүлэв</span></td><td>📱 Mobile</td><td style="font-family:'DM Mono',monospace;font-size:11px">103.10.x.x</td><td style="font-size:12px">12:45</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:7px"><div class="admin-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">Д</div>Дэлгэр</div></td><td style="font-size:11px;color:var(--tx2)">delger@gmail.com</td><td><span class="admin-badge ab-red">Гарав</span></td><td>💻 Desktop</td><td style="font-family:'DM Mono',monospace;font-size:11px">119.40.x.x</td><td style="font-size:12px">11:02</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /admin-content -->
+```
+
+  </div><!-- /admin-body -->
+</div>
 </body>
 </html>
