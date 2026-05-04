@@ -1771,8 +1771,16 @@ closeMenus();
 if (page === ‘journal’ || page === ‘profile’) buildCal();
 if (page === ‘signals’) renderSignals();
 if (page === ‘communities’) renderComms();
-if (page === ‘chat’) { renderThreads(); }
+if (page === ‘chat’) renderThreads();
 if (page === ‘profile’) { buildProfCal(); buildCoverCdls(); }
+/* Sync magic nav & rsb pills */
+document.querySelectorAll(’.magic-btn’).forEach(function(b){
+b.classList.toggle(‘active’, b.getAttribute(‘data-page’) === page);
+});
+document.querySelectorAll(’.rsb-pill-btn’).forEach(function(b){
+b.classList.toggle(‘active’, b.getAttribute(‘data-page’) === page);
+});
+setTimeout(function(){ updateMagicIndicator(page); }, 20);
 }
 
 /* ══ MENUS ══ */
@@ -2520,22 +2528,7 @@ navTo(page);
 syncAllNavs(page);
 }
 
-// Override navTo to also sync magic nav
-var _origNavTo = window.navTo;
-window.navTo = function(page, sideBtn, mobBtn) {
-if (_origNavTo) _origNavTo(page, sideBtn, mobBtn);
-// Sync magic nav indicator after navigation
-setTimeout(function() {
-document.querySelectorAll(’.magic-btn’).forEach(function(b) {
-var isActive = b.getAttribute(‘data-page’) === page;
-b.classList.toggle(‘active’, isActive);
-});
-document.querySelectorAll(’.rsb-pill-btn’).forEach(function(b) {
-b.classList.toggle(‘active’, b.getAttribute(‘data-page’) === page);
-});
-updateMagicIndicator(page);
-}, 10);
-};
+/* navTo sync handled inside navTo directly */
 
 // Init magic nav indicator position on load
 function initMagicNav() {
