@@ -1790,15 +1790,19 @@ function doLogin() {
 var nameInp = document.getElementById(‘regNameInput’);
 var n = nameInp && nameInp.value.trim() ? nameInp.value.trim() : ‘Trader’;
 S.user = {name: n, handle: ‘@’+n.toLowerCase().replace(/\s/g,’*’), isAdmin: n.toLowerCase().includes(‘admin’), badge: ‘ELITE’, type: ‘Day Trader’, bio: ‘Арилжааны тэмдэглэл байхгүй…’};
-document.getElementById(‘authWrap’).style.display = ‘none’;
-document.getElementById(‘app’).style.display = ‘flex’;
+var auth = document.getElementById(‘authWrap’);
+var app = document.getElementById(‘app’);
+if (auth) { auth.style.display = ‘none’; auth.style.pointerEvents = ‘none’; }
+if (app) { app.style.display = ‘flex’; app.classList.add(‘on’); }
 updateAllAvatars();
 initApp();
 }
 function doLogout() {
 S.user = null;
-document.getElementById(‘authWrap’).style.display = ‘flex’;
-document.getElementById(‘app’).style.display = ‘none’;
+var auth = document.getElementById(‘authWrap’);
+var app = document.getElementById(‘app’);
+if (auth) { auth.style.display = ‘flex’; auth.style.pointerEvents = ‘auto’; }
+if (app) { app.style.display = ‘none’; app.classList.remove(‘on’); }
 closeMenus();
 }
 function updateAllAvatars() {
