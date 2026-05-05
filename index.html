@@ -834,43 +834,68 @@ z-index: 0 !important;
 </head>
 <body>
 <!-- ═══ AUTH ═══ -->
-<div id="authWrap">
-  <div class="auth-glow"></div>
-  <div class="auth-top">
-    <select class="auth-lang" id="authLangSel" onchange="setLang(this.value)">
-      <option value="mn">🇲🇳 МН</option><option value="en">🇺🇸 EN</option>
-      <option value="ko">🇰🇷 한</option><option value="zh">🇨🇳 中</option>
-      <option value="ja">🇯🇵 JP</option><option value="ru">🇷🇺 RU</option>
+<div id="authWrap" style="position:fixed;inset:0;z-index:9000;background:#07090f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+
+  <!-- Top controls -->
+
+  <div style="position:fixed;top:12px;right:12px;display:flex;gap:8px;z-index:9001;">
+    <select id="authLangSel" onchange="setLang(this.value)" style="padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:#111827;color:#8099b3;font-size:12px;font-weight:700;cursor:pointer;">
+      <option value="mn">🇲🇳 МН</option>
+      <option value="en">🇺🇸 EN</option>
+      <option value="ko">🇰🇷 한</option>
+      <option value="zh">🇨🇳 中</option>
+      <option value="ja">🇯🇵 JP</option>
+      <option value="ru">🇷🇺 RU</option>
     </select>
-    <button class="auth-theme" id="authThemeBtn" onclick="toggleTheme()">🌙</button>
+    <button onclick="toggleTheme()" id="authThemeBtn" style="width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:#111827;color:#8099b3;cursor:pointer;font-size:15px;">🌙</button>
   </div>
-  <div class="auth-box">
-    <div class="auth-logo">
-      <div class="auth-icon">AF</div>
-      <h1>A-LIST FX</h1>
-      <p id="authTagline">Мэргэжлийн арилжааны нийгэмлэг</p>
+
+  <!-- Logo -->
+
+  <div style="text-align:center;margin-bottom:28px;">
+    <div style="width:76px;height:76px;border-radius:22px;margin:0 auto 14px;background:linear-gradient(135deg,#00d4aa,#f0b429);display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-weight:800;font-size:26px;color:#000;box-shadow:0 0 60px rgba(0,212,170,.4);">AF</div>
+    <h1 style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;letter-spacing:3px;background:linear-gradient(135deg,#00d4aa,#f0b429);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">A-LIST FX</h1>
+    <p id="authTagline" style="font-size:13px;color:#8099b3;margin-top:4px;">Мэргэжлийн арилжааны нийгэмлэг</p>
+  </div>
+
+  <!-- Card -->
+
+  <div style="width:100%;max-width:360px;background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:8px;margin-bottom:12px;">
+    <div style="display:flex;">
+      <button id="atab-login" onclick="swAuthTab('login')" style="flex:1;padding:11px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;background:#00d4aa;color:#000;">Нэвтрэх</button>
+      <button id="atab-reg" onclick="swAuthTab('reg')" style="flex:1;padding:11px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;background:transparent;color:#8099b3;">Бүртгүүлэх</button>
     </div>
-    <div class="auth-tabs">
-      <button class="atab on" id="atab-login" onclick="swAuthTab('login')">Нэвтрэх</button>
-      <button class="atab" id="atab-reg" onclick="swAuthTab('reg')">Бүртгүүлэх</button>
+  </div>
+
+  <div style="width:100%;max-width:360px;background:#111827;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;">
+    <!-- Register name field (hidden by default) -->
+    <div id="regNameField" style="display:none;margin-bottom:14px;">
+      <label style="display:block;font-size:10px;font-weight:700;color:#8099b3;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">Хэрэглэгчийн нэр</label>
+      <input id="regNameInput" type="text" placeholder="Таны нэр" oninput="chkUsername(this.value)"
+        style="width:100%;padding:12px 14px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:#131923;color:#e8f4fd;font-size:14px;box-sizing:border-box;outline:none;">
+      <div id="nameWarn" style="font-size:11px;margin-top:4px;min-height:16px;"></div>
+      <div id="nameSugg" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;"></div>
     </div>
-    <div class="auth-card" id="loginCard">
-      <div class="fg"><label>И-мэйл</label><input class="fi" type="email" placeholder="trader@example.com"></div>
-      <div class="fg"><label>Нууц үг</label><input class="fi" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button class="btn-auth" onclick="doLogin()">Нэвтрэх →</button>
-    </div>
-    <div class="auth-card" id="regCard" style="display:none">
-      <div class="fg">
-        <label>Хэрэглэгчийн нэр</label>
-        <input class="fi" id="regNameInput" type="text" placeholder="Таны нэр" oninput="chkUsername(this.value)">
-        <div class="name-warn" id="nameWarn"></div>
-        <div class="name-sugg" id="nameSugg"></div>
-      </div>
-      <div class="fg"><label>И-мэйл</label><input class="fi" type="email" placeholder="trader@example.com"></div>
-      <div class="fg"><label>Нууц үг</label><input class="fi" type="password" placeholder="••••••••"></div>
-      <div class="fg"><label>Давтах</label><input class="fi" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button class="btn-auth" onclick="doLogin()">Бүртгүүлэх →</button>
-    </div>
+
+```
+<div style="margin-bottom:14px;">
+  <label style="display:block;font-size:10px;font-weight:700;color:#8099b3;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">И-мэйл</label>
+  <input type="email" placeholder="trader@example.com"
+    style="width:100%;padding:12px 14px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:#131923;color:#e8f4fd;font-size:14px;box-sizing:border-box;outline:none;">
+</div>
+
+<div style="margin-bottom:20px;">
+  <label style="display:block;font-size:10px;font-weight:700;color:#8099b3;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">Нууц үг</label>
+  <input type="password" placeholder="••••••••" id="authPassInput"
+    style="width:100%;padding:12px 14px;border-radius:11px;border:1px solid rgba(255,255,255,.1);background:#131923;color:#e8f4fd;font-size:14px;box-sizing:border-box;outline:none;">
+</div>
+
+<button onclick="doLogin()" 
+  style="width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#00d4aa,#00b894);color:#000;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 5px 20px rgba(0,212,170,.3);">
+  Нэвтрэх →
+</button>
+```
+
   </div>
 </div>
 
@@ -1736,10 +1761,15 @@ if (t && TXT[l]) t.textContent = TXT[l].tagline;
 /* ══ AUTH ══ */
 var USERNM_TAKEN = [‘Батбаяр’,‘Оюунтуяа’,‘Дэлгэр’,‘Ариунаа’,‘admin’,‘trader’];
 function swAuthTab(tab) {
-document.getElementById(‘atab-login’).classList.toggle(‘on’, tab === ‘login’);
-document.getElementById(‘atab-reg’).classList.toggle(‘on’, tab === ‘reg’);
-document.getElementById(‘loginCard’).style.display = tab === ‘login’ ? ‘block’ : ‘none’;
-document.getElementById(‘regCard’).style.display = tab === ‘reg’ ? ‘block’ : ‘none’;
+var loginBtn = document.getElementById(‘atab-login’);
+var regBtn = document.getElementById(‘atab-reg’);
+var regField = document.getElementById(‘regNameField’);
+var submitBtn = document.querySelector(’#authWrap button[onclick=“doLogin()”]’);
+
+if (loginBtn) { loginBtn.style.background = tab===‘login’?’#00d4aa’:‘transparent’; loginBtn.style.color = tab===‘login’?’#000’:’#8099b3’; }
+if (regBtn) { regBtn.style.background = tab===‘reg’?’#00d4aa’:‘transparent’; regBtn.style.color = tab===‘reg’?’#000’:’#8099b3’; }
+if (regField) regField.style.display = tab===‘reg’ ? ‘block’ : ‘none’;
+if (submitBtn) submitBtn.textContent = tab===‘login’ ? ‘Нэвтрэх →’ : ‘Бүртгүүлэх →’;
 }
 function chkUsername(v) {
 var w = document.getElementById(‘nameWarn’);
